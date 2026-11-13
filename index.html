@@ -1,140 +1,167 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Surat Bachat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surat Bachat - Live Price Comparison</title>
 <style>
-body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 0 0 40px 0; }
-.flash { background: #d35400; color: white; padding: 10px; text-align: center; font-weight: bold; }
+body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 0 0 40px 0; color: #222; }
+.flash { background: #d35400; color: white; padding: 10px; text-align: center; font-weight: bold; font-size: 14px; }
+.flash-tag { background: #facc15; color: #000; padding: 2px 7px; border-radius: 4px; margin-right: 6px; font-size: 11px; }
 .header { background: #1e8449; color: white; padding: 20px; text-align: center; }
+.header h1 { margin: 0; font-size: 26px; }
+.header p { margin: 5px 0 12px 0; font-size: 14px; }
 .lang-btn { background: white; color: #1e8449; border: none; padding: 6px 14px; margin: 4px; border-radius: 15px; font-weight: bold; cursor: pointer; }
+.lang-btn.active { background: #facc15; color: #000; }
+
 .box { max-width: 850px; margin: 20px auto; padding: 0 15px; }
-.search { width: 100%; padding: 14px; font-size: 16px; border: 2px solid #1e8449; border-radius: 10px; margin-bottom: 18px; box-sizing: border-box; }
-.card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: #222; }
-.badge { background: #fdebd0; color: #d35400; padding: 3px 8px; border-radius: 5px; font-size: 12px; margin-left: 8px; }
+.row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+select, input { padding: 13px; font-size: 15px; border: 1.5px solid #1e8449; border-radius: 8px; }
+select { font-weight: bold; color: #1e8449; background: white; }
+input { flex: 1; min-width: 220px; }
+
+.cats { margin-bottom: 15px; }
+.cat-btn { background: white; border: 1px solid #1e8449; color: #1e8449; padding: 8px 14px; border-radius: 20px; cursor: pointer; margin: 3px; font-weight: bold; font-size: 13px; }
+.cat-btn.active { background: #1e8449; color: white; }
+
+.card { background: white; padding: 16px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+.c-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 10px; flex-wrap: wrap; gap: 5px; }
+.p-title { font-size: 17px; font-weight: bold; }
+.tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: bold; }
+.t-cat { background: #e8f8f5; color: #1e8449; }
+.t-off { background: #fdebd0; color: #d35400; margin-left: 4px; }
+.t-new { background: #ebf5fb; color: #2980b9; margin-left: 4px; }
+
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
-.st { border: 1px solid #ddd; padding: 10px; border-radius: 8px; text-align: center; }
+.st { border: 1px solid #ddd; padding: 9px 5px; border-radius: 8px; text-align: center; }
 .best { border: 2px solid #27ae60; background: #eafaf1; font-weight: bold; color: #1e8449; }
+.b-lbl { background: #27ae60; color: white; font-size: 10px; padding: 2px 5px; border-radius: 5px; display: inline-block; margin-bottom: 3px; }
+.sync-time { font-size: 11px; color: #888; text-align: right; margin-top: 8px; }
 </style>
 </head>
 <body>
 
-<div class="flash">LIVE DEAL: D-Mart - Sunfeast Biscuits BUY 1 GET 1 FREE | Reliance - Bella Vita Perfume 50% OFF!</div>
+<div class="flash">
+    <span class="flash-tag">LIVE DEAL</span>
+    <span id="fTxt">D-Mart: Sunfeast Dark Fantasy Biscuits - BUY 1 GET 1 FREE!</span>
+</div>
 
 <div class="header">
-<h1 id="t1">Surat Bachat</h1>
-<p id="t2">Compare Live Prices Across Surat's Top Stores</p>
-<div>
-<button class="lang-btn" onclick="setL('en')">English</button>
-<button class="lang-btn" onclick="setL('hi')">&#2361;&#2367;&#2306;&#2342;&#2368;</button>
-<button class="lang-btn" onclick="setL('gu')">&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;</button>
-</div>
+    <h1 id="t1">Surat Bachat</h1>
+    <p id="t2">Compare Live Prices Across Surat's Top Stores</p>
+    <div>
+        <button class="lang-btn active" onclick="setL('en', this)">English</button>
+        <button class="lang-btn" onclick="setL('hi', this)">&#2361;&#2367;&#2306;&#2342;&#2368;</button>
+        <button class="lang-btn" onclick="setL('gu', this)">&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;</button>
+    </div>
 </div>
 
 <div class="box">
-<input type="text" id="searchBox" class="search" placeholder="Search Bread, Milk, Moong Dal, Bella Vita Perfume, Atta..." onkeyup="filterCards()">
+    <div class="row">
+        <select>
+            <option>All Surat</option>
+            <option>Adajan / Pal</option>
+            <option>Vesu / City Light</option>
+            <option>Varachha</option>
+            <option>Katargam</option>
+        </select>
+        <input type="text" id="searchBox" placeholder="Search Sugar, Bread, Milk, Moong Dal, Perfume, Oil, Tea..." onkeyup="render()">
+    </div>
 
-<div class="card">
-<div class="title">Britannia Whole Wheat Bread (400 g)</div>
-<div class="grid">
-<div class="st best">D-Mart<br>&#8377;45 (BEST)</div>
-<div class="st">Reliance<br>&#8377;48</div>
-<div class="st">Star Bazaar<br>&#8377;46</div>
-<div class="st best">Wallet Mart<br>&#8377;45 (BEST)</div>
-<div class="st">Blinkit<br>&#8377;50</div>
-<div class="st">Zepto<br>&#8377;50</div>
-</div>
-</div>
+    <div class="cats">
+        <button class="cat-btn active" id="cAll" onclick="setC('All', this)">All Items</button>
+        <button class="cat-btn" id="cOff" onclick="setC('Offer', this)">Buy 1 Get 1 & Sale</button>
+        <button class="cat-btn" id="cNew" onclick="setC('New', this)">New Launches</button>
+        <button class="cat-btn" id="cGro" onclick="setC('Grocery', this)">Grocery & Dairy</button>
+        <button class="cat-btn" id="cPer" onclick="setC('Personal', this)">Perfume & Care</button>
+        <button class="cat-btn" id="cSta" onclick="setC('Stationery', this)">Stationery</button>
+        <button class="cat-btn" id="cEle" onclick="setC('Electronics', this)">Electronics</button>
+    </div>
 
-<div class="card">
-<div class="title">Amul Taaza Fresh Milk (1 Litre)</div>
-<div class="grid">
-<div class="st">D-Mart<br>&#8377;54</div>
-<div class="st">Reliance<br>&#8377;54</div>
-<div class="st">Star Bazaar<br>&#8377;54</div>
-<div class="st best">Wallet Mart<br>&#8377;53 (BEST)</div>
-<div class="st">Blinkit<br>&#8377;56</div>
-<div class="st">Zepto<br>&#8377;56</div>
-</div>
+    <div id="out">Loading Surat Live Prices...</div>
 </div>
 
-<div class="card">
-<div class="title">Tata Sampann Yellow Moong Dal (1 kg) <span class="badge">SAVE &#8377;17</span></div>
-<div class="grid">
-<div class="st best">D-Mart<br>&#8377;148 (BEST)</div>
-<div class="st">Reliance<br>&#8377;155</div>
-<div class="st">Star Bazaar<br>&#8377;152</div>
-<div class="st">Wallet Mart<br>&#8377;149</div>
-<div class="st">Blinkit<br>&#8377;165</div>
-<div class="st">Zepto<br>&#8377;162</div>
-</div>
-</div>
-
-<div class="card">
-<div class="title">Bella Vita Luxury CEO Perfume (100 ml) <span class="badge">50% OFF • NEW</span></div>
-<div class="grid">
-<div class="st">D-Mart<br>&#8377;449</div>
-<div class="st best">Reliance<br>&#8377;425 (BEST)</div>
-<div class="st">Star Bazaar<br>&#8377;460</div>
-<div class="st">Wallet Mart<br>&#8377;435</div>
-<div class="st">Blinkit<br>&#8377;499</div>
-<div class="st">Zepto<br>&#8377;489</div>
-</div>
-</div>
-
-<div class="card">
-<div class="title">Aashirvaad Shudh Chakki Atta (5 kg)</div>
-<div class="grid">
-<div class="st best">D-Mart<br>&#8377;215 (BEST)</div>
-<div class="st">Reliance<br>&#8377;225</div>
-<div class="st">Star Bazaar<br>&#8377;220</div>
-<div class="st">Wallet Mart<br>&#8377;218</div>
-<div class="st">Blinkit<br>&#8377;235</div>
-<div class="st">Zepto<br>&#8377;232</div>
-</div>
-</div>
-
-<div class="card">
-<div class="title">Sunfeast Dark Fantasy Biscuits (300 g) <span class="badge">BUY 1 GET 1 FREE</span></div>
-<div class="grid">
-<div class="st">D-Mart<br>&#8377;150</div>
-<div class="st">Reliance<br>&#8377;145</div>
-<div class="st">Star Bazaar<br>&#8377;148</div>
-<div class="st best">Wallet Mart<br>&#8377;140 (BEST)</div>
-<div class="st">Blinkit<br>&#8377;160</div>
-<div class="st">Zepto<br>&#8377;155</div>
-</div>
-</div>
-
-</div>
+<img src="https://hits.sh" style="display:none;" alt=""/>
 
 <script>
-function filterCards() {
-    var input = document.getElementById("searchBox").value.toLowerCase();
-    var cards = document.getElementsByClassName("card");
-    for (var i = 0; i < cards.length; i++) {
-        var text = cards[i].innerText.toLowerCase();
-        cards[i].style.display = text.indexOf(input) > -1 ? "" : "none";
-    }
-}
+var deals = [
+    "D-Mart: Sunfeast Dark Fantasy Biscuits - BUY 1 GET 1 FREE!",
+    "Reliance Smart: Bella Vita Luxury CEO Perfume - FLAT 50% OFF!",
+    "Wallet Mart: Aashirvaad Chakki Atta (5kg) - Extra Rs.20 OFF!",
+    "Blinkit & Zepto: boAt Airdopes 141 Earbuds - 60% OFF Today!"
+];
+var di = 0;
+setInterval(function() {
+    di = (di + 1) % deals.length;
+    document.getElementById("fTxt").innerText = deals[di];
+}, 3500);
 
-function setL(l) {
+var curL = "en";
+var curC = "All";
+var db = [];
+
+function setL(l, btn) {
+    curL = l;
+    var bs = document.getElementsByClassName("lang-btn");
+    for (var i = 0; i < bs.length; i++) bs[i].classList.remove("active");
+    btn.classList.add("active");
     if (l === 'hi') {
         document.getElementById("t1").innerText = "\u0938\u0942\u0930\u0924 \u092c\u091a\u0924";
         document.getElementById("t2").innerText = "\u0938\u0942\u0930\u0924 \u0915\u0947 \u0938\u094d\u091f\u094b\u0930\u094d\u0938 \u0915\u0947 \u0926\u093e\u092e \u0924\u0941\u0932\u0928\u093e \u0915\u0930\u0947\u0902";
-        document.getElementById("searchBox").placeholder = "\u0938\u093e\u092e\u093e\u0928 \u0916\u094b\u091c\u0947\u0902 (Bread, Milk, Moong Dal, Perfume)...";
+        document.getElementById("searchBox").placeholder = "\u0938\u093e\u092e\u093e\u0928 \u0916\u094b\u091c\u0947\u0902 (Sugar, Bread, Milk, Perfume, Oil)...";
     } else if (l === 'gu') {
         document.getElementById("t1").innerText = "\u0ab8\u0ac1\u0ab0\u0aa4 \u0aac\u0a9a\u0aa4";
         document.getElementById("t2").innerText = "\u0ab8\u0ac1\u0ab0\u0aa4\u0aa8\u0abe \u0ab8\u0acd\u0a9f\u0acb\u0ab0\u0acd\u0ab8\u0aa8\u0abe \u0aad\u0abe\u0ab5 \u0ab8\u0ab0\u0a96\u0abe\u0ab5\u0acb";
-        document.getElementById("searchBox").placeholder = "\u0ab5\u0ab8\u0acd\u0aa4\u0ac1 \u0ab6\u0acb\u0aa7\u0acb (Bread, Milk, Moong Dal, Perfume)...";
+        document.getElementById("searchBox").placeholder = "\u0ab5\u0ab8\u0acd\u0aa4\u0ac1 \u0ab6\u0acb\u0aa7\u0acb (Sugar, Bread, Milk, Perfume, Oil)...";
     } else {
         document.getElementById("t1").innerText = "Surat Bachat";
         document.getElementById("t2").innerText = "Compare Live Prices Across Surat's Top Stores";
-        document.getElementById("searchBox").placeholder = "Search Bread, Milk, Moong Dal, Bella Vita Perfume, Atta...";
+        document.getElementById("searchBox").placeholder = "Search Sugar, Bread, Milk, Moong Dal, Perfume, Oil, Tea...";
     }
+    render();
 }
-</script>
 
+function setC(c, btn) {
+    curC = c;
+    var bs = document.getElementsByClassName("cat-btn");
+    for (var i = 0; i < bs.length; i++) bs[i].classList.remove("active");
+    btn.classList.add("active");
+    render();
+}
+
+function render() {
+    var q = document.getElementById("searchBox").value.toLowerCase();
+    var h = "";
+    for (var i = 0; i < db.length; i++) {
+        var x = db[i];
+        var okC = (curC === "All") || (curC === "Offer" && x.o !== "") || (curC === "New" && x.nw === 1) || (x.c === curC);
+        var okT = (x.n.toLowerCase().indexOf(q) !== -1) || (x.k.indexOf(q) !== -1);
+        if (okC && okT) {
+            var arr = [x.d, x.r, x.s, x.w, x.b, x.z];
+            var stN = ["D-Mart", "Reliance", "Star Bazaar", "Wallet Mart", "Blinkit", "Zepto"];
+            var mn = Math.min(x.d, x.r, x.s, x.w, x.b, x.z);
+            var sh = "";
+            for (var j = 0; j < 6; j++) {
+                var isB = (arr[j] === mn);
+                sh += "<div class='st " + (isB ? "best" : "") + "'>";
+                if (isB) sh += "<div class='b-lbl'>BEST</div>";
+                sh += "<div>" + stN[j] + "</div><div><b>&#8377;" + arr[j] + "</b></div></div>";
+            }
+            var tg = "<span class='tag t-cat'>" + x.c + "</span>";
+            if (x.o !== "") tg += "<span class='tag t-off'>" + x.o + "</span>";
+            if (x.nw === 1) tg += "<span class='tag t-new'>NEW</span>";
+            h += "<div class='card'><div class='c-top'><span class='p-title'>" + x.n + "</span><div>" + tg + "</div></div><div class='grid'>" + sh + "</div><div class='sync-time'>Auto-Updated: " + x.u + "</div></div>";
+        }
+    }
+    document.getElementById("out").innerHTML = h || "<p style='text-align:center;color:#666;'>No item found!</p>";
+}
+
+fetch("products.json?t=" + new Date().getTime())
+    .then(function(res) { return res.json(); })
+    .then(function(json) {
+        db = json;
+        render();
+    });
+</script>
 </body>
 </html>
