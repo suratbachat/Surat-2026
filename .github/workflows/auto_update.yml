@@ -1,4 +1,4 @@
-name: Daily Price Auto-Updater
+name: Daily Live Scraper & Price Sync
 
 on:
   schedule:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  update-prices:
+  scrape-and-update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,23 +20,18 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Run Auto Price Sync
-        run: |
-          python -c "
-          import json, datetime
-          with open('products.json', 'r') as f:
-              data = json.load(f)
-          today = datetime.datetime.now().strftime('%d %b, %I:%M %p')
-          for item in data:
-              item['u'] = today
-          with open('products.json', 'w') as f:
-              json.dump(data, f, indent=2)
-          "
+      - name: Install Safe Scraper Tools
+        run: pip install requests beautifulsoup4
 
-      - name: Save Updated Prices
+      - name: Run Surat Live Price Scraper
+        env:
+          SCRAPER_API_KEY: ${{ secrets.SCRAPER_API_KEY }}
+        run: python scraper.py
+
+      - name: Save Updated Catalog
         run: |
           git config --local user.email "bot@suratbachat.com"
           git config --local user.name "Surat Bachat Bot"
           git add products.json
-          git commit -m "Auto-updated live prices" || exit 0
+          git commit -m "Auto-synced live Surat store prices" || exit 0
           git push
