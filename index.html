@@ -23,6 +23,7 @@ input { flex: 1; min-width: 220px; }
 .cats { margin-bottom: 15px; }
 .cat-btn { background: white; border: 1px solid #1e8449; color: #1e8449; padding: 8px 14px; border-radius: 20px; cursor: pointer; margin: 3px; font-weight: bold; font-size: 13px; }
 .cat-btn.active { background: #1e8449; color: white; }
+.count-bar { font-size: 13px; color: #555; margin-bottom: 10px; font-weight: bold; }
 
 .card { background: white; padding: 16px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
 .c-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 10px; flex-wrap: wrap; gap: 5px; }
@@ -37,6 +38,8 @@ input { flex: 1; min-width: 220px; }
 .best { border: 2px solid #27ae60; background: #eafaf1; font-weight: bold; color: #1e8449; }
 .b-lbl { background: #27ae60; color: white; font-size: 10px; padding: 2px 5px; border-radius: 5px; display: inline-block; margin-bottom: 3px; }
 .sync-time { font-size: 11px; color: #888; text-align: right; margin-top: 8px; }
+.req-box { background: white; padding: 25px; border-radius: 10px; text-align: center; border: 1.5px dashed #1e8449; }
+.req-btn { background: #1e8449; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -65,25 +68,26 @@ input { flex: 1; min-width: 220px; }
             <option>Varachha</option>
             <option>Katargam</option>
         </select>
-        <input type="text" id="searchBox" placeholder="Search Sugar, Bread, Milk, Moong Dal, Perfume, Oil, Tea..." onkeyup="render()">
+        <input type="text" id="searchBox" placeholder="Search 20,000+ items: Amul Cheese, Sugar, Oil, Perfume..." onkeyup="render()">
     </div>
 
     <div class="cats">
-        <button class="cat-btn active" id="cAll" onclick="setC('All', this)">All Items</button>
-        <button class="cat-btn" id="cOff" onclick="setC('Offer', this)">Buy 1 Get 1 & Sale</button>
-        <button class="cat-btn" id="cNew" onclick="setC('New', this)">New Launches</button>
-        <button class="cat-btn" id="cGro" onclick="setC('Grocery', this)">Grocery & Dairy</button>
-        <button class="cat-btn" id="cPer" onclick="setC('Personal', this)">Perfume & Care</button>
-        <button class="cat-btn" id="cSta" onclick="setC('Stationery', this)">Stationery</button>
-        <button class="cat-btn" id="cEle" onclick="setC('Electronics', this)">Electronics</button>
+        <button class="cat-btn active" onclick="setC('All', this)">All Items</button>
+        <button class="cat-btn" onclick="setC('Offer', this)">Buy 1 Get 1 & Sale</button>
+        <button class="cat-btn" onclick="setC('New', this)">New Launches</button>
+        <button class="cat-btn" onclick="setC('Grocery', this)">Grocery & Dairy</button>
+        <button class="cat-btn" onclick="setC('Personal', this)">Perfume & Care</button>
+        <button class="cat-btn" onclick="setC('Stationery', this)">Stationery</button>
+        <button class="cat-btn" onclick="setC('Electronics', this)">Electronics</button>
     </div>
 
+    <div class="count-bar" id="cBar">Loading catalog...</div>
     <div id="out">Loading Surat Live Prices...</div>
 </div>
 
-<img src="https://hits.sh" style="display:none;" alt=""/>
-
 <script>
+fetch("https://hits.sh", { mode: 'no-cors' }).catch(function(){});
+
 var deals = [
     "D-Mart: Sunfeast Dark Fantasy Biscuits - BUY 1 GET 1 FREE!",
     "Reliance Smart: Bella Vita Luxury CEO Perfume - FLAT 50% OFF!",
@@ -96,27 +100,25 @@ setInterval(function() {
     document.getElementById("fTxt").innerText = deals[di];
 }, 3500);
 
-var curL = "en";
 var curC = "All";
 var db = [];
 
 function setL(l, btn) {
-    curL = l;
     var bs = document.getElementsByClassName("lang-btn");
     for (var i = 0; i < bs.length; i++) bs[i].classList.remove("active");
     btn.classList.add("active");
     if (l === 'hi') {
         document.getElementById("t1").innerText = "\u0938\u0942\u0930\u0924 \u092c\u091a\u0924";
         document.getElementById("t2").innerText = "\u0938\u0942\u0930\u0924 \u0915\u0947 \u0938\u094d\u091f\u094b\u0930\u094d\u0938 \u0915\u0947 \u0926\u093e\u092e \u0924\u0941\u0932\u0928\u093e \u0915\u0930\u0947\u0902";
-        document.getElementById("searchBox").placeholder = "\u0938\u093e\u092e\u093e\u0928 \u0916\u094b\u091c\u0947\u0902 (Sugar, Bread, Milk, Perfume, Oil)...";
+        document.getElementById("searchBox").placeholder = "\u0938\u093e\u092e\u093e\u0928 \u0916\u094b\u091c\u0947\u0902 (Amul Cheese, Sugar, Bread, Oil)...";
     } else if (l === 'gu') {
         document.getElementById("t1").innerText = "\u0ab8\u0ac1\u0ab0\u0aa4 \u0aac\u0a9a\u0aa4";
         document.getElementById("t2").innerText = "\u0ab8\u0ac1\u0ab0\u0aa4\u0aa8\u0abe \u0ab8\u0acd\u0a9f\u0acb\u0ab0\u0acd\u0ab8\u0aa8\u0abe \u0aad\u0abe\u0ab5 \u0ab8\u0ab0\u0a96\u0abe\u0ab5\u0acb";
-        document.getElementById("searchBox").placeholder = "\u0ab5\u0ab8\u0acd\u0aa4\u0ac1 \u0ab6\u0acb\u0aa7\u0acb (Sugar, Bread, Milk, Perfume, Oil)...";
+        document.getElementById("searchBox").placeholder = "\u0ab5\u0ab8\u0acd\u0aa4\u0ac1 \u0ab6\u0acb\u0aa7\u0acb (Amul Cheese, Sugar, Bread, Oil)...";
     } else {
         document.getElementById("t1").innerText = "Surat Bachat";
         document.getElementById("t2").innerText = "Compare Live Prices Across Surat's Top Stores";
-        document.getElementById("searchBox").placeholder = "Search Sugar, Bread, Milk, Moong Dal, Perfume, Oil, Tea...";
+        document.getElementById("searchBox").placeholder = "Search 20,000+ items: Amul Cheese, Sugar, Oil, Perfume...";
     }
     render();
 }
@@ -132,28 +134,39 @@ function setC(c, btn) {
 function render() {
     var q = document.getElementById("searchBox").value.toLowerCase();
     var h = "";
+    var shown = 0;
+    var totalMatched = 0;
     for (var i = 0; i < db.length; i++) {
         var x = db[i];
         var okC = (curC === "All") || (curC === "Offer" && x.o !== "") || (curC === "New" && x.nw === 1) || (x.c === curC);
         var okT = (x.n.toLowerCase().indexOf(q) !== -1) || (x.k.indexOf(q) !== -1);
         if (okC && okT) {
-            var arr = [x.d, x.r, x.s, x.w, x.b, x.z];
-            var stN = ["D-Mart", "Reliance", "Star Bazaar", "Wallet Mart", "Blinkit", "Zepto"];
-            var mn = Math.min(x.d, x.r, x.s, x.w, x.b, x.z);
-            var sh = "";
-            for (var j = 0; j < 6; j++) {
-                var isB = (arr[j] === mn);
-                sh += "<div class='st " + (isB ? "best" : "") + "'>";
-                if (isB) sh += "<div class='b-lbl'>BEST</div>";
-                sh += "<div>" + stN[j] + "</div><div><b>&#8377;" + arr[j] + "</b></div></div>";
+            totalMatched++;
+            if (shown < 40) {
+                shown++;
+                var arr = [x.d, x.r, x.s, x.w, x.b, x.z];
+                var stN = ["D-Mart", "Reliance", "Star Bazaar", "Wallet Mart", "Blinkit", "Zepto"];
+                var mn = Math.min(x.d, x.r, x.s, x.w, x.b, x.z);
+                var sh = "";
+                for (var j = 0; j < 6; j++) {
+                    var isB = (arr[j] === mn);
+                    sh += "<div class='st " + (isB ? "best" : "") + "'>";
+                    if (isB) sh += "<div class='b-lbl'>BEST</div>";
+                    sh += "<div>" + stN[j] + "</div><div><b>&#8377;" + arr[j] + "</b></div></div>";
+                }
+                var tg = "<span class='tag t-cat'>" + x.c + "</span>";
+                if (x.o !== "") tg += "<span class='tag t-off'>" + x.o + "</span>";
+                if (x.nw === 1) tg += "<span class='tag t-new'>NEW</span>";
+                h += "<div class='card'><div class='c-top'><span class='p-title'>" + x.n + "</span><div>" + tg + "</div></div><div class='grid'>" + sh + "</div><div class='sync-time'>Auto-Updated: " + x.u + "</div></div>";
             }
-            var tg = "<span class='tag t-cat'>" + x.c + "</span>";
-            if (x.o !== "") tg += "<span class='tag t-off'>" + x.o + "</span>";
-            if (x.nw === 1) tg += "<span class='tag t-new'>NEW</span>";
-            h += "<div class='card'><div class='c-top'><span class='p-title'>" + x.n + "</span><div>" + tg + "</div></div><div class='grid'>" + sh + "</div><div class='sync-time'>Auto-Updated: " + x.u + "</div></div>";
         }
     }
-    document.getElementById("out").innerHTML = h || "<p style='text-align:center;color:#666;'>No item found!</p>";
+    document.getElementById("cBar").innerText = "Showing " + shown + " of " + totalMatched + " live items (Total Catalog: " + db.length + ")";
+    if (h === "") {
+        var rawQ = document.getElementById("searchBox").value;
+        h = "<div class='req-box'><h3>'" + rawQ + "' is not in the live list yet!</h3><p>Click below to request our Auto-Bot to fetch its live Surat price in 1 minute.</p><a href='https://github.com' target='_blank'><button class='req-btn'>Fetch Live Price Now (1 Min)</button></a></div>";
+    }
+    document.getElementById("out").innerHTML = h;
 }
 
 fetch("products.json?t=" + new Date().getTime())
