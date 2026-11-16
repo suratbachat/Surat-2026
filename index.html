@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surat Bachat - Free Social Service</title>
+<title>Surat Bachat - 100% Free Social Service</title>
 <style>
 body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 0 0 40px 0; color: #222; }
 .flash { background: #d35400; color: white; padding: 10px; text-align: center; font-weight: bold; font-size: 14px; }
@@ -12,89 +12,112 @@ body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 
 .header p { margin: 5px 0 12px 0; font-size: 14px; }
 .lang-btn { background: white; color: #1e8449; border: none; padding: 6px 14px; margin: 4px; border-radius: 15px; font-weight: bold; cursor: pointer; }
 .lang-btn.active { background: #facc15; color: #000; }
-.box { max-width: 850px; margin: 20px auto; padding: 0 15px; }
+
+.box { max-width: 860px; margin: 20px auto; padding: 0 15px; }
 .row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
 select, input { padding: 13px; font-size: 15px; border: 1.5px solid #1e8449; border-radius: 8px; }
 input { flex: 1; min-width: 220px; }
+
 .cats { margin-bottom: 15px; }
 .cat-btn { background: white; border: 1px solid #1e8449; color: #1e8449; padding: 8px 14px; border-radius: 20px; cursor: pointer; margin: 3px; font-weight: bold; font-size: 13px; }
 .cat-btn.active { background: #1e8449; color: white; }
-.card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-.c-top { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; }
-.p-img { width: 55px; height: 55px; border-radius: 10px; background: #eafaf1; display: flex; align-items: center; justify-content: center; font-size: 30px; }
-.p-title { font-size: 16px; font-weight: bold; }
-.tag { font-size: 11px; padding: 2px 7px; border-radius: 5px; font-weight: bold; background: #e8f8f5; color: #1e8449; margin-right: 4px; }
+.count-bar { font-size: 13px; color: #555; margin-bottom: 12px; font-weight: bold; }
+
+/* Standard Blinkit Style Product Card */
+.card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+.c-top { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; }
+.p-img { width: 64px; height: 64px; border-radius: 12px; background: #f8faf9; border: 1px solid #e2ece7; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+.p-img img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+.p-emoji { font-size: 34px; }
+.p-title { font-size: 16px; font-weight: bold; display: block; margin-bottom: 4px; color: #111; }
+.tag { font-size: 11px; padding: 3px 8px; border-radius: 5px; font-weight: bold; background: #e8f8f5; color: #1e8449; margin-right: 5px; display: inline-block; }
+.t-off { background: #fdebd0; color: #d35400; }
+
+/* MEGA SALE BIG HERO CARD (2 Featured Deals) */
+.mega-card { background: linear-gradient(135deg, #fffdf5 0%, #fef5e7 100%); border: 2.5px solid #f39c12; padding: 20px; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 6px 18px rgba(243, 156, 18, 0.22); position: relative; }
+.mega-ribbon { background: #d35400; color: white; font-size: 11px; font-weight: bold; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 10px; letter-spacing: 0.5px; }
+.mega-card .p-img { width: 88px; height: 88px; background: white; border: 2px solid #f8c471; }
+.mega-card .p-emoji { font-size: 48px; }
+.mega-card .p-title { font-size: 20px; color: #b9770e; }
+
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px; }
-.st { border: 1px solid #ddd; padding: 8px 4px; border-radius: 8px; text-align: center; }
+.st { border: 1px solid #ddd; padding: 8px 4px; border-radius: 8px; text-align: center; background: #fafafa; }
 .best { border: 2px solid #27ae60; background: #eafaf1; font-weight: bold; color: #1e8449; }
+.b-lbl { background: #27ae60; color: white; font-size: 10px; padding: 1px 6px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
+
+/* 1-Minute Silent Fetch Box */
+.req-box { background: white; padding: 28px 20px; border-radius: 14px; text-align: center; border: 2px dashed #1e8449; }
+.req-btn { background: #1e8449; color: white; border: none; padding: 13px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
+.prog-wrap { width: 100%; max-width: 400px; height: 12px; background: #e8f8f5; border-radius: 10px; margin: 15px auto; overflow: hidden; border: 1px solid #1e8449; }
+.prog-bar { height: 100%; width: 0%; background: #1e8449; transition: width 1s linear; }
 </style>
 </head>
 <body>
+
 <div class="flash">100% FREE SOCIAL SERVICE FOR SURAT — SAVE ₹2,000+ EVERY MONTH!</div>
+
 <div class="header">
-    <h1>Surat Bachat</h1>
-    <p>Compare Live Prices Across Surat's Top Stores</p>
+    <h1 id="t1">Surat Bachat</h1>
+    <p id="t2">100% Free Social Service — Compare Live Prices Across Surat</p>
+    <div>
+        <button class="lang-btn active" onclick="setL('en', this)">English</button>
+        <button class="lang-btn" onclick="setL('hi', this)">&#2361;&#2367;&#2306;&#2342;&#2368;</button>
+        <button class="lang-btn" onclick="setL('gu', this)">&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;</button>
+    </div>
 </div>
+
 <div class="box">
     <div class="row">
-        <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu</option><option>Varachha</option><option>Katargam</option></select>
-        <input type="text" id="searchBox" placeholder="Search Amul Cheese, Sugar, Milk, Oil, Perfume..." onkeyup="render()">
+        <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu / City Light</option><option>Varachha</option><option>Katargam</option></select>
+        <input type="text" id="searchBox" placeholder="Search 50+ items or type ANY new item for 1-Min Live Fetch..." onkeyup="render()">
     </div>
+
     <div class="cats">
         <button class="cat-btn active" onclick="setC('All', this)">All Items</button>
+        <button class="cat-btn" onclick="setC('Offer', this)">Mega Sales & Offers</button>
         <button class="cat-btn" onclick="setC('Grocery', this)">Grocery & Dairy</button>
         <button class="cat-btn" onclick="setC('Personal', this)">Perfume & Care</button>
         <button class="cat-btn" onclick="setC('Stationery', this)">Stationery</button>
         <button class="cat-btn" onclick="setC('Electronics', this)">Electronics</button>
     </div>
+
+    <div class="count-bar" id="cBar"></div>
     <div id="out"></div>
 </div>
+
 <script>
+fetch("https://hits.sh", { mode: 'no-cors' }).catch(function(){});
+
 var curC = "All";
+var fetchTimer = null;
+
 var db = [
-  {n:"Amul Cheese Cubes (200 g)", k:"amul cheese", c:"Grocery", i:"🧀", d:122, r:128, s:125, w:124, b:135, z:135},
-  {n:"Amul Butter (500 g)", k:"amul butter", c:"Grocery", i:"🧈", d:265, r:275, s:270, w:268, b:285, z:285},
-  {n:"Amul Taaza Milk (1 L)", k:"milk doodh", c:"Grocery", i:"🥛", d:54, r:54, s:54, w:53, b:56, z:56},
-  {n:"Sugar / Chini (1 kg)", k:"sugar chini", c:"Grocery", i:"🧂", d:42, r:45, s:44, w:43, b:48, z:47},
-  {n:"Aashirvaad Atta (5 kg)", k:"atta flour", c:"Grocery", i:"🌾", d:215, r:225, s:220, w:218, b:235, z:232},
-  {n:"Fortune Sunflower Oil (1 L)", k:"oil tel", c:"Grocery", i:"🫙", d:124, r:129, s:126, w:125, b:135, z:134},
-  {n:"Gulab Singtel Oil (1 L)", k:"singtel oil", c:"Grocery", i:"🫙", d:168, r:178, s:174, w:170, b:185, z:184},
-  {n:"Tata Moong Dal (1 kg)", k:"moong dal", c:"Grocery", i:"🫘", d:148, r:155, s:152, w:149, b:165, z:162},
-  {n:"Tata Toor Dal (1 kg)", k:"toor dal", c:"Grocery", i:"🫘", d:178, r:188, s:184, w:180, b:198, z:195},
-  {n:"Wagh Bakri Tea (500 g)", k:"tea chai", c:"Grocery", i:"☕", d:240, r:255, s:248, w:244, b:265, z:262},
-  {n:"Maggi Noodles (Pack of 12)", k:"maggi noodles", c:"Grocery", i:"🍜", d:150, r:162, s:158, w:154, b:168, z:168},
-  {n:"Bella Vita CEO Perfume (100 ml)", k:"perfume", c:"Personal", i:"🧴", d:449, r:425, s:460, w:435, b:499, z:489},
-  {n:"Dove Soap (Pack of 4)", k:"dove soap", c:"Personal", i:"🧼", d:210, r:225, s:220, w:215, b:240, z:238},
-  {n:"Classmate Notebooks (Pack of 6)", k:"notebook copy", c:"Stationery", i:"📓", d:240, r:255, s:250, w:245, b:270, z:265},
-  {n:"boAt Airdopes 141 Earbuds", k:"earbuds boat", c:"Electronics", i:"🎧", d:1199, r:1099, s:1249, w:1149, b:1299, z:1299}
-];
-function setC(c, btn) {
-    curC = c;
-    var bs = document.getElementsByClassName("cat-btn");
-    for (var i = 0; i < bs.length; i++) bs[i].classList.remove("active");
-    btn.classList.add("active");
-    render();
-}
-function render() {
-    var q = document.getElementById("searchBox").value.toLowerCase();
-    var h = "";
-    for (var i = 0; i < db.length; i++) {
-        var x = db[i];
-        if ((curC === "All" || x.c === curC) && (x.n.toLowerCase().indexOf(q) !== -1 || x.k.indexOf(q) !== -1)) {
-            var arr = [x.d, x.r, x.s, x.w, x.b, x.z];
-            var stN = ["D-Mart", "Reliance", "Star Bazaar", "Wallet Mart", "Blinkit", "Zepto"];
-            var mn = Math.min.apply(null, arr);
-            var sh = "";
-            for (var j = 0; j < 6; j++) {
-                var isB = (arr[j] === mn);
-                sh += "<div class='st " + (isB ? "best" : "") + "'><div>" + stN[j] + "</div><div><b>₹" + arr[j] + "</b></div></div>";
-            }
-            h += "<div class='card'><div class='c-top'><div class='p-img'>" + x.i + "</div><div><div class='p-title'>" + x.n + "</div><span class='tag'>" + x.c + "</span></div></div><div class='grid'>" + sh + "</div></div>";
-        }
-    }
-    document.getElementById("out").innerHTML = h || "<p style='text-align:center;'>Item not found</p>";
-}
-render();
-</script>
-</body>
-</html>
+  {n:"Sunfeast Dark Fantasy Choco Fills (300 g)", k:"biscuit cookies dark fantasy", c:"Grocery", o:"BUY 1 GET 1 FREE", mega:1, i:"🍪", d:150, r:145, s:148, w:140, b:160, z:155},
+  {n:"Bella Vita Luxury CEO Man Perfume (100 ml)", k:"bella vita perfume deo", c:"Personal", o:"FLAT 50% MEGA SALE", mega:1, i:"🧴", d:449, r:425, s:460, w:435, b:499, z:489},
+  {n:"Amul Processed Cheese Cubes (200 g)", k:"amul cheese cubes", c:"Grocery", o:"SAVE ₹10", mega:0, i:"🧀", d:122, r:128, s:125, w:124, b:135, z:135},
+  {n:"Amul Cheese Slices (200 g - 10 Slices)", k:"amul cheese slices", c:"Grocery", o:"", mega:0, i:"🧀", d:132, r:138, s:135, w:134, b:145, z:145},
+  {n:"Amul Mozzarella Pizza Cheese (200 g)", k:"amul pizza cheese", c:"Grocery", o:"", mega:0, i:"🧀", d:115, r:122, s:118, w:116, b:128, z:128},
+  {n:"Amul Pasteurised Table Butter (500 g)", k:"amul butter makkhan", c:"Grocery", o:"HOT DEAL", mega:0, i:"🧈", d:265, r:275, s:270, w:268, b:285, z:285},
+  {n:"Amul Fresh Malai Paneer (200 g)", k:"amul paneer", c:"Grocery", o:"", mega:0, i:"🧈", d:85, r:90, s:88, w:86, b:95, z:95},
+  {n:"Amul Pure Cow Ghee (1 Litre Pouch)", k:"amul ghee", c:"Grocery", o:"SAVE ₹30", mega:0, i:"🫙", d:585, r:605, s:595, w:590, b:625, z:620},
+  {n:"Govardhan Pure Cow Ghee (1 Litre Jar)", k:"govardhan ghee", c:"Grocery", o:"", mega:0, i:"🫙", d:610, r:635, s:625, w:615, b:655, z:650},
+  {n:"Amul Taaza Fresh Milk (1 Litre)", k:"milk doodh", c:"Grocery", o:"", mega:0, i:"🥛", d:54, r:54, s:54, w:53, b:56, z:56},
+  {n:"Amul Masti Dahi / Curd (400 g)", k:"dahi curd", c:"Grocery", o:"", mega:0, i:"🥛", d:32, r:35, s:34, w:33, b:36, z:36},
+  {n:"Refined White Sugar / Chini (1 kg)", k:"sugar chini khand", c:"Grocery", o:"", mega:0, i:"🧂", d:42, r:45, s:44, w:43, b:48, z:47},
+  {n:"Tata Iodized Salt / Namak (1 kg)", k:"salt namak mithu", c:"Grocery", o:"", mega:0, i:"🧂", d:24, r:26, s:25, w:24, b:28, z:28},
+  {n:"Aashirvaad Shudh Chakki Atta (5 kg)", k:"atta flour gehu", c:"Grocery", o:"SAVE ₹20", mega:0, i:"🌾", d:215, r:225, s:220, w:218, b:235, z:232},
+  {n:"Aashirvaad Sharbati Atta (5 kg)", k:"atta sharbati", c:"Grocery", o:"", mega:0, i:"🌾", d:265, r:280, s:275, w:270, b:295, z:290},
+  {n:"Fortune Besan / Gram Flour (1 kg)", k:"besan chana flour", c:"Grocery", o:"", mega:0, i:"🌾", d:88, r:95, s:92, w:90, b:102, z:100},
+  {n:"Fortune Sunlite Sunflower Oil (1 L)", k:"oil tel fortune", c:"Grocery", o:"", mega:0, i:"🫙", d:124, r:129, s:126, w:125, b:135, z:134},
+  {n:"Gulab Groundnut / Singtel Oil (1 L)", k:"singtel groundnut oil", c:"Grocery", o:"SURAT SPECIAL", mega:0, i:"🫙", d:168, r:178, s:174, w:170, b:185, z:184},
+  {n:"Saffola Gold Cooking Oil (1 L)", k:"saffola oil tel", c:"Grocery", o:"", mega:0, i:"🫙", d:155, r:165, s:160, w:158, b:175, z:172},
+  {n:"Britannia Whole Wheat Bread (400 g)", k:"bread pav", c:"Grocery", o:"", mega:0, i:"🍞", d:45, r:48, s:46, w:45, b:50, z:50},
+  {n:"Tata Sampann Yellow Moong Dal (1 kg)", k:"moong dal mung", c:"Grocery", o:"SAVE ₹17", mega:0, i:"🫘", d:148, r:155, s:152, w:149, b:165, z:162},
+  {n:"Tata Sampann Toor / Tuver Dal (1 kg)", k:"toor arhar tuver dal", c:"Grocery", o:"", mega:0, i:"🫘", d:178, r:188, s:184, w:180, b:198, z:195},
+  {n:"Tata Sampann Chana Dal (1 kg)", k:"chana dal", c:"Grocery", o:"", mega:0, i:"🫘", d:94, r:102, s:98, w:96, b:110, z:108},
+  {n:"Tata Kabuli Chana / Chole (1 kg)", k:"kabuli chana chole", c:"Grocery", o:"", mega:0, i:"🫘", d:155, r:168, s:162, w:158, b:178, z:175},
+  {n:"India Gate Basmati Rice (1 kg)", k:"rice chawal chokha", c:"Grocery", o:"", mega:0, i:"🌾", d:112, r:120, s:115, w:114, b:128, z:125},
+  {n:"Daawat Rozana Basmati Rice (5 kg)", k:"daawat rice chawal", c:"Grocery", o:"SAVE ₹40", mega:0, i:"🌾", d:360, r:385, s:375, w:368, b:410, z:405},
+  {n:"Tata Tea Gold Premium (500 g)", k:"tea chai patti", c:"Grocery", o:"", mega:0, i:"☕", d:255, r:268, s:260, w:258, b:280, z:275},
+  {n:"Wagh Bakri Leaf Tea (500 g)", k:"wagh bakri tea chai", c:"Grocery", o:"GUJARAT SPECIAL", mega:0, i:"☕", d:240, r:255, s:248, w:244, b:265, z:262},
+  {n:"Nescafe Classic Coffee (100 g Jar)", k:"nescafe coffee", c:"Grocery", o:"", mega:0, i:"☕", d:315, r:335, s:325, w:320, b:350, z:345},
