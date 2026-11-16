@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surat Bachat - Live Price Comparison</title>
+<title>Surat Bachat - A to Z Live Price Comparison</title>
 <style>
 *{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f4f7f6;margin:0;padding:0 0 35px;color:#222}
 .top-red{background:#dc2626;color:#fff;padding:11px;font-weight:bold;font-size:15px;position:sticky;top:0;z-index:300;overflow:hidden;white-space:nowrap}
@@ -17,13 +17,17 @@
 .y-box{background:linear-gradient(135deg,#fef08a,#fde047);border:2.5px dashed #dc2626;border-radius:14px;padding:14px;margin-bottom:14px;text-align:center;cursor:pointer}
 .y-tag{background:#dc2626;color:#fff;font-size:11px;font-weight:bold;padding:2px 10px;border-radius:10px;display:inline-block;margin-bottom:4px}
 .y-txt{font-size:18px;font-weight:bold;color:#991b1b;margin:4px 0}.y-prc{background:#1e8449;color:#fff;font-size:13px;font-weight:bold;padding:4px 12px;border-radius:8px;display:inline-block}
-.row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:stretch}
 select,input{padding:13px;font-size:16px;border:1.5px solid #1e8449;border-radius:8px;background:#fff}
-input{flex:1;min-width:220px}
+input{flex:1;min-width:190px}
+.mic-btn{background:#1e8449;color:#fff;border:none;padding:0 16px;border-radius:8px;font-size:20px;cursor:pointer;font-weight:bold;display:flex;align-items:center;justify-content:center}
+.mic-btn.listening{background:#dc2626;animation:pulse 1s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
 .cats{margin-bottom:14px}
 .c-btn{background:#fff;border:1.5px solid #1e8449;color:#1e8449;padding:8px 14px;border-radius:20px;cursor:pointer;margin:3px;font-weight:bold;font-size:14px}
 .c-btn.active{background:#1e8449;color:#fff}
 .c-bar{font-size:15px;color:#444;margin-bottom:12px;font-weight:bold}
+.ac-box{background:#dcfce7;color:#15803d;padding:9px 13px;border-radius:8px;margin-bottom:12px;font-size:14px;border-left:4px solid #16a34a}
 .card{background:#fff;padding:15px;border-radius:12px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
 .c-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:8px;flex-wrap:wrap;gap:6px}
 .p-title{font-size:18px;font-weight:bold;color:#111}
@@ -46,7 +50,7 @@ input{flex:1;min-width:220px}
 <div class="top-red"><div class="marq" id="rBan">"Kuch Samajh Na Aaye To Lelo Lelo, Surat Bachat Par Saste Daam Ka Mela Khel Lo!"</div></div>
 <div class="header">
   <h1 id="t1">Surat Bachat</h1>
-  <p id="t2">Compare Live Prices Across 6 Surat Stores</p>
+  <p id="t2">A to Z Live Price Comparison Across 6 Surat Stores</p>
   <div>
     <button class="l-btn active" onclick="setL('en',this)">English</button>
     <button class="l-btn" onclick="setL('hi',this)">&#2361;&#2367;&#2306;&#2342;&#2368;</button>
@@ -61,63 +65,76 @@ input{flex:1;min-width:220px}
   </div>
   <div class="row">
     <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu</option><option>Varachha</option><option>Katargam</option></select>
-    <input type="text" id="sBox" placeholder="Type anything (e.g. 'chota maggie', 'kapde', 'khushboo')..." onkeyup="render()">
+    <input type="text" id="sBox" placeholder="Type or tap mic 🎤 (e.g. 'dudh', 'sabun', 'bread', 'rice')..." onkeyup="render()">
+    <button class="mic-btn" id="micBtn" title="Speak to Search" onclick="startVoice()">🎤</button>
   </div>
   <div class="cats">
     <button class="c-btn active" onclick="setC('All',this)">All Items</button>
     <button class="c-btn" onclick="setC('Offer',this)">Offers & Sales</button>
-    <button class="c-btn" onclick="setC('Personal',this)">Perfumes & Care</button>
+    <button class="c-btn" onclick="setC('Personal',this)">Soaps & Perfumes</button>
     <button class="c-btn" onclick="setC('Clothes',this)">Clothes</button>
-    <button class="c-btn" onclick="setC('Grocery',this)">Grocery & Dairy</button>
+    <button class="c-btn" onclick="setC('Grocery',this)">Grocery, Dairy & Snacks</button>
     <button class="c-btn" onclick="setC('Electronics',this)">Electronics</button>
   </div>
   <div class="c-bar" id="cBar"></div>
   <div id="out"></div>
 </div>
 <script>
+try{localStorage.clear();}catch(e){}
 var todayStr=new Date().toISOString().slice(0,10);
 var db=[
+{n:"Dove Cream Beauty Bathing Soap",q:"4 x 100 g",c:"Personal",o:"BUY 3 GET 1",exp:"2026-11-25",kw:"soap sabun nahane bathing bar",ry:"Chamakti twacha aur khushbu bemisaal, Dove sabun se har din ho kamaal!",d:210,r:225,s:220,w:215,b:240,z:238},
+{n:"Lux International Creamy Soap",q:"4 x 100 g",c:"Personal",o:"SAVE Rs.18",exp:"2026-11-24",kw:"soap sabun nahane bathing bar",ry:"Gulab ki khushboo aur naram ehsaas, Lux sabun banaye aapko khaas!",d:132,r:140,s:136,w:134,b:150,z:148},
+{n:"Dettol Original Germ Protection Soap",q:"4 x 125 g",c:"Personal",o:"SAVE Rs.25",exp:"2026-11-26",kw:"soap sabun nahane antibacterial",ry:"Beemari aur kitanu rahega door, Dettol sabun se suraksha bharpoor!",d:185,r:195,s:190,w:188,b:210,z:208},
+{n:"Santoor Sandal & Turmeric Soap",q:"4 x 100 g",c:"Personal",o:"VALUE PACK",exp:"2026-11-28",kw:"soap sabun nahane haldi chandan",ry:"Chandan aur haldi ka nikhaar, Santoor sabun banaye chehra shandaar!",d:128,r:135,s:132,w:130,b:145,z:142},
+{n:"Pears Pure & Gentle Glycerin Soap",q:"3 x 125 g",c:"Personal",o:"SAVE Rs.22",exp:"2026-11-25",kw:"soap sabun nahane winter glycerin",ry:"Sardi ho ya garmi twacha rahe soft, Pears sabun hai sabse top!",d:168,r:178,s:174,w:170,b:190,z:188},
+{n:"Lifebuoy Total 10 Bathing Soap",q:"4 x 125 g",c:"Personal",o:"",exp:"",kw:"soap sabun nahane",ry:"Tandurusti ki raksha aur daam bhi kam, Lifebuoy sabun mein hai poora dum!",d:136,r:144,s:140,w:138,b:152,z:150},
 {n:"Bella Vita Luxury CEO Perfume",q:"100 ml",c:"Personal",o:"50% OFF",exp:"2026-11-25",kw:"perfume khushboo scent itra spray",ry:"Ab badbu se nahi hona padega pareshan, Bella Vita CEO badhaye aapki shaan!",d:449,r:425,s:460,w:435,b:499,z:489},
 {n:"Fogg Royal No-Gas Perfume Spray",q:"150 ml",c:"Personal",o:"SAVE Rs.60",exp:"2026-11-24",kw:"perfume deo body spray khushboo",ry:"Bina gas wala perfume chale lamba saal, Fogg lagao aur machao dhamaal!",d:165,r:175,s:170,w:168,b:199,z:195},
-{n:"Engage Yang Eau De Parfum",q:"100 ml",c:"Personal",o:"BUY 1 GET 1",exp:"2026-11-26",kw:"perfume scent spray",ry:"Khushboo aisi jo dil ko chhoo jaye, Engage lagate hi har koi muskuraye!",d:299,r:285,s:295,w:290,b:340,z:335},
-{n:"Allen Solly Men Cotton Polo T-Shirt",q:"1 Unit",c:"Clothes",o:"NEW LAUNCH",exp:"2026-11-28",kw:"kapde kapda cloth clothes tshirt tee shirt wear",ry:"Naya style aur kapda ekdum soft, pehno aur lagoge ekdum top!",d:549,r:499,s:529,w:519,b:649,z:629},
-{n:"Levi's Slim Fit Stretch Denim Jeans",q:"1 Pair",c:"Clothes",o:"40% OFF",exp:"2026-11-22",kw:"kapde kapda cloth clothes pant denim trousers",ry:"Fitting ho mast aur look ho hero, Surat Bachat par price ekdum zero!",d:1399,r:1299,s:1349,w:1320,b:1599,z:1549},
-{n:"Jockey Super Combed Cotton T-Shirt",q:"Pack of 2",c:"Clothes",o:"HOT DEAL",exp:"2026-11-25",kw:"kapde kapda cloth clothes innerwear tshirt",ry:"Garmi ho ya sardi aaram bharpoor, Jockey pehno aur thakan karo door!",d:699,r:679,s:689,w:685,b:749,z:749},
-{n:"Biba Women Printed Cotton Kurti",q:"1 Unit",c:"Clothes",o:"FESTIVE SALE",exp:"2026-11-27",kw:"kapde kapda cloth clothes dress ladies suit",ry:"Rang birangi kurti aur naya fashion, tyohar ho ya office badhaye aapki shaan!",d:799,r:749,s:779,w:765,b:899,z:879},
-{n:"Raymond Formal Cotton Shirt",q:"1 Unit",c:"Clothes",o:"OFFICE SALE",exp:"2026-11-23",kw:"kapde kapda cloth clothes formal wear",ry:"Office meeting mein dikho sabse smart, Raymond shirt banaye aapki alag baat!",d:999,r:949,s:979,w:965,b:1149,z:1129},
-{n:"boAt Airdopes 141 TWS Earbuds",q:"1 Pair",c:"Electronics",o:"60% OFF",exp:"2026-11-24",kw:"earphone headphones bluetooth tws audio",ry:"Taaron ka jhanjhat ab karo bye-bye, boAt earbuds se sangeet mein kho jayein!",d:1199,r:1099,s:1249,w:1149,b:1299,z:1299},
-{n:"Noise ColorFit Pulse 2 Max Watch",q:"1 Unit",c:"Electronics",o:"NEW LAUNCH",exp:"2026-11-29",kw:"smartwatch ghadi watch fitness",ry:"Haath par bandho smart zamaana, Noise watch ke saath har pal suhana!",d:1499,r:1399,s:1549,w:1449,b:1599,z:1599},
-{n:"Sunfeast Dark Fantasy Biscuits",q:"300 g",c:"Grocery",o:"BUY 1 GET 1",exp:"2026-11-22",kw:"biscuit cookies chocolate nashta",ry:"Meethe ka mazaa ab hoga double, ek pe ek free — chhod do saari trouble!",d:150,r:145,s:148,w:140,b:160,z:155},
-{n:"Maggi Masala Noodles (Single Chhota Pack)",q:"70 g (1 Packet)",c:"Grocery",o:"MRP Rs.14",exp:"2026-12-31",kw:"maggi maggie chhota single 1 ek packet nasta",ry:"2 minute mein bhookh ko karo bye-bye, garma-garam Maggi sabke dil ko bhaye!",d:13,r:14,s:14,w:13,b:14,z:14},
-{n:"Maggi Masala Noodles (Family Pack)",q:"Pack of 12",c:"Grocery",o:"SAVE Rs.18",exp:"2026-11-26",kw:"maggi maggie bada family 12 pack",ry:"Poori family ke liye 12 pack ka mela, bachat mein sabse aage Surat akela!",d:150,r:162,s:158,w:154,b:168,z:168},
-{n:"Aashirvaad Shudh Chakki Atta",q:"5 kg",c:"Grocery",o:"SAVE Rs.20",exp:"2026-11-25",kw:"atta aata gehu flour roti",ry:"Ghar ka ration ab aayega aur bhi sasta, Surat Bachat hai bachat ka sahi rasta!",d:215,r:225,s:220,w:218,b:235,z:232},
-{n:"Gulab Groundnut / Singtel Oil",q:"1 Litre",c:"Grocery",o:"SURAT SPECIAL",exp:"2026-11-28",kw:"tel oil singtel moongfali cooking",ry:"Surat ke khane ka asli swad, Gulab Singtel se har rasoi aabad!",d:168,r:178,s:174,w:170,b:185,z:184}
+{n:"Colgate MaxFresh Toothpaste",q:"300 g",c:"Personal",o:"BUY 1 GET 1",exp:"2026-11-22",kw:"manjan toothpaste brush",ry:"Taaza saans aur chamakti muskaan, Colgate MaxFresh badhaye aapki shaan!",d:180,r:195,s:190,w:185,b:210,z:205},
+{n:"Sumul Shakti Standard Milk (Surat)",q:"500 ml Pouch",c:"Grocery",o:"SURAT DAILY",exp:"2026-12-31",kw:"milk doodh dudh dairy pouch sumul",ry:"Surat ki shaan aur har ghar ki jaan, Sumul Shakti doodh se bane pehelwaan!",d:27,r:27,s:27,w:27,b:28,z:28},
+{n:"Sumul Gold Full Cream Milk (Surat)",q:"500 ml Pouch",c:"Grocery",o:"SURAT DAILY",exp:"2026-12-31",kw:"milk doodh dudh dairy full cream sumul",ry:"Gaadha doodh aur malai bharpoor, Sumul Gold se chai bane mashhoor!",d:33,r:33,s:33,w:33,b:34,z:34},
+{n:"Amul Taaza Toned Milk",q:"1 Litre Tetra",c:"Grocery",o:"",exp:"",kw:"milk doodh dudh dairy amul",ry:"Taaza doodh aur sehat ka khazana, har ghar ka bharosa purana!",d:72,r:74,s:73,w:72,b:75,z:75},
+{n:"Amul Masti Spiced Dahi / Curd",q:"400 g Cup",c:"Grocery",o:"",exp:"",kw:"curd dahi yogurt dairy",ry:"Thanda-thanda dahi aur khane ka swad, Amul Masti se har bhojan aabad!",d:34,r:35,s:35,w:34,b:36,z:36},
+{n:"Sumul Fresh Dahi / Curd (Surat)",q:"400 g Pouch",c:"Grocery",o:"SURAT DAILY",exp:"2026-12-31",kw:"curd dahi yogurt dairy sumul",ry:"Gaadha aur meetha Sumul ka dahi, Surat ke har ghar ki pasand yahi!",d:30,r:30,s:30,w:30,b:32,z:32},
+{n:"Cadbury Dairy Milk Silk Chocolate",q:"150 g Bar",c:"Grocery",o:"GIFT DEAL",exp:"2026-11-28",kw:"chocolate chocolates sweet mithai cadbury",ry:"Meethe palon mein ghule pyaar ka ehsaas, Dairy Milk Silk banaye har din khaas!",d:165,r:175,s:170,w:168,b:185,z:180},
+{n:"Nestle KitKat Crispy Wafer Chocolate",q:"Pack of 4",c:"Grocery",o:"SAVE Rs.10",exp:"2026-11-26",kw:"chocolate chocolates sweet wafer kitkat",ry:"Have a break aur khao KitKat, crispy chocolate ka swad ekdum mast!",d:90,r:95,s:92,w:91,b:100,z:100},
+{n:"Cadbury 5 Star Chocolate Bar",q:"Pack of 5",c:"Grocery",o:"VALUE PACK",exp:"2026-11-25",kw:"chocolate chocolates sweet caramel 5star",ry:"Jo khaye kho jaye 5 Star ke swad mein, sasta pack milega Surat Bachat ke bazaar mein!",d:85,r:90,s:88,w:86,b:95,z:95},
+{n:"Lays India's Magic Masala Chips",q:"40 g (Rs.20 Pack)",c:"Grocery",o:"MRP Rs.20",exp:"2026-12-31",kw:"lays chips wafers snack nashta",ry:"Crispy chips aur masala teekha, Lays ke bina har party hai pheeka!",d:19,r:20,s:20,w:19,b:20,z:20},
+{n:"Lays Classic Salted Family Chips",q:"90 g Pack",c:"Grocery",o:"SAVE Rs.5",exp:"2026-11-28",kw:"lays chips wafers snack bada",ry:"Movie night ho ya doston ki toli, Lays family pack se khushiyaan kholi!",d:45,r:48,s:47,w:46,b:50,z:50},
+{n:"Balaji Masala Masti Wafers",q:"65 g (Rs.20 Pack)",c:"Grocery",o:"GUJARAT SPECIAL",exp:"2026-12-31",kw:"balaji chips wafers lays snack",ry:"Gujarat ka swad aur crunch ekdum mast, Balaji wafers hai sabse zabardast!",d:19,r:20,s:20,w:19,b:20,z:20}
 ];
 
   var moreDb=[
+{n:"Britannia Whole Wheat Brown Bread",q:"400 g",c:"Grocery",o:"",exp:"",kw:"bread pav brown whole wheat bakery",ry:"Sehatmand aur naram brown bread, har nashte ka sabse best!",d:45,r:48,s:46,w:45,b:50,z:50},
+{n:"Britannia Healthy Slice White Bread",q:"400 g",c:"Grocery",o:"",exp:"",kw:"bread pav white sandwich bakery",ry:"Sandwich ho ya toast ekdum soft, Britannia white bread sabse top!",d:38,r:40,s:39,w:38,b:42,z:42},
+{n:"Harvest Gold Multigrain Bread",q:"450 g",c:"Grocery",o:"SAVE Rs.5",exp:"2026-11-28",kw:"bread pav multigrain brown healthy",ry:"7 anaaj ki taqat aur swad bharpoor, subah ke nashte se thakan ho door!",d:50,r:52,s:51,w:50,b:55,z:55},
+{n:"Surat Fresh Ladi Pav (Pack of 6)",q:"250 g",c:"Grocery",o:"SURAT DAILY",exp:"2026-12-31",kw:"bread pav bhaji vada pav bakery",ry:"Vada pav ho ya pav bhaji ka maza, Surat ka taaza ladi pav sabse badhiya!",d:22,r:24,s:23,w:22,b:25,z:25},
+{n:"Daawat Rozana Basmati Rice",q:"5 kg",c:"Grocery",o:"SAVE Rs.40",exp:"2026-11-26",kw:"rice chawal basmati biryani chokha",ry:"Khile-khile chawal aur khushboo lajawaab, Daawat basmati banaye khana shandaar!",d:360,r:385,s:375,w:368,b:410,z:405},
+{n:"India Gate Classic Basmati Rice",q:"1 kg",c:"Grocery",o:"SAVE Rs.15",exp:"2026-11-25",kw:"rice chawal basmati pulao chokha",ry:"Shahi biryani aur khushboo bemisaal, India Gate chawal banaye khana kamaal!",d:175,r:185,s:180,w:178,b:195,z:192},
+{n:"Kohinoor Gujarat Kolam Rice",q:"5 kg",c:"Grocery",o:"GUJARAT SPECIAL",exp:"2026-11-29",kw:"rice chawal kolam daily chokha",ry:"Rozana dal-chawal ka asli swad, Gujarat Kolam se har rasoi aabad!",d:310,r:325,s:318,w:314,b:340,z:335},
+{n:"Fortune Everyday Steam Rice",q:"1 kg",c:"Grocery",o:"",exp:"",kw:"rice chawal steam daily chokha",ry:"Halka aur naram rozana chawal, saste daam mein milega har pal!",d:58,r:62,s:60,w:59,b:65,z:64},
+{n:"Maggi Masala Noodles (Single Chhota)",q:"70 g (1 Packet)",c:"Grocery",o:"MRP Rs.14",exp:"2026-12-31",kw:"maggi maggie chhota single 1 ek packet nasta",ry:"2 minute mein bhookh ko karo bye-bye, garma-garam Maggi sabke dil ko bhaye!",d:13,r:14,s:14,w:13,b:14,z:14},
+{n:"Maggi Masala Noodles (Family Pack)",q:"Pack of 12",c:"Grocery",o:"SAVE Rs.18",exp:"2026-11-26",kw:"maggi maggie bada family 12 pack",ry:"Poori family ke liye 12 pack ka mela, bachat mein sabse aage Surat akela!",d:150,r:162,s:158,w:154,b:168,z:168},
+{n:"Sunfeast Dark Fantasy Biscuits",q:"300 g",c:"Grocery",o:"BUY 1 GET 1",exp:"2026-11-22",kw:"biscuit cookies chocolate nashta",ry:"Meethe ka mazaa ab hoga double, ek pe ek free — chhod do saari trouble!",d:150,r:145,s:148,w:140,b:160,z:155},
+{n:"Aashirvaad Shudh Chakki Atta",q:"5 kg",c:"Grocery",o:"SAVE Rs.20",exp:"2026-11-25",kw:"atta aata gehu flour roti",ry:"Ghar ka ration ab aayega aur bhi sasta, Surat Bachat hai bachat ka sahi rasta!",d:215,r:225,s:220,w:218,b:235,z:232},
+{n:"Gulab Groundnut / Singtel Oil",q:"1 Litre",c:"Grocery",o:"SURAT SPECIAL",exp:"2026-11-28",kw:"tel oil singtel moongfali cooking",ry:"Surat ke khane ka asli swad, Gulab Singtel se har rasoi aabad!",d:168,r:178,s:174,w:170,b:185,z:184},
 {n:"Amul Pure Cow Ghee",q:"1 Litre",c:"Grocery",o:"SAVE Rs.30",exp:"2026-11-24",kw:"ghee desi makkhan dairy",ry:"Shuddh desi ghee ki meethi khushboo, har thali mein laaye sehat ka jaadoo!",d:585,r:605,s:595,w:590,b:625,z:620},
-{n:"Amul Processed Cheese Cubes",q:"200 g",c:"Grocery",o:"",exp:"",kw:"cheese paneer dairy",ry:"Pizza ho ya sandwich cheesy banao, Amul cheese cubes se swad badhao!",d:122,r:128,s:125,w:124,b:135,z:135},
 {n:"Amul Pasteurised Table Butter",q:"500 g",c:"Grocery",o:"HOT DEAL",exp:"2026-11-22",kw:"butter makkhan bread",ry:"Subah ke nashte mein makkhan ka pyaar, Amul butter se din bane shandaar!",d:265,r:275,s:270,w:268,b:285,z:285},
-{n:"Amul Taaza Fresh Milk",q:"1 Litre",c:"Grocery",o:"",exp:"",kw:"doodh milk dairy",ry:"Taaza doodh aur sehat ka khazana, har ghar ka bharosa purana!",d:54,r:54,s:54,w:53,b:56,z:56},
 {n:"Refined White Sugar / Chini",q:"1 kg",c:"Grocery",o:"",exp:"",kw:"chini shakkar sugar khand",ry:"Chai ho ya meetha swad badhaye, saste daam mein ghar tak aaye!",d:42,r:45,s:44,w:43,b:48,z:47},
 {n:"Tata Iodized Crystal Salt",q:"1 kg",c:"Grocery",o:"",exp:"",kw:"namak salt mithu",ry:"Desh ka namak aur bharosa pakka, har rasoi ka sabse sasta sikka!",d:24,r:26,s:25,w:24,b:28,z:28},
-{n:"Britannia Whole Wheat Bread",q:"400 g",c:"Grocery",o:"",exp:"",kw:"bread pav breakfast",ry:"Taazi aur naram bread laaye subah ki jaan, Surat Bachat par sabse sasta daam!",d:45,r:48,s:46,w:45,b:50,z:50},
-{n:"Tata Unpolished Toor / Tuver Dal",q:"1 kg",c:"Grocery",o:"",exp:"",kw:"dal daal toor tuver",ry:"Ghar ki dal-roti ka asli maza, Surat Bachat par milta sasta khazana!",d:178,r:188,s:184,w:180,b:198,z:195},
-{n:"Daawat Rozana Basmati Rice",q:"5 kg",c:"Grocery",o:"SAVE Rs.40",exp:"2026-11-26",kw:"chawal rice biryani chokha",ry:"Khile-khile chawal aur khushboo lajawaab, Daawat basmati banaye khana shandaar!",d:360,r:385,s:375,w:368,b:410,z:405},
 {n:"Wagh Bakri Premium Leaf Tea",q:"500 g",c:"Grocery",o:"GUJARAT SPECIAL",exp:"2026-11-29",kw:"chai tea patti cha",ry:"Subah ki chuski aur taazgi bharpoor, Wagh Bakri chai se thakan ho door!",d:240,r:255,s:248,w:244,b:265,z:262},
-{n:"California Whole Almonds / Badam",q:"500 g",c:"Grocery",o:"DRY FRUIT SALE",exp:"2026-11-24",kw:"badam almonds dryfruit",ry:"Dimag ho tez aur sehat ho mast, badam khayein aur rahein zabardast!",d:365,r:395,s:380,w:372,b:420,z:415},
-{n:"Ariel Matic Front Load Liquid",q:"2 Litre",c:"Grocery",o:"SAVE Rs.45",exp:"2026-11-23",kw:"surf detergent kapde dhone washing",ry:"Ziddi daag ab honge ek pal mein saaf, kapde chamkenge bilkul bemisaal!",d:355,r:380,s:370,w:362,b:399,z:395},
-{n:"Dove Cream Beauty Bathing Bar",q:"Pack of 4",c:"Personal",o:"BUY 3 GET 1",exp:"2026-11-25",kw:"sabun soap nahane",ry:"Chamakti twacha aur khushbu bemisaal, Dove sabun se har din ho kamaal!",d:210,r:225,s:220,w:215,b:240,z:238},
-{n:"Colgate MaxFresh Toothpaste",q:"300 g",c:"Personal",o:"BUY 1 GET 1",exp:"2026-11-22",kw:"manjan toothpaste brush",ry:"Taaza saans aur chamakti muskaan, Colgate MaxFresh badhaye aapki shaan!",d:180,r:195,s:190,w:185,b:210,z:205}
+{n:"Allen Solly Men Cotton Polo T-Shirt",q:"1 Unit",c:"Clothes",o:"NEW LAUNCH",exp:"2026-11-28",kw:"kapde kapda cloth clothes tshirt tee shirt wear",ry:"Naya style aur kapda ekdum soft, pehno aur lagoge ekdum top!",d:549,r:499,s:529,w:519,b:649,z:629},
+{n:"Levi's Slim Fit Stretch Denim Jeans",q:"1 Pair",c:"Clothes",o:"40% OFF",exp:"2026-11-22",kw:"kapde kapda cloth clothes pant denim trousers",ry:"Fitting ho mast aur look ho hero, Surat Bachat par price ekdum zero!",d:1399,r:1299,s:1349,w:1320,b:1599,z:1549},
+{n:"Biba Women Printed Cotton Kurti",q:"1 Unit",c:"Clothes",o:"FESTIVE SALE",exp:"2026-11-27",kw:"kapde kapda cloth clothes dress ladies suit",ry:"Rang birangi kurti aur naya fashion, tyohar ho ya office badhaye aapki shaan!",d:799,r:749,s:779,w:765,b:899,z:879},
+{n:"boAt Airdopes 141 TWS Earbuds",q:"1 Pair",c:"Electronics",o:"60% OFF",exp:"2026-11-24",kw:"earphone headphones bluetooth tws audio",ry:"Taaron ka jhanjhat ab karo bye-bye, boAt earbuds se sangeet mein kho jayein!",d:1199,r:1099,s:1249,w:1149,b:1299,z:1299},
+{n:"Noise ColorFit Pulse 2 Max Watch",q:"1 Unit",c:"Electronics",o:"NEW LAUNCH",exp:"2026-11-29",kw:"smartwatch ghadi watch fitness",ry:"Haath par bandho smart zamaana, Noise watch ke saath har pal suhana!",d:1499,r:1399,s:1549,w:1449,b:1599,z:1599}
 ];
 db=db.concat(moreDb);
-var saved=[];try{saved=JSON.parse(localStorage.getItem("sb_saved_v1")||"[]");}catch(e){}
-if(saved.length)db=saved.concat(db);
-function delItem(idx){saved.splice(idx,1);try{localStorage.setItem("sb_saved_v1",JSON.stringify(saved));}catch(e){}location.reload();}
 function isLive(x){return x.o&&(!x.exp||x.exp>=todayStr);}
 var curC="All",actC="All",di=new Date().getDate(),tmr=null,curKey="";
 function getDeals(cat){
-  var list=db.filter(function(x){return isLive(x)&&!x.custom&&(cat==="All"||cat==="Offer"||x.c===cat);});
+  var list=db.filter(function(x){return isLive(x)&&(cat==="All"||cat==="Offer"||x.c===cat);});
   if(!list.length)return[{k:"",tag:"SURAT BAZAAR SPECIAL",txt:"\"Kuch Samajh Na Aaye To Lelo Lelo, Surat Bachat Par Saste Daam Ka Mela Khel Lo!\"",prc:"All Verified Surat Items"}];
   return list.map(function(x){return{k:x.n.split(" "),tag:x.o+(x.exp?" (Ends "+x.exp.slice(5)+")":""),txt:"\""+x.ry+"\"",prc:x.n+" ("+x.q+") — Best: Rs."+Math.min(x.d,x.r,x.s,x.w,x.b,x.z)};});
 }
@@ -125,39 +142,9 @@ function updBan(cat){var p=getDeals(cat),d=p[di%p.length];curKey=d.k;document.ge
 updBan("All");
 function jumpDeal(){document.getElementById("sBox").value=curKey;render();}
 setInterval(function(){di++;updBan(actC);},4200);
-function setL(l,b){var bs=document.getElementsByClassName("l-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");document.getElementById("t1").innerText=l==='hi'?"\u0938\u0942\u0930\u0924 \u092c\u091a\u0924":l==='gu'?"\u0ab8\u0ac1\u0ab0\u0aa4 \u0aac\u0a9a\u0aa4":"Surat Bachat";document.getElementById("t2").innerText=l==='hi'?"\u0938\u0942\u0930\u0924 \u0915\u0947 6 \u0938\u094d\u091f\u094b\u0930\u094d\u0938 \u0915\u0947 \u0932\u093e\u0907\u0935 \u0926\u093e\u092e \u0915\u0940 \u0924\u0941\u0932\u0928\u093e \u0915\u0930\u0947\u0902":l==='gu'?"\u0ab8\u0ac1\u0ab0\u0aa4\u0aa8\u0abe 6 \u0ab8\u0acd\u0a9f\u0acb\u0ab0\u0acd\u0ab8\u0aa8\u0abe \u0ab2\u0abe\u0a88\u0ab5 \u0aad\u0abe\u0ab5\u0aa8\u0ac0 \u0ab8\u0ab0\u0a96\u0abe\u0aae\u0aa3\u0ac0 \u0a95\u0ab0\u0acb":"Compare Live Prices Across 6 Surat Stores";}
+function setL(l,b){var bs=document.getElementsByClassName("l-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");document.getElementById("t1").innerText=l==='hi'?"\u0938\u0942\u0930\u0924 \u092c\u091a\u0924":l==='gu'?"\u0ab8\u0ac1\u0ab0\u0aa4 \u0aac\u0a9a\u0aa4":"Surat Bachat";document.getElementById("t2").innerText=l==='hi'?"\u0938\u0942\u0930\u0924 \u0915\u0947 6 \u0938\u094d\u091f\u094b\u0930\u094d\u0938 \u0915\u0947 \u0932\u093e\u0907\u0935 \u0926\u093e\u092e \u0915\u0940 \u0924\u0941\u0932\u0928\u093e \u0915\u0930\u0947\u0902":l==='gu'?"\u0ab8\u0ac1\u0ab0\u0aa4\u0aa8\u0abe 6 \u0ab8\u0acd\u0a9f\u0acb\u0ab0\u0acd\u0ab8\u0aa8\u0abe \u0ab2\u0abe\u0a88\u0ab5 \u0aad\u0abe\u0ab5\u0aa8\u0ac0 \u0ab8\u0ab0\u0a96\u0abe\u0aae\u0aa3\u0ac0 \u0a95\u0ab0\u0acb":"A to Z Live Price Comparison Across 6 Surat Stores";}
 function setC(c,b){curC=c;actC=c;di=0;updBan(c);var bs=document.getElementsByClassName("c-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");render();}
-function cleanW(s){return s.toLowerCase().replace(/maggie/g,"maggi").replace(/chota|choti|chhote/g,"chhota").replace(/kapde|kapda|cloth/g,"clothes").split(/\s+/).filter(Boolean);}
-function detCat(q){if(q.indexOf("clothes")!==-1||q.indexOf("shirt")!==-1||q.indexOf("jeans")!==-1||q.indexOf("kurti")!==-1)return"Clothes";if(q.indexOf("perfume")!==-1||q.indexOf("sabun")!==-1||q.indexOf("soap")!==-1)return"Personal";if(q.indexOf("earphone")!==-1||q.indexOf("boat")!==-1||q.indexOf("watch")!==-1)return"Electronics";if(q.indexOf("maggi")!==-1||q.indexOf("atta")!==-1||q.indexOf("ghee")!==-1||q.indexOf("tea")!==-1)return"Grocery";return curC;}
-function smartBase(nm){var s=nm.toLowerCase();if(/single|chhota|sachet|1 pc|pouch|biscuit|chocolate|chips|soap|sabun/.test(s))return{b:20,q:"1 Pack",c:"Grocery",ry:"Sasta aur badiya deal tayyar, Surat Bachat par bachat baar-baar!"};if(/5 kg|5kg/.test(s))return{b:245,q:"5 kg Pack",c:"Grocery",ry:"Ghar ka ration ab aayega aur bhi sasta, Surat Bachat hai bachat ka sahi rasta!"};if(/1 kg|1kg|1 l|1 litre|oil|ghee|dal|rice|atta|sugar|chini/.test(s))return{b:95,q:"1 kg / 1L",c:"Grocery",ry:"Rozana rasoi ka bharosa pakka, Surat Bachat par sabse sasta sikka!"};if(/jeans|watch|earbud|headphone|shoes|mobile|phone/.test(s))return{b:1199,q:"1 Unit",c:"Electronics",ry:"Smart zamaana aur dumdaar style, Surat Bachat par bachat ke saath smile!"};if(/shirt|kurti|tshirt|t-shirt|pant|kapde|saree|dress/.test(s))return{b:499,q:"1 Unit",c:"Clothes",ry:"Naya style aur kapda ekdum soft, pehno aur lagoge ekdum top!"};if(/perfume|deo|spray|cream|facewash|shampoo/.test(s))return{b:249,q:"1 Unit",c:"Personal",ry:"Khushboo aur chamak bilkul bemisaal, har din lagega ekdum kamaal!"};return{b:65,q:"1 Standard Pack",c:"Grocery",ry:"Kuch samajh na aaye to lelo lelo, Surat Bachat par saste daam ka mela khel lo!"};}
-function startFetch(nm){if(tmr)clearInterval(tmr);var sec=60;document.getElementById("reqSt").innerHTML="<h3 style='color:#1e8449;'>Scanning 6 Surat Stores for '"+nm+"'...</h3><p>Fetching live prices across D-Mart, Reliance, Star Bazaar, Wallet Mart, Blinkit & Zepto...</p><div class='p-wrap'><div class='p-bar' id='pB'></div></div><b id='tC' style='color:#d35400;font-size:18px;'>60 seconds remaining...</b>";tmr=setInterval(function(){sec--;if(document.getElementById("pB"))document.getElementById("pB").style.width=Math.round(((60-sec)/60)*100)+"%";if(document.getElementById("tC"))document.getElementById("tC").innerText=sec+" seconds remaining...";if(sec<=0){clearInterval(tmr);var sb=smartBase(nm),b=sb.b;var ni={n:nm,q:sb.q,c:sb.c,o:"LIVE FETCHED",exp:"",kw:nm.toLowerCase(),ry:sb.ry,custom:1,d:Math.max(5,b-3),r:b,s:Math.max(5,b-1),w:Math.max(5,b-2),b:b+4,z:b+3};db.unshift(ni);saved.unshift(ni);try{localStorage.setItem("sb_saved_v1",JSON.stringify(saved));}catch(e){}render();}},1000);}
-function render() {
-  var raw = document.getElementById("sBox").value, words = cleanW(raw), det = detCat(words.join(" "));
-  if (det !== actC) { actC = det; di = 0; updBan(actC); }
-  var h = "", cnt = 0, stN = ["D-Mart", "Reliance", "Star Bazaar", "Wallet Mart", "Blinkit", "Zepto"];
-  for (var i = 0; i < db.length; i++) {
-    var x = db[i], live = isLive(x), hay = (x.n + " " + x.q + " " + x.c + " " + x.kw).toLowerCase();
-    var okC = (curC === "All") || (curC === "Offer" && live) || (x.c === curC);
-    var okW = words.every(function(w) { return hay.indexOf(w) !== -1; });
-    if (okC && okW) {
-      cnt++;
-      var arr = [x.d, x.r, x.s, x.w, x.b, x.z], mn = Math.min.apply(null, arr), sh = "";
-      for (var j = 0; j < 6; j++) {
-        var isB = (arr[j] === mn);
-        sh += "<div class='st " + (isB ? "best" : "") + "'>" + (isB ? "<div class='b-lbl'>BEST</div>" : "") + "<div>" + stN[j] + "</div><div><b>Rs." + arr[j] + "</b></div></div>";
-      }
-      var delB = x.custom ? "<button onclick='delItem(" + i + ")' style='margin-left:6px;background:#fee2e2;color:#dc2626;border:none;border-radius:4px;padding:2px 7px;cursor:pointer;font-weight:bold'>×</button>" : "";
-      var tg = "<span class='tag'>" + x.c + "</span>" + (live ? "<span class='tag t-off'>" + x.o + "</span>" : "") + delB;
-      h += "<div class='card'><div class='c-top'><div><span class='p-title'>" + x.n + "</span><span class='qty'>" + x.q + "</span></div><div>" + tg + "</div></div><div class='p-rhyme'>🎵 \"" + x.ry + "\"</div><div class='grid'>" + sh + "</div></div>";
-    }
-  }
-  document.getElementById("cBar").innerText = "Showing " + cnt + " of " + db.length + " Surat items";
-  if (h === "") {
-    h = "<div class='req-box' id='reqSt'><h3>'" + raw + "' is not in the list yet!</h3><p>Click below to scan 6 Surat stores in 1 minute & save permanently.</p><button class='req-btn' onclick=\"startFetch('" + raw.replace(/'/g, "") + "')\">Fetch Live Price (1 Min)</button></div>";
-  }
-  document.getElementById("out").innerHTML = h;
-}
-render();
-</script>
-</body>
-</html>
+var autoDict={"dudh":"milk","doodh":"milk","mlik":"milk","mil":"milk","dahi":"curd","yogurt":"curd","chini":"sugar","sakkar":"sugar","khand":"sugar","sugr":"sugar","namak":"salt","mithu":"salt","tel":"oil","singtel":"oil","oyl":"oil","chawal":"rice","chokha":"rice","ric":"rice","aata":"atta","gehu":"atta","ata":"atta","flour":"atta","sabun":"soap","sop":"soap","saabun":"soap","kapde":"clothes","kapda":"clothes","cloth":"clothes","kapra":"clothes","maggie":"maggi","magi":"maggi","chota":"chhota","choti":"chhota","breaad":"bread","bred":"bread","pav":"bread","choclate":"chocolate","choclates":"chocolate","chocolates":"chocolate","meetha":"chocolate","sampu":"shampoo","shampo":"shampoo","manjan":"toothpaste","colget":"colgate","chai":"tea","cha":"tea","patti":"tea","ghi":"ghee","makkhan":"butter","makhan":"butter","wafers":"chips","lay's":"lays","earphone":"earbuds","headphones":"earbuds","ghadi":"watch"};
+function smartAC(raw){var ws=raw.toLowerCase().replace(/'/g,"").trim().split(/\s+/).filter(Boolean),out=[],chg=false;for(var i=0;i<ws.length;i++){if(autoDict[ws[i]]){out.push(autoDict[ws[i]]);chg=true;}else{out.push(ws[i]);}}return{words:out,text:out.join(" "),changed:chg};}
+function detCat(q){if(q.indexOf("clothes")!==-1||q.indexOf("shirt")!==-1||q.indexOf("jeans")!==-1||q.indexOf("kurti")!==-1)return"Clothes";if(q.indexOf("perfume")!==-1||q.indexOf("soap")!==-1)return"Personal";if(q.indexOf("earbuds")!==-1||q.indexOf("boat")!==-1||q.indexOf("watch")!==-1)return"Electronics";if(q.indexOf("maggi")!==-1||q.indexOf("milk")!==-1||q.indexOf("curd")!==-1||q.indexOf("chocolate")!==-1||q.indexOf("lays")!==-1||q.indexOf("bread")!==-1||q.indexOf("rice")!==-1)return"Grocery";return curC;}
+function startVoice(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert("Voice search works on Chrome / Android browsers!");return;}var rec=new SR(),btn=document.getElementById("micBtn");rec.lang="en-IN";btn.classList.add("listening");rec.onresult=function(e){document.getElementById("sBox").value=e.results[0][0].transcript;btn.classList.remove("listening");render();};rec.onerror=function(){btn.classList.remove("listening");};rec.onend=function(){btn.classList.remove("listening");};rec.start();}
