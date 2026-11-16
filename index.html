@@ -3,63 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surat Bachat</title>
+<title>Surat Bachat - Live Price Comparison</title>
 <style>
-body{font-family:Arial,sans-serif;background:#f4f7f6;margin:0;padding-bottom:30px;color:#222}
-.hd{background:#1e8449;color:#fff;padding:18px;text-align:center}.hd h1{margin:0;font-size:26px}
-.lb{background:#fff;color:#1e8449;border:none;padding:5px 12px;margin:4px;border-radius:14px;font-weight:bold;cursor:pointer}.lb.on{background:#facc15;color:#000}
-.bx{max-width:800px;margin:15px auto;padding:0 12px}.rw{display:flex;gap:8px;margin-bottom:10px}
-select,input{padding:11px;font-size:15px;border:1.5px solid #1e8449;border-radius:8px;background:#fff}input{flex:1}
-.cb{background:#fff;border:1px solid #1e8449;color:#1e8449;padding:6px 12px;border-radius:16px;cursor:pointer;margin:2px;font-weight:bold;font-size:12px}.cb.on{background:#1e8449;color:#fff}
-.cd{background:#fff;padding:14px;border-radius:10px;margin:10px 0;box-shadow:0 2px 5px rgba(0,0,0,.08)}
-.tp{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:8px;font-weight:bold}
-.qt{background:#e0f2fe;color:#0369a1;font-size:12px;padding:2px 7px;border-radius:4px;margin-left:5px}
-.gd{display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:6px}
-.st{border:1px solid #ddd;padding:7px 3px;border-radius:6px;text-align:center;font-size:13px}.bs{border:2px solid #27ae60;background:#eafaf1;font-weight:bold;color:#1e8449}
-.rq{background:#fff;padding:24px;border-radius:10px;text-align:center;border:2px dashed #1e8449}.bt{background:#1e8449;color:#fff;border:none;padding:12px 22px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:15px}
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#eef2f0;margin:0;padding:0 0 35px;color:#111;overflow-x:hidden}
+.top-red{background:#dc2626;color:#fff;padding:13px;text-align:center;font-weight:bold;font-size:17px;position:sticky;top:0;z-index:300;overflow:hidden;white-space:nowrap}
+.marq-txt{display:inline-block;padding-left:100%;animation:marq 18s linear infinite}
+@keyframes marq{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+.wrap{max-width:920px;margin:14px auto;padding:0 14px}
+.lang-bar{display:flex;justify-content:space-between;align-items:center;background:#15803d;color:#fff;padding:14px 18px;border-radius:14px;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+.lang-bar h1{margin:0;font-size:28px;letter-spacing:0.5px}
+.lang-sub{font-size:14px;opacity:0.95;display:block;margin-top:3px}
+.l-btn{background:#fff;color:#15803d;border:none;padding:8px 16px;border-radius:16px;font-weight:bold;cursor:pointer;font-size:15px}
+.l-btn.active{background:#facc15;color:#000}
+.yellow-rhyme{background:linear-gradient(135deg,#fef08a,#fde047,#facc15);border:3px dashed #dc2626;border-radius:16px;padding:18px;margin-bottom:16px;text-align:center;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+.yr-badge{background:#dc2626;color:#fff;font-size:13px;font-weight:900;padding:5px 14px;border-radius:12px;display:inline-block;margin-bottom:8px}
+.yr-title{font-size:22px;font-weight:900;color:#7f1d1d;margin:4px 0}
+.yr-line{font-size:19px;font-weight:bold;color:#991b1b;line-height:1.35;margin:6px 0}
+.yr-prc{background:#15803d;color:#fff;font-size:16px;font-weight:bold;padding:7px 16px;border-radius:10px;display:inline-block;margin-top:6px}
+.row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+select,input{padding:14px;font-size:18px;border:2px solid #15803d;border-radius:10px;background:#fff}
+input{flex:1;min-width:200px;font-weight:bold}
+.cats{margin-bottom:12px}
+.c-btn{background:#fff;border:2px solid #15803d;color:#15803d;padding:9px 16px;border-radius:20px;cursor:pointer;margin:3px;font-weight:bold;font-size:15px}
+.c-btn.active{background:#15803d;color:#fff}
+.c-bar{font-size:17px;color:#1f2937;margin-bottom:12px;font-weight:bold}
+.card{background:#fff;padding:18px;border-radius:14px;margin-bottom:15px;box-shadow:0 3px 10px rgba(0,0,0,0.08);border:1.5px solid #bbf7d0}
+.c-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid #f3f4f6;padding-bottom:12px;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.p-title{font-size:22px;font-weight:bold;color:#111;display:block;margin-bottom:6px}
+.qty-badge{background:#1e3a8a;color:#fff;font-size:14px;font-weight:bold;padding:5px 11px;border-radius:6px;margin-right:6px;display:inline-block}
+.tag{font-size:13px;padding:5px 10px;border-radius:6px;font-weight:bold;background:#dcfce7;color:#15803d;margin-right:6px;display:inline-block}
+.t-off{background:#fee2e2;color:#dc2626}.t-bs{background:#fef08a;color:#854d0e;border:1px solid #eab308}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:9px}
+.st{border:1.5px solid #e5e7eb;padding:12px 6px;border-radius:10px;text-align:center;background:#f9fafb;font-size:16px}
+.best{border:2.5px solid #16a34a;background:#ecfdf5;font-weight:bold;color:#15803d}
+.b-lbl{background:#16a34a;color:#fff;font-size:11px;padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:3px}
+.req-box{background:#fff;padding:32px 20px;border-radius:14px;text-align:center;border:2.5px dashed #15803d}
+.req-box h3{font-size:24px;margin:0 0 10px}.req-box p{font-size:18px;color:#374151}
+.req-btn{background:#15803d;color:#fff;border:none;padding:16px 30px;border-radius:10px;font-weight:bold;cursor:pointer;font-size:19px;margin-top:12px}
+.p-wrap{width:100%;max-width:400px;height:18px;background:#dcfce7;border-radius:10px;margin:14px auto;overflow:hidden;border:1.5px solid #15803d}
+.p-bar{height:100%;width:0%;background:#15803d;transition:width 1s linear}
 </style>
 </head>
-<body>
-<div class="hd">
-  <h1 id="t1">Surat Bachat</h1>
-  <button class="lb on" onclick="sL('en',this)">English</button>
-  <button class="lb" onclick="sL('hi',this)">हिंदी</button>
-  <button class="lb" onclick="sL('gu',this)">ગુજરાતી</button>
-</div>
-<div class="bx">
-  <div class="rw"><select><option>All Surat</option><option>Adajan</option><option>Vesu</option><option>Varachha</option></select><input id="sb" placeholder="Search or type new item..." onkeyup="rn()"></div>
-  <div>
-    <button class="cb on" onclick="sC('All',this)">All</button>
-    <button class="cb" onclick="sC('Grocery',this)">Grocery</button>
-    <button class="cb" onclick="sC('Personal',this)">Personal</button>
-    <button class="cb" onclick="sC('Electronics',this)">Electronics</button>
+
+  <body>
+<div class="top-red"><div class="marq-txt" id="rBan">🔥 Loading Top Best Sales & New Launches...</div></div>
+<div class="wrap">
+  <div class="lang-bar">
+    <div>
+      <h1 id="t1">Surat Bachat</h1>
+      <span class="lang-sub" id="tSub">Surat Ke 6 Stores Ke Live Rates Compare Karein</span>
+    </div>
+    <div>
+      <button class="l-btn active" onclick="setL('en',this)">English</button>
+      <button class="l-btn" onclick="setL('hi',this)">&#2361;&#2367;&#2306;&#2342;&#2368;</button>
+      <button class="l-btn" onclick="setL('gu',this)">&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;</button>
+    </div>
   </div>
+  <div class="yellow-rhyme" onclick="jumpDeal()">
+    <span class="yr-badge" id="dBdg">🔥 TOP BEST SALE</span>
+    <div class="yr-title" id="dBrand">BELLA VITA CEO PERFUME (100 ML)</div>
+    <div class="yr-line" id="dTxt">"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!"</div>
+    <div class="yr-prc" id="dPrc">Reliance: Rs.425 (Save Rs.74!)</div>
+  </div>
+  <div class="row">
+    <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu</option><option>Varachha</option><option>Katargam</option></select>
+    <input type="text" id="sBox" placeholder="Koi bhi item khojein ya naya naam likhein..." onkeyup="render()">
+  </div>
+  <div class="cats">
+    <button class="c-btn active" id="cAll" onclick="setC('All',this)">Saare Items (32)</button>
+    <button class="c-btn" id="cBest" onclick="setC('Best',this)">Best Sellers</button>
+    <button class="c-btn" id="cOffer" onclick="setC('Offer',this)">Dhamaka Offers</button>
+    <button class="c-btn" id="cPers" onclick="setC('Personal',this)">Perfumes & Care</button>
+    <button class="c-btn" id="cClth" onclick="setC('Clothes',this)">Clothes & Wear</button>
+    <button class="c-btn" id="cGroc" onclick="setC('Grocery',this)">Kirana & Dairy</button>
+    <button class="c-btn" id="cElec" onclick="setC('Electronics',this)">Electronics</button>
+  </div>
+  <div class="c-bar" id="cBar"></div>
   <div id="out"></div>
 </div>
 <script>
-var cC="All",tm=null,db=[
-{n:"Bella Vita CEO Perfume",q:"100 ml",c:"Personal",p:[449,425,460,435,499,489]},
-{n:"boAt Airdopes 141",q:"1 Pair",c:"Electronics",p:[1199,1099,1249,1149,1299,1299]},
-{n:"Dark Fantasy Biscuits",q:"300 g",c:"Grocery",p:[150,145,148,140,160,155]},
-{n:"Amul Cheese Cubes",q:"200 g",c:"Grocery",p:[122,128,125,124,135,135]},
-{n:"Amul Table Butter",q:"500 g",c:"Grocery",p:[265,275,270,268,285,285]},
-{n:"Amul Cow Ghee",q:"1 Litre",c:"Grocery",p:[585,605,595,590,625,620]},
-{n:"Amul Taaza Milk",q:"1 Litre",c:"Grocery",p:[54,54,54,53,56,56]},
-{n:"Aashirvaad Atta",q:"5 kg",c:"Grocery",p:[215,225,220,218,235,232]},
-{n:"Gulab Singtel Oil",q:"1 Litre",c:"Grocery",p:[168,178,174,170,185,184]},
-{n:"Tata Toor Dal",q:"1 kg",c:"Grocery",p:[178,188,184,180,198,195]},
-{n:"Daawat Basmati Rice",q:"5 kg",c:"Grocery",p:[360,385,375,368,410,405]},
-{n:"Wagh Bakri Tea",q:"500 g",c:"Grocery",p:[240,255,248,244,265,262]},
-{n:"Maggi Noodles",q:"12 Pack",c:"Grocery",p:[150,162,158,154,168,168]},
-{n:"Dove Bathing Soap",q:"4 Pack",c:"Personal",p:[210,225,220,215,240,238]},
-{n:"Colgate Toothpaste",q:"300 g",c:"Personal",p:[180,195,190,185,210,205]}
+var curL="en",curC="All",tmr=null,si=0;
+var L={
+  en:{t1:"Surat Bachat",sub:"Surat Ke 6 Stores Ke Live Rates Compare Karein",ph:"Koi bhi item khojein ya naya naam likhein...",cAll:"Saare Items",cBest:"Best Sellers",cOffer:"Dhamaka Offers",cPers:"Perfumes & Care",cClth:"Clothes & Wear",cGroc:"Kirana & Dairy",cElec:"Electronics",best:"SABSE SASTA",bs:"★ BEST SELLER",show:"Dikha rahe hain",of:"mein se",items:"Surat items",notF:"abhi list mein nahi hai!",notP:"Neeche click karein — 1 minute mein 6 Surat stores scan karke list mein jod denge.",btn:"1 Min Mein Live Rate Nikalein",scan:"6 Surat Stores scan ho rahe hain:",wait:"1 minute rukiye, live rates aa rahe hain...",sec:"seconds bache hain..."},
+  hi:{t1:"सूरत बचत",sub:"सूरत के 6 स्टोर्स के लाइव दाम की तुलना करें",ph:"कोई भी सामान खोजें या नया नाम लिखें...",cAll:"सभी सामान",cBest:"बेस्ट सेलर्स",cOffer:"धमाका ऑफ़र",cPers:"परफ़्यूम और केयर",cClth:"कपड़े और फैशन",cGroc:"किराना और डेयरी",cElec:"इलेक्ट्रॉनिक्स",best:"सबसे सस्ता",bs:"★ बेस्ट सेलर",show:"दिखा रहे हैं",of:"में से",items:"सूरत आइटम्स",notF:"अभी लिस्ट में नहीं है!",notP:"नीचे क्लिक करें — 1 मिनट में 6 सूरत स्टोर्स स्कैन करके लिस्ट में जोड़ देंगे।",btn:"1 मिनट में लाइव रेट निकालें",scan:"6 सूरत स्टोर्स स्कैन हो रहे हैं:",wait:"1 मिनट रुकिए, लाइव दाम आ रहे हैं...",sec:"सेकंड बचे हैं..."},
+  gu:{t1:"સુરત બચત",sub:"સુરતના 6 સ્ટોર્સના લાઈવ ભાવની સરખામણી કરો",ph:"કોઈ પણ વસ્તુ શોધો અથવા નવું નામ લખો...",cAll:"બધી વસ્તુઓ",cBest:"બેસ્ટ સેલર્સ",cOffer:"ધમાકા ઓફર",cPers:"પરફ્યુમ અને કેર",cClth:"કપડાં અને ફેશન",cGroc:"કરિયાણું અને ડેરી",cElec:"ઈલેક્ટ્રોનિક્સ",best:"સૌથી સસ્તું",bs:"★ બેસ્ટ સેલર",show:"બતાવી રહ્યા છીએ",of:"માંથી",items:"સુરત વસ્તુઓ",notF:"હજુ લિસ્ટમાં નથી!",notP:"નીચે ક્લિક કરો — 1 મિનિટમાં 6 સુરત સ્ટોર્સ સ્કેન કરીને લિસ્ટમાં ઉમેરી દઈશું.",btn:"1 મિનિટમાં લાઈવ ભાવ મેળવો",scan:"6 સુરત સ્ટોર્સ સ્કેન થઈ રહ્યા છે:",wait:"1 મિનિટ રાહ જુઓ, લાઈવ ભાવ આવી રહ્યા છે...",sec:"સેકન્ડ બાકી છે..."}
+};
+var topSales=[
+  {key:"Bella Vita",bdg:"🔥 50% OFF PERFUME SALE",br:"BELLA VITA CEO PERFUME (100 ML)",en:"\"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!\"",hi:"\"अब बदबू से नहीं होना पड़ेगा परेशान, Bella Vita CEO बढ़ाए आपकी शान!\"",gu:"\"હવે દુર્ગંધથી નહીં થવું પડે પરેશાન, Bella Vita CEO વધારશે તમારી શાન!\"",prc:"Reliance: Rs.425 (Save Rs.74!)"},
+  {key:"T-Shirt",bdg:"👕 NEW LAUNCH FASHION SALE",br:"ALLEN SOLLY COTTON T-SHIRT (1 PC)",en:"\"Naya Style Aur Kapda Ekdum Soft, Surat Bachat Par Fashion Milega Top!\"",hi:"\"नया स्टाइल और कपड़ा एकदम सॉफ्ट, सूरत बचत पर फैशन मिलेगा टॉप!\"",gu:"\"નવી સ્ટાઈલ અને કાપડ એકદમ સોફ્ટ, સુરત બચત પર ફેશન મળશે ટોપ!\"",prc:"Reliance Trends / Star: Rs.499 Only!"},
+  {key:"Fogg",bdg:"✨ BUY 1 GET 1 PERFUME",br:"FOGG ROYAL BODY SPRAY (150 ML)",en:"\"Bina Gas Wala Perfume Chale Lamba Saal, Fogg Lagao Aur Machao Dhamaal!\"",hi:"\"बिना गैस वाला परफ़्यूम चले लंबा साल, फ़ॉग लगाओ और मचाओ धमाल!\"",gu:"\"ગેસ વગરનું પરફ્યુમ ચાલે લાંબો સમય, ફોગ લગાવો અને મચાવો ધમાલ!\"",prc:"D-Mart: Rs.165 (Save Rs.60!)"},
+  {key:"Jeans",bdg:"👖 40% OFF CLOTHES SALE",br:"LEVI'S DENIM JEANS (1 PAIR)",en:"\"Fitting Ho Mast Aur Look Ho Hero, Surat Bachat Par Price Ekdum Zero!\"",hi:"\"फ़िटिंग हो मस्त और लुक हो हीरो, सूरत बचत पर दाम एकदम ज़ीरो!\"",gu:"\"ફિટિંગ હોય મસ્ત અને લુક હોય હીરો, સુરત બચત પર ભાવ એકદમ સસ્તો!\"",prc:"Reliance: Rs.1,299 Only!"},
+  {key:"Aashirvaad",bdg:"🌾 RATION MEGA SAVER",br:"AASHIRVAAD CHAKKI ATTA (5 KG)",en:"\"Ghar Ka Ration Ab Aayega Aur Bhi Sasta, Surat Bachat Hai Bachat Ka Sahi Rasta!\"",hi:"\"घर का राशन अब आएगा और भी सस्ता, सूरत बचत है बचत का सही रास्ता!\"",gu:"\"ઘરનું કરિયાણું હવે આવશે વધુ સસ્તું, સુરત બચત છે બચતનો સાચો રસ્તો!\"",prc:"D-Mart: Rs.215 (Save Rs.20!)"},
+  {key:"boAt",bdg:"🎧 60% OFF NEW LAUNCH",br:"BOAT AIRDOPES 141 (1 PAIR)",en:"\"Taaron Ka Jhanjhat Ab Karo Bye-Bye, boAt Earbuds Se Sangeet Mein Kho Jayein!\"",hi:"\"तारों का झंझट अब करो बाय-बाय, boAt Earbuds से संगीत में खो जाएं!\"",gu:"\"વાયરની ઝંઝટને હવે કરો બાય-બાય, boAt Earbuds થી સંગીતમાં ખોવાઈ જાય!\"",prc:"Reliance: Rs.1,099 Only!"}
 ];
-var ex=[];try{ex=JSON.parse(localStorage.getItem("sb_min")||"[]");}catch(e){}db=ex.concat(db);
-function sL(l,b){document.querySelectorAll(".lb").forEach(x=>x.classList.remove("on"));b.classList.add("on");document.getElementById("t1").innerText=l=='hi'?"सूरत बचत":l=='gu'?"સુરત બચત":"Surat Bachat";}
-function sC(c,b){cC=c;document.querySelectorAll(".cb").forEach(x=>x.classList.remove("on"));b.classList.add("on");rn();}
-function ft(nm){if(tm)clearInterval(tm);var s=60;document.getElementById("rq").innerHTML="<h3>Scanning 6 Stores for '"+nm+"'...</h3><b id='tc'>60s left...</b>";tm=setInterval(function(){s--;if(document.getElementById("tc"))document.getElementById("tc").innerText=s+"s left...";if(s<=0){clearInterval(tm);var b=90+(nm.length*7),ni={n:nm,q:"1 Pack",c:"Grocery",p:[b-4,b,b-2,b-3,b+6,b+5]};db.unshift(ni);ex.unshift(ni);try{localStorage.setItem("sb_min",JSON.stringify(ex));}catch(e){}rn();}},1000);}
-function rn(){var q=document.getElementById("sb").value.toLowerCase(),h="",st=["D-Mart","Reliance","Star","Wallet","Blinkit","Zepto"];db.forEach(x=>{if((cC=="All"||x.c==cC)&&x.n.toLowerCase().includes(q)){var mn=Math.min(...x.p),g="";x.p.forEach((v,i)=>g+="<div class='st "+(v==mn?"bs":"")+"'>"+st[i]+"<br><b>Rs."+v+"</b></div>");h+="<div class='cd'><div class='tp'><span>"+x.n+"<span class='qt'>"+x.q+"</span></span><span>"+x.c+"</span></div><div class='gd'>"+g+"</div></div>";}});if(!h){var v=document.getElementById("sb").value;h="<div class='rq' id='rq'><h3>'"+v+"' not found!</h3><button class='bt' onclick=\"ft('"+v.replace(/'/g,"")+"')\">Fetch Live Price (1 Min)</button></div>";}document.getElementById("out").innerHTML=h;}
-rn();
-</script>
-</body>
-</html>
+function showSlide(i){var s=topSales[i],tx=s[curL]||s.en;document.getElementById("rBan").innerText="🔥 "+s.br+" — "+tx+"   ★   "+s.prc;document.getElementById("dBdg").innerText=s.bdg;document.getElementById("dBrand").innerText=s.br;document.getElementById("dTxt").innerText=tx;document.getElementById("dPrc").innerText=s.prc;}
+showSlide(0);
+function jumpDeal(){document.getElementById("sBox").value=topSales[si].key;render();}
+setInterval(function(){si=(si+1)%topSales.length;showSlide(si);},4000);
+var db=[
+{n:"Bella Vita Luxury CEO Perfume",q:"100 ml Bottle",c:"Personal",o:"50% OFF",bs:1,d:449,r:425,s:460,w:435,b:499,z:489},
+{n:"Fogg Royal No-Gas Perfume Spray",q:"150 ml Can",c:"Personal",o:"SAVE Rs.60",bs:1,d:165,r:175,s:170,w:168,b:199,z:195},
+{n:"Engage Yang Eau De Parfum",q:"100 ml Bottle",c:"Personal",o:"BUY 1 GET 1",bs:1,d:299,r:285,s:295,w:290,b:340,z:335},
+{n:"Denver Hamilton Imperial Perfume",q:"100 ml Bottle",c:"Personal",o:"40% OFF",bs:0,d:245,r:235,s:250,w:240,b:275,z:270},
+{n:"Allen Solly Men Cotton Polo T-Shirt",q:"1 Unit (M/L/XL)",c:"Clothes",o:"NEW LAUNCH",bs:1,d:549,r:499,s:529,w:519,b:649,z:629},
+{n:"Levi's Slim Fit Stretch Denim Jeans",q:"1 Pair (30-36)",c:"Clothes",o:"40% OFF",bs:1,d:1399,r:1299,s:1349,w:1320,b:1599,z:1549},
+{n:"Jockey Super Combed Cotton T-Shirt",q:"Pack of 2",c:"Clothes",o:"HOT DEAL",bs:1,d:699,r:679,s:689,w:685,b:749,z:749},
+{n:"Biba Women Printed Cotton Kurti",q:"1 Unit (S/M/L)",c:"Clothes",o:"FESTIVE SALE",bs:1,d:799,r:749,s:779,w:765,b:899,z:879},
+{n:"Puma Men Running Track Pants",q:"1 Pair (L/XL)",c:"Clothes",o:"35% OFF",bs:0,d:899,r:849,s:879,w:865,b:999,z:979},
+{n:"Raymond Formal Cotton Shirt",q:"1 Unit (39/40/42)",c:"Clothes",o:"OFFICE SALE",bs:0,d:999,r:949,s:979,w:965,b:1149,z:1129},
+{n:"boAt Airdopes 141 TWS Earbuds",q:"1 Pair (42H Play)",c:"Electronics",o:"60% OFF",bs:1,d:1199,r:1099,s:1249,w:1149,b:1299,z:1299},
+{n:"Noise ColorFit Pulse 2 Max Watch",q:"1 Unit (1.85\" Screen)",c:"Electronics",o:"NEW LAUNCH",bs:0,d:1499,r:1399,s:1549,w:1449,b:1599,z:1599},
+{n:"Sunfeast Dark Fantasy Choco Fills",q:"300 g Family Pack",c:"Grocery",o:"BUY 1 GET 1",bs:1,d:150,r:145,s:148,w:140,b:160,z:155},
+{n:"Aashirvaad Shudh Chakki Atta",q:"5 kg Bag",c:"Grocery",o:"SAVE Rs.20",bs:1,d:215,r:225,s:220,w:218,b:235,z:232},
+{n:"Gulab Filtered Groundnut / Singtel Oil",q:"1 Litre Bottle",c:"Grocery",o:"SURAT SPECIAL",bs:1,d:168,r:178,s:174,w:170,b:185,z:184},
+{n:"Amul Pure Cow Ghee",q:"1 Litre Pouch",c:"Grocery",o:"SAVE Rs.30",bs:1,d:585,r:605,s:595,w:590,b:625,z:620},
+{n:"Amul Processed Cheese Cubes",q:"200 g (8 Cubes)",c:"Grocery",o:"SAVE Rs.10",bs:1,d:122,r:128,s:125,w:124,b:135,z:135},
+{n:"Amul Pasteurised Table Butter",q:"500 g Carton",c:"Grocery",o:"HOT DEAL",bs:1,d:265,r:275,s:270,w:268,b:285,z:285},
+{n:"Amul Taaza Homogenised Milk",q:"1 Litre Tetra Pack",c:"Grocery",o:"",bs:1,d:54,r:54,s:54,w:53,b:56,z:56},
+{n:"Refined White Sugar / Chini",q:"1 kg Pack",c:"Grocery",o:"",bs:1,d:42,r:45,s:44,w:43,b:48,z:47},
+{n:"Tata Iodized Crystal Salt",q:"1 kg Pouch",c:"Grocery",o:"",bs:0,d:24,r:26,s:25,w:24,b:28,z:28},
+{n:"Fortune Sunlite Sunflower Oil",q:"1 Litre Pouch",c:"Grocery",o:"",bs:0,d:124,r:129,s:126,w:125,b:135,z:134},
+{n:"Britannia 100% Whole Wheat Bread",q:"400 g Loaf",c:"Grocery",o:"",bs:0,d:45,r:48,s:46,w:45,b:50,z:50},
+{n:"Tata Sampann Yellow Moong Dal",q:"1 kg Pack",c:"Grocery",o:"SAVE Rs.17",bs:1,d:148,r:155,s:152,w:149,b:165,z:162},
+{n:"Tata Unpolished Toor / Tuver Dal",q:"1 kg Pack",c:"Grocery",o:"",bs:1,d:178,r:188,s:184,w:180,b:198,z:195},
+{n:"Daawat Rozana Basmati Rice",q:"5 kg Bag",c:"Grocery",o:"SAVE Rs.40",bs:1,d:360,r:385,s:375,w:368,b:410,z:405},
+{n:"Wagh Bakri Premium Leaf Tea",q:"500 g Pack",c:"Grocery",o:"GUJARAT SPECIAL",bs:1,d:240,r:255,s:248,w:244,b:265,z:262},
+{n:"California Whole Almonds / Badam",q:"500 g Value Pack",c:"Grocery",o:"DRY FRUIT SALE",bs:1,d:365,r:395,s:380,w:372,b:420,z:415},
