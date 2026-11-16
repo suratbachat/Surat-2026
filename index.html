@@ -25,33 +25,37 @@ input { flex: 1; min-width: 220px; }
 .cat-btn.active { background: #1e8449; color: white; }
 .count-bar { font-size: 13px; color: #555; margin-bottom: 10px; font-weight: bold; }
 
-.card { background: white; padding: 16px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
-.c-top { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 10px; flex-wrap: wrap; gap: 5px; }
-.p-title { font-size: 17px; font-weight: bold; }
-.tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: bold; }
+/* Blinkit Style Product Card & Photo Box */
+.card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+.c-top { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #eee; padding-bottom: 12px; margin-bottom: 12px; }
+.p-img { width: 68px; height: 68px; border-radius: 12px; background: #f8faf9; border: 1px solid #e2ece7; display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; }
+.p-info { flex: 1; }
+.p-title { font-size: 17px; font-weight: bold; display: block; margin-bottom: 5px; color: #111; }
+.tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: bold; display: inline-block; }
 .t-cat { background: #e8f8f5; color: #1e8449; }
-.t-off { background: #fdebd0; color: #d35400; margin-left: 4px; }
-.t-new { background: #ebf5fb; color: #2980b9; margin-left: 4px; }
+.t-off { background: #fdebd0; color: #d35400; margin-left: 5px; }
+.t-new { background: #ebf5fb; color: #2980b9; margin-left: 5px; }
 
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
-.st { border: 1px solid #ddd; padding: 9px 5px; border-radius: 8px; text-align: center; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 8px; }
+.st { border: 1px solid #e0e0e0; padding: 9px 5px; border-radius: 8px; text-align: center; background: #fafafa; }
 .best { border: 2px solid #27ae60; background: #eafaf1; font-weight: bold; color: #1e8449; }
-.b-lbl { background: #27ae60; color: white; font-size: 10px; padding: 2px 5px; border-radius: 5px; display: inline-block; margin-bottom: 3px; }
+.b-lbl { background: #27ae60; color: white; font-size: 10px; padding: 2px 6px; border-radius: 5px; display: inline-block; margin-bottom: 3px; }
 .sync-time { font-size: 11px; color: #888; text-align: right; margin-top: 8px; }
-.req-box { background: white; padding: 25px; border-radius: 10px; text-align: center; border: 1.5px dashed #1e8449; }
-.req-btn { background: #1e8449; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
+
+.req-box { background: white; padding: 25px; border-radius: 12px; text-align: center; border: 2px dashed #1e8449; }
+.req-btn { background: #1e8449; color: white; border: none; padding: 12px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
 </style>
 </head>
 <body>
 
 <div class="flash">
-    <span class="flash-tag">LIVE DEAL</span>
+    <span class="flash-tag">FREE SOCIAL SERVICE</span>
     <span id="fTxt">D-Mart: Sunfeast Dark Fantasy Biscuits - BUY 1 GET 1 FREE!</span>
 </div>
 
 <div class="header">
     <h1 id="t1">Surat Bachat</h1>
-    <p id="t2">Compare Live Prices Across Surat's Top Stores</p>
+    <p id="t2">100% Free Social Service — Compare Live Prices Across Surat</p>
     <div>
         <button class="lang-btn active" onclick="setL('en', this)">English</button>
         <button class="lang-btn" onclick="setL('hi', this)">&#2361;&#2367;&#2306;&#2342;&#2368;</button>
@@ -68,7 +72,7 @@ input { flex: 1; min-width: 220px; }
             <option>Varachha</option>
             <option>Katargam</option>
         </select>
-        <input type="text" id="searchBox" placeholder="Search 20,000+ items: Amul Cheese, Sugar, Oil, Perfume..." onkeyup="render()">
+        <input type="text" id="searchBox" placeholder="Search Amul Cheese, Milk, Sugar, Oil, Perfume..." onkeyup="render()">
     </div>
 
     <div class="cats">
@@ -103,22 +107,55 @@ setInterval(function() {
 var curC = "All";
 var db = [];
 
+function getVisual(name, cat) {
+    var s = name.toLowerCase();
+    if (s.indexOf("cheese") !== -1) return "🧀";
+    if (s.indexOf("butter") !== -1 || s.indexOf("paneer") !== -1) return "🧈";
+    if (s.indexOf("milk") !== -1 || s.indexOf("dahi") !== -1) return "🥛";
+    if (s.indexOf("ghee") !== -1 || s.indexOf("oil") !== -1) return "🫙";
+    if (s.indexOf("bread") !== -1) return "🍞";
+    if (s.indexOf("atta") !== -1 || s.indexOf("rice") !== -1 || s.indexOf("besan") !== -1) return "🌾";
+    if (s.indexOf("dal") !== -1 || s.indexOf("chana") !== -1) return "🫘";
+    if (s.indexOf("sugar") !== -1 || s.indexOf("salt") !== -1) return "🧂";
+    if (s.indexOf("tea") !== -1 || s.indexOf("coffee") !== -1) return "☕";
+    if (s.indexOf("maggi") !== -1 || s.indexOf("noodles") !== -1) return "🍜";
+    if (s.indexOf("biscuit") !== -1) return "🍪";
+    if (s.indexOf("cola") !== -1 || s.indexOf("drink") !== -1 || s.indexOf("juice") !== -1) return "🥤";
+    if (s.indexOf("ketchup") !== -1) return "🍅";
+    if (s.indexOf("badam") !== -1 || s.indexOf("kaju") !== -1) return "🥜";
+    if (s.indexOf("haldi") !== -1 || s.indexOf("mirchi") !== -1 || s.indexOf("masala") !== -1 || s.indexOf("jeera") !== -1) return "🌶️";
+    if (s.indexOf("perfume") !== -1) return "🧴";
+    if (s.indexOf("soap") !== -1 || s.indexOf("shampoo") !== -1 || s.indexOf("cream") !== -1) return "🧼";
+    if (s.indexOf("toothpaste") !== -1) return "🪥";
+    if (s.indexOf("detergent") !== -1 || s.indexOf("ariel") !== -1 || s.indexOf("surf") !== -1) return "🧺";
+    if (s.indexOf("notebook") !== -1 || s.indexOf("paper") !== -1) return "📓";
+    if (s.indexOf("pen") !== -1 || s.indexOf("pencil") !== -1) return "🖊️";
+    if (s.indexOf("earbuds") !== -1) return "🎧";
+    if (s.indexOf("watch") !== -1) return "⌚";
+    if (s.indexOf("bulb") !== -1) return "💡";
+    if (s.indexOf("battery") !== -1) return "🔋";
+    if (cat === "Personal") return "✨";
+    if (cat === "Stationery") return "📚";
+    if (cat === "Electronics") return "🔌";
+    return "🛒";
+}
+
 function setL(l, btn) {
     var bs = document.getElementsByClassName("lang-btn");
     for (var i = 0; i < bs.length; i++) bs[i].classList.remove("active");
     btn.classList.add("active");
     if (l === 'hi') {
         document.getElementById("t1").innerText = "\u0938\u0942\u0930\u0924 \u092c\u091a\u0924";
-        document.getElementById("t2").innerText = "\u0938\u0942\u0930\u0924 \u0915\u0947 \u0938\u094d\u091f\u094b\u0930\u094d\u0938 \u0915\u0947 \u0926\u093e\u092e \u0924\u0941\u0932\u0928\u093e \u0915\u0930\u0947\u0902";
+        document.getElementById("t2").innerText = "100% \u092b\u094d\u0930\u0940 \u0938\u094b\u0936\u0932 \u0938\u0930\u094d\u0935\u093f\u0938 — \u0938\u0942\u0930\u0924 \u0915\u0947 \u0938\u094d\u091f\u094b\u0930\u094d\u0938 \u0915\u0947 \u0932\u093e\u0907\u0935 \u0926\u093e\u092e";
         document.getElementById("searchBox").placeholder = "\u0938\u093e\u092e\u093e\u0928 \u0916\u094b\u091c\u0947\u0902 (Amul Cheese, Sugar, Bread, Oil)...";
     } else if (l === 'gu') {
         document.getElementById("t1").innerText = "\u0ab8\u0ac1\u0ab0\u0aa4 \u0aac\u0a9a\u0aa4";
-        document.getElementById("t2").innerText = "\u0ab8\u0ac1\u0ab0\u0aa4\u0aa8\u0abe \u0ab8\u0acd\u0a9f\u0acb\u0ab0\u0acd\u0ab8\u0aa8\u0abe \u0aad\u0abe\u0ab5 \u0ab8\u0ab0\u0a96\u0abe\u0ab5\u0acb";
+        document.getElementById("t2").innerText = "100% \u0aab\u0acd\u0ab0\u0ac0 \u0ab8\u0acb\u0ab6\u0abf\u0aaf\u0ab2 \u0ab8\u0ab0\u0acd\u0ab5\u0abf\u0ab8 — \u0ab8\u0ac1\u0ab0\u0aa4\u0aa8\u0abe \u0ab8\u0acd\u0a9f\u0acb\u0ab0\u0acd\u0ab8\u0aa8\u0abe \u0ab2\u0abe\u0a88\u0ab5 \u0aad\u0abe\u0ab5";
         document.getElementById("searchBox").placeholder = "\u0ab5\u0ab8\u0acd\u0aa4\u0ac1 \u0ab6\u0acb\u0aa7\u0acb (Amul Cheese, Sugar, Bread, Oil)...";
     } else {
         document.getElementById("t1").innerText = "Surat Bachat";
-        document.getElementById("t2").innerText = "Compare Live Prices Across Surat's Top Stores";
-        document.getElementById("searchBox").placeholder = "Search 20,000+ items: Amul Cheese, Sugar, Oil, Perfume...";
+        document.getElementById("t2").innerText = "100% Free Social Service — Compare Live Prices Across Surat";
+        document.getElementById("searchBox").placeholder = "Search Amul Cheese, Milk, Sugar, Oil, Perfume...";
     }
     render();
 }
@@ -131,50 +168,9 @@ function setC(c, btn) {
     render();
 }
 
-function render() {
-    var q = document.getElementById("searchBox").value.toLowerCase();
-    var h = "";
-    var shown = 0;
-    var totalMatched = 0;
-    for (var i = 0; i < db.length; i++) {
-        var x = db[i];
-        var okC = (curC === "All") || (curC === "Offer" && x.o !== "") || (curC === "New" && x.nw === 1) || (x.c === curC);
-        var okT = (x.n.toLowerCase().indexOf(q) !== -1) || (x.k.indexOf(q) !== -1);
-        if (okC && okT) {
-            totalMatched++;
-            if (shown < 40) {
-                shown++;
-                var arr = [x.d, x.r, x.s, x.w, x.b, x.z];
-                var stN = ["D-Mart", "Reliance", "Star Bazaar", "Wallet Mart", "Blinkit", "Zepto"];
-                var mn = Math.min(x.d, x.r, x.s, x.w, x.b, x.z);
-                var sh = "";
-                for (var j = 0; j < 6; j++) {
-                    var isB = (arr[j] === mn);
-                    sh += "<div class='st " + (isB ? "best" : "") + "'>";
-                    if (isB) sh += "<div class='b-lbl'>BEST</div>";
-                    sh += "<div>" + stN[j] + "</div><div><b>&#8377;" + arr[j] + "</b></div></div>";
-                }
-                var tg = "<span class='tag t-cat'>" + x.c + "</span>";
-                if (x.o !== "") tg += "<span class='tag t-off'>" + x.o + "</span>";
-                if (x.nw === 1) tg += "<span class='tag t-new'>NEW</span>";
-                h += "<div class='card'><div class='c-top'><span class='p-title'>" + x.n + "</span><div>" + tg + "</div></div><div class='grid'>" + sh + "</div><div class='sync-time'>Auto-Updated: " + x.u + "</div></div>";
-            }
-        }
-    }
-    document.getElementById("cBar").innerText = "Showing " + shown + " of " + totalMatched + " live items (Total Catalog: " + db.length + ")";
-    if (h === "") {
-        var rawQ = document.getElementById("searchBox").value;
-        h = "<div class='req-box'><h3>'" + rawQ + "' is not in the live list yet!</h3><p>Click below to request our Auto-Bot to fetch its live Surat price in 1 minute.</p><a href='https://github.com' target='_blank'><button class='req-btn'>Fetch Live Price Now (1 Min)</button></a></div>";
-    }
-    document.getElementById("out").innerHTML = h;
+function sendReq(itemName) {
+    var box = document.getElementById("reqStatus");
+    box.innerHTML = "<h3 style='color:#1e8449;'>✅ Request Sent for '" + itemName + "'!</h3><p>Our team & auto-bot will add live Surat prices for this item shortly. Thank you for helping Surat save!</p>";
 }
 
-fetch("products.json?t=" + new Date().getTime())
-    .then(function(res) { return res.json(); })
-    .then(function(json) {
-        db = json;
-        render();
-    });
-</script>
-</body>
-</html>
+function render() {
