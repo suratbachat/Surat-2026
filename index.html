@@ -131,5 +131,33 @@ function cleanW(s){return s.toLowerCase().replace(/maggie/g,"maggi").replace(/ch
 function detCat(q){if(q.indexOf("clothes")!==-1||q.indexOf("shirt")!==-1||q.indexOf("jeans")!==-1||q.indexOf("kurti")!==-1)return"Clothes";if(q.indexOf("perfume")!==-1||q.indexOf("sabun")!==-1||q.indexOf("soap")!==-1)return"Personal";if(q.indexOf("earphone")!==-1||q.indexOf("boat")!==-1||q.indexOf("watch")!==-1)return"Electronics";if(q.indexOf("maggi")!==-1||q.indexOf("atta")!==-1||q.indexOf("ghee")!==-1||q.indexOf("tea")!==-1)return"Grocery";return curC;}
 function smartBase(nm){var s=nm.toLowerCase();if(/single|chhota|sachet|1 pc|pouch|biscuit|chocolate|chips|soap|sabun/.test(s))return{b:20,q:"1 Pack",c:"Grocery",ry:"Sasta aur badiya deal tayyar, Surat Bachat par bachat baar-baar!"};if(/5 kg|5kg/.test(s))return{b:245,q:"5 kg Pack",c:"Grocery",ry:"Ghar ka ration ab aayega aur bhi sasta, Surat Bachat hai bachat ka sahi rasta!"};if(/1 kg|1kg|1 l|1 litre|oil|ghee|dal|rice|atta|sugar|chini/.test(s))return{b:95,q:"1 kg / 1L",c:"Grocery",ry:"Rozana rasoi ka bharosa pakka, Surat Bachat par sabse sasta sikka!"};if(/jeans|watch|earbud|headphone|shoes|mobile|phone/.test(s))return{b:1199,q:"1 Unit",c:"Electronics",ry:"Smart zamaana aur dumdaar style, Surat Bachat par bachat ke saath smile!"};if(/shirt|kurti|tshirt|t-shirt|pant|kapde|saree|dress/.test(s))return{b:499,q:"1 Unit",c:"Clothes",ry:"Naya style aur kapda ekdum soft, pehno aur lagoge ekdum top!"};if(/perfume|deo|spray|cream|facewash|shampoo/.test(s))return{b:249,q:"1 Unit",c:"Personal",ry:"Khushboo aur chamak bilkul bemisaal, har din lagega ekdum kamaal!"};return{b:65,q:"1 Standard Pack",c:"Grocery",ry:"Kuch samajh na aaye to lelo lelo, Surat Bachat par saste daam ka mela khel lo!"};}
 function startFetch(nm){if(tmr)clearInterval(tmr);var sec=60;document.getElementById("reqSt").innerHTML="<h3 style='color:#1e8449;'>Scanning 6 Surat Stores for '"+nm+"'...</h3><p>Fetching live prices across D-Mart, Reliance, Star Bazaar, Wallet Mart, Blinkit & Zepto...</p><div class='p-wrap'><div class='p-bar' id='pB'></div></div><b id='tC' style='color:#d35400;font-size:18px;'>60 seconds remaining...</b>";tmr=setInterval(function(){sec--;if(document.getElementById("pB"))document.getElementById("pB").style.width=Math.round(((60-sec)/60)*100)+"%";if(document.getElementById("tC"))document.getElementById("tC").innerText=sec+" seconds remaining...";if(sec<=0){clearInterval(tmr);var sb=smartBase(nm),b=sb.b;var ni={n:nm,q:sb.q,c:sb.c,o:"LIVE FETCHED",exp:"",kw:nm.toLowerCase(),ry:sb.ry,custom:1,d:Math.max(5,b-3),r:b,s:Math.max(5,b-1),w:Math.max(5,b-2),b:b+4,z:b+3};db.unshift(ni);saved.unshift(ni);try{localStorage.setItem("sb_saved_v1",JSON.stringify(saved));}catch(e){}render();}},1000);}
-function render(){var raw=document.getElementById("sBox").value,words=cleanW(raw),det=detCat(words.join(" "));if(det!==actC){actC=det;di=0;updBan(actC);}var h="",cnt=0,stN=["D-Mart","Reliance","Star Bazaar","Wallet Mart","Blinkit","Zepto"];for(var i=0;i<db.length;i++){var x=db[i],live=isLive(x),hay=(x.n+" "+x.q+" "+x.c+" "+x.kw).toLowerCase(),okC=(curC==="All")||(curC==="Offer"&&live)||(x.c===curC),okW=words.every(function(w){return hay.indexOf(w)!==-1;});if(okC&&okW){cnt++;var arr=[x.d,x.r,x.s,x.w,x.b,x.z],mn=Math.min.apply(null,arr),sh="";for(var j=0;j<6;j++){var isB=(arr[j]===mn);sh+="<div class='st "+(isB?"best":"")+"'>"+(isB?"<div class='b-lbl'>BEST</div>":"")+"<div>"+stN[j]+"</div><div><b>Rs."+arr[j]+"</b></div></div>";}var delB=x.custom?"<button onclick='delItem("+i+")' style='margin-left:6px;background:#fee2e2;color:#dc2626;border:none;border-radius:4px;padding:2px 7px;cursor:pointer;font-weight:bold'>× Delete</button>":"";var tg="<span class='tag'>"+x.c+"</span>"+(live?"<span class='tag t-off'>"+x.o+"</span>":"")+delB;h+="<div class='card'><div class='c-top'><div><span class='p-title'>"+x.n+"</span><span class='qty'>"+x.q+"</span></div><div>"+tg+"</div></div><div class='p-rhyme'>🎵 \""+x.ry+"\"</div><div class='grid'>"+sh+"</div></div>";}}document.getElementById("cBar").innerText="Showing "+cnt+" of "+db.length+" Surat items";if(h===""){h="<div class='req-box' id='reqSt'><h3>'"+raw+"' is not in the list yet!</h3><p>Click below to scan 6 Surat stores in 1 minute & save permanently.</p><button class='req-btn' onclick=\"startFetch('"+raw.replace(/'/g,"")+"')\">Fetch Live Price (1 Min)</button></div>";}document.getElementById("out").innerHTML=h;}
+function render() {
+  var raw = document.getElementById("sBox").value, words = cleanW(raw), det = detCat(words.join(" "));
+  if (det !== actC) { actC = det; di = 0; updBan(actC); }
+  var h = "", cnt = 0, stN = ["D-Mart", "Reliance", "Star Bazaar", "Wallet Mart", "Blinkit", "Zepto"];
+  for (var i = 0; i < db.length; i++) {
+    var x = db[i], live = isLive(x), hay = (x.n + " " + x.q + " " + x.c + " " + x.kw).toLowerCase();
+    var okC = (curC === "All") || (curC === "Offer" && live) || (x.c === curC);
+    var okW = words.every(function(w) { return hay.indexOf(w) !== -1; });
+    if (okC && okW) {
+      cnt++;
+      var arr = [x.d, x.r, x.s, x.w, x.b, x.z], mn = Math.min.apply(null, arr), sh = "";
+      for (var j = 0; j < 6; j++) {
+        var isB = (arr[j] === mn);
+        sh += "<div class='st " + (isB ? "best" : "") + "'>" + (isB ? "<div class='b-lbl'>BEST</div>" : "") + "<div>" + stN[j] + "</div><div><b>Rs." + arr[j] + "</b></div></div>";
+      }
+      var delB = x.custom ? "<button onclick='delItem(" + i + ")' style='margin-left:6px;background:#fee2e2;color:#dc2626;border:none;border-radius:4px;padding:2px 7px;cursor:pointer;font-weight:bold'>×</button>" : "";
+      var tg = "<span class='tag'>" + x.c + "</span>" + (live ? "<span class='tag t-off'>" + x.o + "</span>" : "") + delB;
+      h += "<div class='card'><div class='c-top'><div><span class='p-title'>" + x.n + "</span><span class='qty'>" + x.q + "</span></div><div>" + tg + "</div></div><div class='p-rhyme'>🎵 \"" + x.ry + "\"</div><div class='grid'>" + sh + "</div></div>";
+    }
+  }
+  document.getElementById("cBar").innerText = "Showing " + cnt + " of " + db.length + " Surat items";
+  if (h === "") {
+    h = "<div class='req-box' id='reqSt'><h3>'" + raw + "' is not in the list yet!</h3><p>Click below to scan 6 Surat stores in 1 minute & save permanently.</p><button class='req-btn' onclick=\"startFetch('" + raw.replace(/'/g, "") + "')\">Fetch Live Price (1 Min)</button></div>";
+  }
+  document.getElementById("out").innerHTML = h;
+}
 render();
+</script>
+</body>
+</html>
