@@ -3,133 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surat Bachat - Live Price Comparison</title>
+<title>Surat Bachat - Free Social Service</title>
 <style>
-* { box-sizing: border-box; }
-body { font-family: Arial, sans-serif; background: #f3f6f4; margin: 0; padding: 0 0 160px 0; color: #222; overflow-x: hidden; }
-.top-red { background: #dc2626; color: white; padding: 11px 15px; text-align: center; font-weight: bold; font-size: 14px; position: sticky; top: 0; z-index: 200; }
-.side-rail { position: fixed; top: 40px; bottom: 0; width: 76px; background: linear-gradient(180deg, #fef3c7 0%, #dcfce7 50%, #dbeafe 100%); border-right: 3px solid #f59e0b; overflow: hidden; z-index: 90; }
-.side-rail.right { left: auto; right: 0; border-right: none; border-left: 3px solid #16a34a; }
-.rail-track { display: flex; flex-direction: column; gap: 14px; padding: 12px 8px; animation: moveRail 16s linear infinite; }
-.side-rail.right .rail-track { animation-direction: reverse; }
-.rail-card { width: 58px; height: 58px; background: white; border-radius: 12px; border: 2px solid #fbbf24; padding: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.rail-card img { width: 100%; height: 100%; object-fit: contain; }
-@keyframes moveRail { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
-.main-wrap { max-width: 840px; margin: 18px auto; padding: 0 90px; }
-.row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-select, input { padding: 13px; font-size: 15px; border: 2px solid #15803d; border-radius: 10px; background: white; }
-input { flex: 1; min-width: 210px; font-weight: bold; }
-.cats { margin-bottom: 14px; }
-.cat-btn { background: white; border: 1.5px solid #15803d; color: #15803d; padding: 8px 14px; border-radius: 20px; cursor: pointer; margin: 3px; font-weight: bold; font-size: 13px; }
-.cat-btn.active { background: #15803d; color: white; }
-.count-bar { font-size: 13px; color: #374151; margin-bottom: 12px; font-weight: bold; }
-.card { background: white; padding: 15px; border-radius: 14px; margin-bottom: 16px; box-shadow: 0 3px 10px rgba(0,0,0,0.07); border: 1px solid #e5e7eb; }
-.c-top { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 12px; }
-.p-img { width: 72px; height: 72px; border-radius: 12px; background: #fff; border: 1.5px solid #d1fae5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; padding: 4px; }
-.p-img img { width: 100%; height: 100%; object-fit: contain; }
-.p-title { font-size: 16px; font-weight: bold; display: block; margin-bottom: 5px; color: #111827; }
-.tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: bold; background: #dcfce7; color: #15803d; margin-right: 5px; display: inline-block; }
-.t-off { background: #fee2e2; color: #dc2626; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); gap: 8px; }
-.st { border: 1px solid #e5e7eb; padding: 8px 4px; border-radius: 8px; text-align: center; background: #f9fafb; font-size: 13px; }
-.best { border: 2px solid #16a34a; background: #ecfdf5; font-weight: bold; color: #15803d; }
-.b-lbl { background: #16a34a; color: white; font-size: 10px; padding: 1px 6px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
-.doodle-corner { position: fixed; bottom: 14px; left: 84px; width: 225px; background: #fffbeb; border-radius: 18px; padding: 10px; z-index: 150; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.22); border: 3px dashed #dc2626; animation: pulseBorder 1.4s infinite alternate; }
-@keyframes pulseBorder { 0% { border-color: #dc2626; transform: scale(1); } 100% { border-color: #16a34a; transform: scale(1.03); } }
-.doodle-inner { background: white; border-radius: 12px; padding: 8px; text-align: center; border: 2px dotted #f59e0b; }
-.doodle-tag { background: #dc2626; color: white; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 4px; }
-.doodle-img { width: 82px; height: 82px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
-.doodle-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.doodle-catchy { font-size: 15px; font-weight: 900; color: #b91c1c; margin-top: 5px; line-height: 1.2; text-transform: uppercase; }
-.doodle-sub { font-size: 11px; font-weight: bold; color: #15803d; margin-top: 2px; }
-.req-box { background: white; padding: 25px; border-radius: 14px; text-align: center; border: 2px dashed #15803d; }
-.req-btn { background: #15803d; color: white; border: none; padding: 12px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
-.prog-wrap { width: 100%; max-width: 360px; height: 12px; background: #dcfce7; border-radius: 10px; margin: 12px auto; overflow: hidden; border: 1px solid #15803d; }
-.prog-bar { height: 100%; width: 0%; background: #15803d; transition: width 1s linear; }
-@media (max-width: 600px) { .side-rail { width: 50px; } .rail-card { width: 38px; height: 38px; } .main-wrap { padding: 0 56px; } .doodle-corner { left: 56px; width: 180px; } }
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f3f6f4;margin:0;padding:0 0 40px;color:#222;overflow-x:hidden}
+.top-red{background:#dc2626;color:#fff;padding:10px;text-align:center;font-weight:bold;font-size:13px;position:sticky;top:0;z-index:300}
+.left-doodle{position:fixed;top:38px;bottom:0;left:0;width:195px;background:linear-gradient(180deg,#fffbeb,#fef3c7,#fde68a);border-right:4px dashed #dc2626;padding:8px;z-index:200;display:flex;flex-direction:column;text-align:center;cursor:pointer;animation:glow 1.4s infinite alternate}
+@keyframes glow{0%{border-color:#dc2626}100%{border-color:#15803d}}
+.d-frame{border:3px dotted #f59e0b;border-radius:16px;background:#fff;padding:10px 6px;flex:1;display:flex;flex-direction:column;justify-content:space-between;align-items:center}
+.d-badge{background:#dc2626;color:#fff;font-size:11px;font-weight:900;padding:4px 10px;border-radius:12px}
+.d-art{width:110px;height:125px;border-radius:14px;background:linear-gradient(135deg,#111827,#374151);color:#fbbf24;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #fbbf24}
+.d-art span{font-size:40px;margin:4px 0}
+.d-catchy{font-size:16px;font-weight:900;color:#b91c1c;line-height:1.25}
+.d-price{background:#15803d;color:#fff;font-size:12px;font-weight:bold;padding:6px;border-radius:8px;width:100%}
+.right-rail{position:fixed;top:38px;bottom:0;right:0;width:76px;background:linear-gradient(180deg,#dcfce7,#fef9c3,#fee2e2);border-left:4px solid #15803d;overflow:hidden;z-index:200}
+.rail-track{display:flex;flex-direction:column;gap:10px;padding:8px;animation:moveUp 14s linear infinite}
+.rail-box{width:56px;height:56px;background:#fff;border-radius:12px;border:2px solid #f59e0b;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:22px;font-weight:bold}
+.rail-box span{font-size:8px;color:#333;margin-top:2px}
+@keyframes moveUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+.main{margin:14px 84px 14px 205px}
+.lang-bar{display:flex;justify-content:space-between;align-items:center;background:#15803d;color:#fff;padding:10px 14px;border-radius:12px;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.lang-bar h2{margin:0;font-size:18px}
+.l-btn{background:#fff;color:#15803d;border:none;padding:5px 11px;border-radius:14px;font-weight:bold;cursor:pointer;font-size:12px}
+.l-btn.active{background:#facc15;color:#000}
+.row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+select,input{padding:11px;font-size:14px;border:2px solid #15803d;border-radius:10px;background:#fff}
+input{flex:1;min-width:160px;font-weight:bold}
+.cats{margin-bottom:10px}
+.c-btn{background:#fff;border:1.5px solid #15803d;color:#15803d;padding:6px 12px;border-radius:18px;cursor:pointer;margin:2px;font-weight:bold;font-size:12px}
+.c-btn.active{background:#15803d;color:#fff}
+.c-bar{font-size:13px;color:#374151;margin-bottom:10px;font-weight:bold}
+.card{background:#fff;padding:14px;border-radius:14px;margin-bottom:14px;box-shadow:0 3px 8px rgba(0,0,0,0.07);border:1px solid #e5e7eb}
+.c-top{display:flex;align-items:center;gap:12px;border-bottom:1px solid #f3f4f6;padding-bottom:10px;margin-bottom:10px}
+.p-pic{width:62px;height:62px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:2px solid #bbf7d0;font-size:28px}
+.p-pic span{font-size:8px;font-weight:bold;color:#111;margin-top:2px}
+.p-title{font-size:15px;font-weight:bold;display:block;margin-bottom:4px}
+.tag{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:bold;background:#dcfce7;color:#15803d;margin-right:4px;display:inline-block}
+.t-off{background:#fee2e2;color:#dc2626}.t-bs{background:#fef08a;color:#854d0e;border:1px solid #eab308}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:6px}
+.st{border:1px solid #e5e7eb;padding:7px 3px;border-radius:8px;text-align:center;background:#f9fafb;font-size:12px}
+.best{border:2px solid #16a34a;background:#ecfdf5;font-weight:bold;color:#15803d}
+.b-lbl{background:#16a34a;color:#fff;font-size:9px;padding:1px 5px;border-radius:4px;display:inline-block;margin-bottom:2px}
+.req-box{background:#fff;padding:22px;border-radius:14px;text-align:center;border:2px dashed #15803d}
+.req-btn{background:#15803d;color:#fff;border:none;padding:11px 20px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px;margin-top:8px}
+.p-wrap{width:100%;max-width:320px;height:12px;background:#dcfce7;border-radius:10px;margin:10px auto;overflow:hidden;border:1px solid #15803d}
+.p-bar{height:100%;width:0%;background:#15803d;transition:width 1s linear}
+@media(max-width:700px){.left-doodle{width:105px;padding:4px}.d-art{width:76px;height:85px}.d-catchy{font-size:11px}.right-rail{width:48px}.rail-box{width:36px;height:36px;font-size:16px}.main{margin:10px 52px 10px 109px}}
 </style>
 </head>
 <body>
-
-<div class="top-red" id="redBanner">Sunfeast Dark Fantasy Biscuits — 50% OFF / BUY 1 GET 1 FREE!</div>
-<div class="side-rail"><div class="rail-track" id="leftRail"></div></div>
-<div class="side-rail right"><div class="rail-track" id="rightRail"></div></div>
-
-<div class="doodle-corner" onclick="jumpDeal('Bella Vita')">
-  <div class="doodle-inner">
-    <span class="doodle-tag">🔥 50% OFF MEGA SALE</span>
-    <div class="doodle-img">
-      <img src="https://media-amazon.com" onerror="this.src='https://flaticon.com'">
-    </div>
-    <div class="doodle-catchy">LE LO, LE LO! SABSE SASTA!</div>
-    <div class="doodle-sub">Bella Vita CEO Perfume Rs.425 Only</div>
+<div class="top-red" id="rBan">Sunfeast Dark Fantasy Biscuits — 50% OFF / BUY 1 GET 1 FREE!</div>
+<div class="left-doodle" onclick="jump('Bella Vita')">
+  <div class="d-frame">
+    <span class="d-badge">MEGA DEAL</span>
+    <div class="d-art"><b>BELLAVITA</b><span>🧴</span><small>CEO MAN 100ML</small></div>
+    <div class="d-catchy">LE LO, LE LO!<br>FLAT 50% OFF<br>SABSE SASTA!</div>
+    <div class="d-price">Reliance: Rs.425<br><small>(Save Rs.74!)</small></div>
   </div>
 </div>
-
-<div class="main-wrap">
+<div class="right-rail"><div class="rail-track" id="rRail"></div></div>
+<div class="main">
+  <div class="lang-bar">
+    <h2 id="t1">Surat Bachat (Free Service)</h2>
+    <div>
+      <button class="l-btn active" onclick="setL('en',this)">English</button>
+      <button class="l-btn" onclick="setL('hi',this)">&#2361;&#2367;&#2306;&#2342;&#2368;</button>
+      <button class="l-btn" onclick="setL('gu',this)">&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;</button>
+    </div>
+  </div>
   <div class="row">
-    <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu / City Light</option><option>Varachha</option><option>Katargam</option></select>
-    <input type="text" id="searchBox" placeholder="Search 50+ items or type ANY new item..." onkeyup="render()">
+    <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu</option><option>Varachha</option><option>Katargam</option></select>
+    <input type="text" id="sBox" placeholder="Search 32+ items or type ANY new item..." onkeyup="render()">
   </div>
   <div class="cats">
-    <button class="cat-btn active" onclick="setC('All', this)">All Items</button>
-    <button class="cat-btn" onclick="setC('Offer', this)">Offers & Sales</button>
-    <button class="cat-btn" onclick="setC('Grocery', this)">Grocery & Dairy</button>
-    <button class="cat-btn" onclick="setC('Personal', this)">Perfume & Care</button>
-    <button class="cat-btn" onclick="setC('Stationery', this)">Stationery</button>
-    <button class="cat-btn" onclick="setC('Electronics', this)">Electronics</button>
+    <button class="c-btn active" onclick="setC('All',this)">All Items</button>
+    <button class="c-btn" onclick="setC('Best',this)">Best Sellers</button>
+    <button class="c-btn" onclick="setC('Offer',this)">Offers & Sales</button>
+    <button class="c-btn" onclick="setC('Grocery',this)">Grocery & Dairy</button>
+    <button class="c-btn" onclick="setC('Personal',this)">Perfume & Care</button>
+    <button class="c-btn" onclick="setC('Stationery',this)">Stationery</button>
+    <button class="c-btn" onclick="setC('Electronics',this)">Electronics</button>
   </div>
-  <div class="count-bar" id="cBar"></div>
+  <div class="c-bar" id="cBar"></div>
   <div id="out"></div>
 </div>
-
 <script>
-fetch("https://hits.sh", { mode: 'no-cors' }).catch(function(){});
-
-var banners = [
-  "Sunfeast Dark Fantasy Biscuits — BUY 1 GET 1 FREE!",
-  "Bella Vita CEO Man Perfume — FLAT 50% OFF Today!",
-  "Aashirvaad Chakki Atta (5kg) — Extra Rs.20 OFF at D-Mart!",
-  "boAt Airdopes 141 Earbuds — 60% OFF Live Price Comparison!"
-];
-var bi = 0;
-setInterval(function() {
-  bi = (bi + 1) % banners.length;
-  document.getElementById("redBanner").innerText = banners[bi];
-}, 3000);
-
-var photos = {
-  perfume: "https://media-amazon.com",
-  biscuit: "https://media-amazon.com",
-  cheese: "https://media-amazon.com",
-  butter: "https://media-amazon.com",
-  sugar: "https://flaticon.com",
-  atta: "https://flaticon.com",
-  oil: "https://flaticon.com",
-  dal: "https://flaticon.com",
-  tea: "https://flaticon.com",
-  masala: "https://flaticon.com",
-  dryfruit: "https://flaticon.com",
-  maggi: "https://flaticon.com",
-  drink: "https://flaticon.com",
-  detergent: "https://flaticon.com",
-  soap: "https://flaticon.com",
-  shampoo: "https://flaticon.com",
-  toothpaste: "https://flaticon.com",
-  notebook: "https://flaticon.com",
-  pen: "https://flaticon.com",
-  earbuds: "https://flaticon.com",
-  watch: "https://flaticon.com",
-  default: "https://flaticon.com"
-};
-
-function getPhotoUrl(name) {
-  var s = name.toLowerCase();
-  if (s.indexOf("perfume") !== -1 || s.indexOf("bella") !== -1) return photos.perfume;
-  if (s.indexOf("biscuit") !== -1 || s.indexOf("fantasy") !== -1 || s.indexOf("oreo") !== -1 || s.indexOf("parle") !== -1) return photos.biscuit;
-  if (s.indexOf("cheese") !== -1) return photos.cheese;
-  if (s.indexOf("butter") !== -1 || s.indexOf("paneer") !== -1 || s.indexOf("milk") !== -1 || s.indexOf("dahi") !== -1) return photos.butter;
-  if (s.indexOf("sugar") !== -1 || s.indexOf("salt") !== -1) return photos.sugar;
-  if (s.indexOf("atta") !== -1 || s.indexOf("rice") !== -1 || s.indexOf("besan") !== -1 || s.indexOf("bread") !== -1) return photos.atta;
-  if (s.indexOf("oil") !== -1 || s.indexOf("singtel") !== -1 || s.indexOf("ghee") !== -1) return photos.oil;
-  if (s.indexOf("dal") !== -1 || s.indexOf("chana") !== -1) return photos.dal;
+var rD=[["🧴","PERFUME","#fef3c7"],["🍪","BISCUIT","#fee2e2"],["🧀","CHEESE","#fef9c3"],["🧈","BUTTER","#dcfce7"],["🥛","MILK","#e0f2fe"],["🌾","ATTA","#ffedd5"],["🫙","SINGTEL","#f3e8ff"],["🫘","DAL","#dcfce7"],["☕","CHAI","#fef3c7"],["🍜","MAGGI","#fee2e2"],["🎧","EARBUDS","#e0f2fe"],["⌚","WATCH","#f3e8ff"]];
+var rh="";for(var r=0;r<24;r++){var it=rD[r%12];rh+="<div class='rail-box' style='background:"+it+"'>"+it+"<span>"+it+"</span></div>";}
+document.getElementById("rRail").innerHTML=rh;
+var curC="All",tmr=null;
+var db=[
+{n:"Bella Vita CEO Perfume (100ml)",c:"Personal",o:"50% OFF",bs:1,i:"🧴",l:"PERFUME",bg:"#fef3c7",d:449,r:425,s:460,w:435,b:499,z:489},
+{n:"Sunfeast Dark Fantasy (300g)",c:"Grocery",o:"BUY 1 GET 1",bs:1,i:"🍪",l:"BISCUIT",bg:"#fee2e2",d:150,r:145,s:148,w:140,b:160,z:155},
+{n:"Amul Cheese Cubes (200g)",c:"Grocery",o:"SAVE Rs.10",bs:1,i:"🧀",l:"CHEESE",bg:"#fef9c3",d:122,r:128,s:125,w:124,b:135,z:135},
+{n:"Amul Cheese Slices (200g)",c:"Grocery",o:"",bs:0,i:"🧀",l:"SLICES",bg:"#fef9c3",d:132,r:138,s:135,w:134,b:145,z:145},
+{n:"Amul Table Butter (500g)",c:"Grocery",o:"HOT DEAL",bs:1,i:"🧈",l:"BUTTER",bg:"#fef3c7",d:265,r:275,s:270,w:268,b:285,z:285},
+{n:"Amul Malai Paneer (200g)",c:"Grocery",o:"",bs:0,i:"🧈",l:"PANEER",bg:"#f0fdf4",d:85,r:90,s:88,w:86,b:95,z:95},
+{n:"Amul Pure Cow Ghee (1L)",c:"Grocery",o:"SAVE Rs.30",bs:1,i:"🫙",l:"GHEE",bg:"#fef3c7",d:585,r:605,s:595,w:590,b:625,z:620},
+{n:"Amul Taaza Milk (1L)",c:"Grocery",o:"",bs:1,i:"🥛",l:"MILK",bg:"#e0f2fe",d:54,r:54,s:54,w:53,b:56,z:56},
+{n:"Amul Masti Dahi (400g)",c:"Grocery",o:"",bs:0,i:"🥛",l:"DAHI",bg:"#e0f2fe",d:32,r:35,s:34,w:33,b:36,z:36},
+{n:"White Sugar / Chini (1kg)",c:"Grocery",o:"",bs:1,i:"🧂",l:"SUGAR",bg:"#f3f4f6",d:42,r:45,s:44,w:43,b:48,z:47},
+{n:"Tata Iodized Salt (1kg)",c:"Grocery",o:"",bs:0,i:"🧂",l:"SALT",bg:"#f3f4f6",d:24,r:26,s:25,w:24,b:28,z:28},
+{n:"Aashirvaad Chakki Atta (5kg)",c:"Grocery",o:"SAVE Rs.20",bs:1,i:"🌾",l:"ATTA",bg:"#ffedd5",d:215,r:225,s:220,w:218,b:235,z:232},
+{n:"Fortune Besan Flour (1kg)",c:"Grocery",o:"",bs:0,i:"🌾",l:"BESAN",bg:"#fef9c3",d:88,r:95,s:92,w:90,b:102,z:100},
+{n:"Fortune Sunflower Oil (1L)",c:"Grocery",o:"",bs:0,i:"🫙",l:"OIL",bg:"#fef9c3",d:124,r:129,s:126,w:125,b:135,z:134},
+{n:"Gulab Singtel Oil (1L)",c:"Grocery",o:"SURAT SPECIAL",bs:1,i:"🫙",l:"SINGTEL",bg:"#ffedd5",d:168,r:178,s:174,w:170,b:185,z:184},
+{n:"Britannia Wheat Bread (400g)",c:"Grocery",o:"",bs:0,i:"🍞",l:"BREAD",bg:"#ffedd5",d:45,r:48,s:46,w:45,b:50,z:50},
+{n:"Tata Yellow Moong Dal (1kg)",c:"Grocery",o:"SAVE Rs.17",bs:1,i:"🫘",l:"DAL",bg:"#fef9c3",d:148,r:155,s:152,w:149,b:165,z:162},
+{n:"Tata Toor / Tuver Dal (1kg)",c:"Grocery",o:"",bs:1,i:"🫘",l:"TUVER",bg:"#fef3c7",d:178,r:188,s:184,w:180,b:198,z:195},
+{n:"Daawat Basmati Rice (5kg)",c:"Grocery",o:"SAVE Rs.40",bs:1,i:"🌾",l:"RICE",bg:"#f0fdf4",d:360,r:385,s:375,w:368,b:410,z:405},
+</script>
+</body>
+</html>
