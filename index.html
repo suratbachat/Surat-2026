@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surat Bachat - Live Price Comparison</title>
+<title>Surat Bachat</title>
 <style>
 *{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f4f7f6;margin:0;padding:0 0 35px;color:#222}
 .top-red{background:#dc2626;color:#fff;padding:11px;font-weight:bold;font-size:15px;position:sticky;top:0;z-index:300;overflow:hidden;white-space:nowrap}
@@ -15,6 +15,7 @@
 .l-btn.active{background:#facc15;color:#000}
 .box{max-width:880px;margin:16px auto;padding:0 15px}
 .y-box{background:linear-gradient(135deg,#fef08a,#fde047);border:2.5px dashed #dc2626;border-radius:14px;padding:14px;margin-bottom:14px;text-align:center;cursor:pointer}
+.y-tag{background:#dc2626;color:#fff;font-size:11px;font-weight:bold;padding:2px 10px;border-radius:10px;display:inline-block;margin-bottom:4px}
 .y-txt{font-size:18px;font-weight:bold;color:#991b1b;margin:4px 0}.y-prc{background:#1e8449;color:#fff;font-size:13px;font-weight:bold;padding:4px 12px;border-radius:8px;display:inline-block}
 .row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
 select,input{padding:13px;font-size:16px;border:1.5px solid #1e8449;border-radius:8px;background:#fff}
@@ -24,8 +25,9 @@ input{flex:1;min-width:220px}
 .c-btn.active{background:#1e8449;color:#fff}
 .c-bar{font-size:15px;color:#444;margin-bottom:12px;font-weight:bold}
 .card{background:#fff;padding:15px;border-radius:12px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
-.c-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:10px;margin-bottom:10px;flex-wrap:wrap;gap:6px}
+.c-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:8px;margin-bottom:8px;flex-wrap:wrap;gap:6px}
 .p-title{font-size:18px;font-weight:bold;color:#111}
+.p-rhyme{font-size:13.5px;color:#991b1b;background:#fef9c3;padding:5px 10px;border-radius:6px;margin-bottom:10px;font-weight:bold;border-left:3.5px solid #dc2626}
 .qty{background:#e0f2fe;color:#0369a1;font-size:12px;padding:3px 8px;border-radius:5px;font-weight:bold;margin-left:6px}
 .tag{font-size:11px;padding:3px 8px;border-radius:5px;font-weight:bold;background:#e8f8f5;color:#1e8449;margin-left:4px}
 .t-off{background:#fdebd0;color:#d35400}
@@ -41,7 +43,7 @@ input{flex:1;min-width:220px}
 </head>
 
   <body>
-<div class="top-red"><div class="marq" id="rBan">"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!" — 50% OFF Today!</div></div>
+<div class="top-red"><div class="marq" id="rBan">"Kuch Samajh Na Aaye To Lelo Lelo, Surat Bachat Par Saste Daam Ka Mela Khel Lo!"</div></div>
 <div class="header">
   <h1 id="t1">Surat Bachat</h1>
   <p id="t2">Compare Live Prices Across 6 Surat Stores</p>
@@ -53,12 +55,13 @@ input{flex:1;min-width:220px}
 </div>
 <div class="box">
   <div class="y-box" onclick="jumpDeal()">
-    <div class="y-txt" id="yTxt">"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!"</div>
-    <div class="y-prc" id="yPrc">Bella Vita Perfume (100 ml) — Reliance: Rs.425</div>
+    <div class="y-tag" id="yTag">TODAY'S SURAT BAZAAR RHYME</div>
+    <div class="y-txt" id="yTxt">"Kuch Samajh Na Aaye To Lelo Lelo, Surat Bachat Par Saste Daam Ka Mela Khel Lo!"</div>
+    <div class="y-prc" id="yPrc">Tap to Explore Best Deals</div>
   </div>
   <div class="row">
     <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu</option><option>Varachha</option><option>Katargam</option></select>
-    <input type="text" id="sBox" placeholder="Search items or type ANY new item..." onkeyup="render()">
+    <input type="text" id="sBox" placeholder="Ulta-seedha kuch bhi likhein (e.g. 'chota maggie', 'kapde', 'khushboo')..." onkeyup="render()">
   </div>
   <div class="cats">
     <button class="c-btn active" onclick="setC('All',this)">All Items</button>
@@ -72,61 +75,71 @@ input{flex:1;min-width:220px}
   <div id="out"></div>
 </div>
 <script>
-var deals=[
-  {k:"Bella Vita",txt:"\"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!\"",prc:"Bella Vita Perfume (100 ml) — Reliance: Rs.425"},
-  {k:"Dark Fantasy",txt:"\"Meethe Ka Mazaa Ab Hoga Double, Ek Pe Ek Free — Chhod Do Saari Trouble!\"",prc:"Dark Fantasy Biscuits (300 g) — Wallet Mart: Rs.140"},
-  {k:"boAt",txt:"\"Taaron Ka Jhanjhat Ab Karo Bye-Bye, boAt Earbuds Se Sangeet Mein Kho Jayein!\"",prc:"boAt Airdopes 141 — Reliance: Rs.1,099"},
-  {k:"Aashirvaad",txt:"\"Ghar Ka Ration Ab Aayega Aur Bhi Sasta, Surat Bachat Hai Bachat Ka Sahi Rasta!\"",prc:"Aashirvaad Atta (5 kg) — D-Mart: Rs.215"},
-  {k:"T-Shirt",txt:"\"Naya Style Aur Kapda Ekdum Soft, Surat Bachat Par Fashion Milega Top!\"",prc:"Allen Solly T-Shirt — Reliance: Rs.499"}
-];
-var di=new Date().getDay()%deals.length;
-function showD(i){var d=deals[i];document.getElementById("yTxt").innerText=d.txt;document.getElementById("yPrc").innerText=d.prc;document.getElementById("rBan").innerText=d.txt+"  ★  "+d.prc;}
-showD(di);
-function jumpDeal(){document.getElementById("sBox").value=deals[di].k;render();}
-setInterval(function(){di=(di+1)%deals.length;showD(di);},4500);
+var catRhymes={
+  All:[
+    {k:"Bella Vita",tag:"PERFUME DHAMAKA",txt:"\"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!\"",prc:"Bella Vita Perfume (100 ml) — Reliance: Rs.425"},
+    {k:"T-Shirt",tag:"CLOTHES & FASHION",txt:"\"Naya Style Aur Kapda Ekdum Soft, Pehno Aur Lagoge Ekdum Top!\"",prc:"Allen Solly Cotton T-Shirt — Reliance: Rs.499"},
+    {k:"Dark Fantasy",tag:"SWEET OFFER",txt:"\"Meethe Ka Mazaa Ab Hoga Double, Ek Pe Ek Free — Chhod Do Saari Trouble!\"",prc:"Dark Fantasy Biscuits (300 g) — Wallet Mart: Rs.140"},
+    {k:"Maggi",tag:"2-MIN SNACK",txt:"\"2 Minute Mein Bhookh Ko Karo Bye-Bye, Garma-Garam Maggi Sabke Dil Ko Bhaye!\"",prc:"Maggi Single Packet (70g) — D-Mart: Rs.13"},
+    {k:"",tag:"SURAT BAZAAR SPECIAL",txt:"\"Kuch Samajh Na Aaye To Lelo Lelo, Surat Bachat Par Saste Daam Ka Mela Khel Lo!\"",prc:"All Verified Surat Deals"}
+  ],
+  Clothes:[
+    {k:"T-Shirt",tag:"CLOTHES SPECIAL RHYME",txt:"\"Naya Style Aur Kapda Ekdum Soft, Pehno Aur Lagoge Ekdum Top!\"",prc:"Allen Solly Polo T-Shirt — Rs.499"},
+    {k:"Jeans",tag:"DENIM DEAL RHYME",txt:"\"Fitting Ho Mast Aur Look Ho Hero, Surat Bachat Par Price Ekdum Zero!\"",prc:"Levi's Stretch Jeans — Rs.1,299"},
+    {k:"Kurti",tag:"ETHNIC WEAR RHYME",txt:"\"Rang Birangi Kurti Aur Naya Fashion, Tyohar Ho Ya Office Badhaye Aapki Shaan!\"",prc:"Biba Printed Kurti — Rs.749"}
+  ],
+  Personal:[
+    {k:"Bella Vita",tag:"PERFUME RHYME",txt:"\"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!\"",prc:"Bella Vita CEO (100 ml) — Rs.425"},
+    {k:"Fogg",tag:"NO-GAS SPRAY RHYME",txt:"\"Bina Gas Wala Perfume Chale Lamba Saal, Fogg Lagao Aur Machao Dhamaal!\"",prc:"Fogg Royal (150 ml) — Rs.165"}
+  ],
+  Grocery:[
+    {k:"Maggi",tag:"NOODLES RHYME",txt:"\"2 Minute Mein Bhookh Ko Karo Bye-Bye, Garma-Garam Maggi Sabke Dil Ko Bhaye!\"",prc:"Maggi Single Chhota (70g) — Rs.13"},
+    {k:"Ghee",tag:"DESI GHEE RHYME",txt:"\"Shuddh Desi Ghee Ki Meethi Khushboo, Har Thali Mein Laaye Sehat Ka Jaadoo!\"",prc:"Amul Pure Ghee (1L) — Rs.585"}
+  ],
+  Electronics:[
+    {k:"boAt",tag:"AUDIO DEAL RHYME",txt:"\"Taaron Ka Jhanjhat Ab Karo Bye-Bye, boAt Earbuds Se Sangeet Mein Kho Jayein!\"",prc:"boAt Airdopes 141 — Rs.1,099"},
+    {k:"Noise",tag:"SMARTWATCH RHYME",txt:"\"Haath Par Bandho Smart Zamaana, Noise Watch Ke Saath Har Pal Suhana!\"",prc:"Noise Pulse 2 Max — Rs.1,399"}
+  ]
+};
+var curC="All",activeCat="All",di=0,tmr=null;
+function updateBanner(fc){var p=catRhymes[fc]||catRhymes.All,d=p[di%p.length];document.getElementById("yTag").innerText=d.tag;document.getElementById("yTxt").innerText=d.txt;document.getElementById("yPrc").innerText=d.prc;document.getElementById("rBan").innerText="🔥 "+d.txt+"  ★  "+d.prc;}
+updateBanner("All");
+function jumpDeal(){var p=catRhymes[activeCat]||catRhymes.All;document.getElementById("sBox").value=p[di%p.length].k;render();}
+setInterval(function(){di++;updateBanner(activeCat);},4200);
 
-var curC="All",tmr=null;
-var db=[
-{n:"Bella Vita Luxury CEO Perfume",q:"100 ml",c:"Personal",o:"50% OFF",d:449,r:425,s:460,w:435,b:499,z:489},
-{n:"Fogg Royal No-Gas Perfume Spray",q:"150 ml",c:"Personal",o:"SAVE Rs.60",d:165,r:175,s:170,w:168,b:199,z:195},
-{n:"Engage Yang Eau De Parfum",q:"100 ml",c:"Personal",o:"BUY 1 GET 1",d:299,r:285,s:295,w:290,b:340,z:335},
-{n:"Denver Hamilton Imperial Perfume",q:"100 ml",c:"Personal",o:"40% OFF",d:245,r:235,s:250,w:240,b:275,z:270},
-{n:"Allen Solly Men Cotton Polo T-Shirt",q:"1 Unit",c:"Clothes",o:"NEW LAUNCH",d:549,r:499,s:529,w:519,b:649,z:629},
-{n:"Levi's Slim Fit Stretch Denim Jeans",q:"1 Pair",c:"Clothes",o:"40% OFF",d:1399,r:1299,s:1349,w:1320,b:1599,z:1549},
-{n:"Jockey Super Combed Cotton T-Shirt",q:"Pack of 2",c:"Clothes",o:"HOT DEAL",d:699,r:679,s:689,w:685,b:749,z:749},
-{n:"Biba Women Printed Cotton Kurti",q:"1 Unit",c:"Clothes",o:"FESTIVE SALE",d:799,r:749,s:779,w:765,b:899,z:879},
-{n:"Puma Men Running Track Pants",q:"1 Pair",c:"Clothes",o:"35% OFF",d:899,r:849,s:879,w:865,b:999,z:979},
-{n:"Raymond Formal Cotton Shirt",q:"1 Unit",c:"Clothes",o:"OFFICE SALE",d:999,r:949,s:979,w:965,b:1149,z:1129},
-{n:"boAt Airdopes 141 TWS Earbuds",q:"1 Pair",c:"Electronics",o:"60% OFF",d:1199,r:1099,s:1249,w:1149,b:1299,z:1299},
-{n:"Noise ColorFit Pulse 2 Max Watch",q:"1 Unit",c:"Electronics",o:"NEW LAUNCH",d:1499,r:1399,s:1549,w:1449,b:1599,z:1599},
-{n:"Sunfeast Dark Fantasy Biscuits",q:"300 g",c:"Grocery",o:"BUY 1 GET 1",d:150,r:145,s:148,w:140,b:160,z:155},
-{n:"Aashirvaad Shudh Chakki Atta",q:"5 kg",c:"Grocery",o:"SAVE Rs.20",d:215,r:225,s:220,w:218,b:235,z:232},
-{n:"Gulab Groundnut / Singtel Oil",q:"1 Litre",c:"Grocery",o:"SURAT SPECIAL",d:168,r:178,s:174,w:170,b:185,z:184},
-{n:"Amul Pure Cow Ghee",q:"1 Litre",c:"Grocery",o:"SAVE Rs.30",d:585,r:605,s:595,w:590,b:625,z:620},
-{n:"Amul Processed Cheese Cubes",q:"200 g",c:"Grocery",o:"SAVE Rs.10",d:122,r:128,s:125,w:124,b:135,z:135},
-{n:"Amul Pasteurised Table Butter",q:"500 g",c:"Grocery",o:"HOT DEAL",d:265,r:275,s:270,w:268,b:285,z:285},
-{n:"Amul Taaza Fresh Milk",q:"1 Litre",c:"Grocery",o:"",d:54,r:54,s:54,w:53,b:56,z:56},
-{n:"Refined White Sugar / Chini",q:"1 kg",c:"Grocery",o:"",d:42,r:45,s:44,w:43,b:48,z:47},
-{n:"Tata Iodized Crystal Salt",q:"1 kg",c:"Grocery",o:"",d:24,r:26,s:25,w:24,b:28,z:28},
-{n:"Fortune Sunlite Sunflower Oil",q:"1 Litre",c:"Grocery",o:"",d:124,r:129,s:126,w:125,b:135,z:134},
-{n:"Britannia Whole Wheat Bread",q:"400 g",c:"Grocery",o:"",d:45,r:48,s:46,w:45,b:50,z:50},
-{n:"Tata Sampann Yellow Moong Dal",q:"1 kg",c:"Grocery",o:"SAVE Rs.17",d:148,r:155,s:152,w:149,b:165,z:162},
-{n:"Tata Unpolished Toor / Tuver Dal",q:"1 kg",c:"Grocery",o:"",d:178,r:188,s:184,w:180,b:198,z:195},
-{n:"Daawat Rozana Basmati Rice",q:"5 kg",c:"Grocery",o:"SAVE Rs.40",d:360,r:385,s:375,w:368,b:410,z:405},
-{n:"Wagh Bakri Premium Leaf Tea",q:"500 g",c:"Grocery",o:"GUJARAT SPECIAL",d:240,r:255,s:248,w:244,b:265,z:262},
-{n:"California Whole Almonds / Badam",q:"500 g",c:"Grocery",o:"DRY FRUIT SALE",d:365,r:395,s:380,w:372,b:420,z:415},
-{n:"Maggi Masala Noodles",q:"Pack of 12",c:"Grocery",o:"SAVE Rs.18",d:150,r:162,s:158,w:154,b:168,z:168},
-{n:"Ariel Matic Front Load Liquid",q:"2 Litre",c:"Grocery",o:"SAVE Rs.45",d:355,r:380,s:370,w:362,b:399,z:395},
-{n:"Dove Cream Beauty Bathing Bar",q:"Pack of 4",c:"Personal",o:"BUY 3 GET 1",d:210,r:225,s:220,w:215,b:240,z:238},
-{n:"Colgate MaxFresh Toothpaste",q:"300 g",c:"Personal",o:"BUY 1 GET 1",d:180,r:195,s:190,w:185,b:210,z:205}
+  var db=[
+{n:"Bella Vita Luxury CEO Perfume",q:"100 ml",c:"Personal",o:"50% OFF",kw:"perfume khushboo scent itra spray",ry:"Ab badbu se nahi hona padega pareshan, Bella Vita CEO badhaye aapki shaan!",d:449,r:425,s:460,w:435,b:499,z:489},
+{n:"Fogg Royal No-Gas Perfume Spray",q:"150 ml",c:"Personal",o:"SAVE Rs.60",kw:"perfume deo body spray khushboo",ry:"Bina gas wala perfume chale lamba saal, Fogg lagao aur machao dhamaal!",d:165,r:175,s:170,w:168,b:199,z:195},
+{n:"Engage Yang Eau De Parfum",q:"100 ml",c:"Personal",o:"BUY 1 GET 1",kw:"perfume scent spray",ry:"Khushboo aisi jo dil ko chhoo jaye, Engage lagate hi har koi muskuraye!",d:299,r:285,s:295,w:290,b:340,z:335},
+{n:"Allen Solly Men Cotton Polo T-Shirt",q:"1 Unit",c:"Clothes",o:"NEW LAUNCH",kw:"kapde kapda cloth clothes tshirt tee shirt wear",ry:"Naya style aur kapda ekdum soft, pehno aur lagoge ekdum top!",d:549,r:499,s:529,w:519,b:649,z:629},
+{n:"Levi's Slim Fit Stretch Denim Jeans",q:"1 Pair",c:"Clothes",o:"40% OFF",kw:"kapde kapda cloth clothes pant denim trousers",ry:"Fitting ho mast aur look ho hero, Surat Bachat par price ekdum zero!",d:1399,r:1299,s:1349,w:1320,b:1599,z:1549},
+{n:"Jockey Super Combed Cotton T-Shirt",q:"Pack of 2",c:"Clothes",o:"HOT DEAL",kw:"kapde kapda cloth clothes innerwear tshirt",ry:"Garmi ho ya sardi aaram bharpoor, Jockey pehno aur thakan karo door!",d:699,r:679,s:689,w:685,b:749,z:749},
+{n:"Biba Women Printed Cotton Kurti",q:"1 Unit",c:"Clothes",o:"FESTIVE SALE",kw:"kapde kapda cloth clothes dress ladies suit",ry:"Rang birangi kurti aur naya fashion, tyohar ho ya office badhaye aapki shaan!",d:799,r:749,s:779,w:765,b:899,z:879},
+{n:"Raymond Formal Cotton Shirt",q:"1 Unit",c:"Clothes",o:"OFFICE SALE",kw:"kapde kapda cloth clothes formal wear",ry:"Office meeting mein dikho sabse smart, Raymond shirt banaye aapki alag baat!",d:999,r:949,s:979,w:965,b:1149,z:1129},
+{n:"boAt Airdopes 141 TWS Earbuds",q:"1 Pair",c:"Electronics",o:"60% OFF",kw:"earphone headphones bluetooth tws audio",ry:"Taaron ka jhanjhat ab karo bye-bye, boAt earbuds se sangeet mein kho jayein!",d:1199,r:1099,s:1249,w:1149,b:1299,z:1299},
+{n:"Noise ColorFit Pulse 2 Max Watch",q:"1 Unit",c:"Electronics",o:"NEW LAUNCH",kw:"smartwatch ghadi watch fitness",ry:"Haath par bandho smart zamaana, Noise watch ke saath har pal suhana!",d:1499,r:1399,s:1549,w:1449,b:1599,z:1599},
+{n:"Sunfeast Dark Fantasy Biscuits",q:"300 g",c:"Grocery",o:"BUY 1 GET 1",kw:"biscuit cookies chocolate nashta",ry:"Meethe ka mazaa ab hoga double, ek pe ek free — chhod do saari trouble!",d:150,r:145,s:148,w:140,b:160,z:155},
+{n:"Maggi Masala Noodles (Single Chhota Pack)",q:"70 g (1 Packet)",c:"Grocery",o:"MRP Rs.14",kw:"maggi maggie chhota chota single 1 ek packet nasta",ry:"2 minute mein bhookh ko karo bye-bye, garma-garam Maggi sabke dil ko bhaye!",d:13,r:14,s:14,w:13,b:14,z:14},
+{n:"Maggi Masala Noodles (Family Pack)",q:"Pack of 12",c:"Grocery",o:"SAVE Rs.18",kw:"maggi maggie bada family 12 pack",ry:"Poori family ke liye 12 pack ka mela, bachat mein sabse aage Surat akela!",d:150,r:162,s:158,w:154,b:168,z:168},
+{n:"Aashirvaad Shudh Chakki Atta",q:"5 kg",c:"Grocery",o:"SAVE Rs.20",kw:"atta aata gehu flour roti",ry:"Ghar ka ration ab aayega aur bhi sasta, Surat Bachat hai bachat ka sahi rasta!",d:215,r:225,s:220,w:218,b:235,z:232},
+{n:"Gulab Groundnut / Singtel Oil",q:"1 Litre",c:"Grocery",o:"SURAT SPECIAL",kw:"tel oil singtel moongfali cooking",ry:"Surat ke khane ka asli swad, Gulab Singtel se har rasoi aabad!",d:168,r:178,s:174,w:170,b:185,z:184},
+{n:"Amul Pure Cow Ghee",q:"1 Litre",c:"Grocery",o:"SAVE Rs.30",kw:"ghee desi makkhan dairy",ry:"Shuddh desi ghee ki meethi khushboo, har thali mein laaye sehat ka jaadoo!",d:585,r:605,s:595,w:590,b:625,z:620},
+{n:"Amul Processed Cheese Cubes",q:"200 g",c:"Grocery",o:"SAVE Rs.10",kw:"cheese paneer dairy",ry:"Pizza ho ya sandwich cheesy banao, Amul cheese cubes se swad badhao!",d:122,r:128,s:125,w:124,b:135,z:135},
+{n:"Amul Pasteurised Table Butter",q:"500 g",c:"Grocery",o:"HOT DEAL",kw:"butter makkhan bread",ry:"Subah ke nashte mein makkhan ka pyaar, Amul butter se din bane shandaar!",d:265,r:275,s:270,w:268,b:285,z:285},
+{n:"Amul Taaza Fresh Milk",q:"1 Litre",c:"Grocery",o:"",kw:"doodh milk dairy",ry:"Taaza doodh aur sehat ka khazana, har ghar ka bharosa purana!",d:54,r:54,s:54,w:53,b:56,z:56},
+{n:"Refined White Sugar / Chini",q:"1 kg",c:"Grocery",o:"",kw:"chini shakkar sugar khand",ry:"Chai ho ya meetha swad badhaye, saste daam mein ghar tak aaye!",d:42,r:45,s:44,w:43,b:48,z:47},
+{n:"Tata Iodized Crystal Salt",q:"1 kg",c:"Grocery",o:"",kw:"namak salt mithu",ry:"Desh ka namak aur bharosa pakka, har rasoi ka sabse sasta sikka!",d:24,r:26,s:25,w:24,b:28,z:28},
+{n:"Britannia Whole Wheat Bread",q:"400 g",c:"Grocery",o:"",kw:"bread pav breakfast",ry:"Taazi aur naram bread laaye subah ki jaan, Surat Bachat par sabse sasta daam!",d:45,r:48,s:46,w:45,b:50,z:50},
+{n:"Tata Unpolished Toor / Tuver Dal",q:"1 kg",c:"Grocery",o:"",kw:"dal daal toor tuver",ry:"Ghar ki dal-roti ka asli maza, Surat Bachat par milta sasta khazana!",d:178,r:188,s:184,w:180,b:198,z:195},
+{n:"Daawat Rozana Basmati Rice",q:"5 kg",c:"Grocery",o:"SAVE Rs.40",kw:"chawal rice biryani chokha",ry:"Khile-khile chawal aur khushboo lajawaab, Daawat basmati banaye khana shandaar!",d:360,r:385,s:375,w:368,b:410,z:405},
+{n:"Wagh Bakri Premium Leaf Tea",q:"500 g",c:"Grocery",o:"GUJARAT SPECIAL",kw:"chai tea patti cha",ry:"Subah ki chuski aur taazgi bharpoor, Wagh Bakri chai se thakan ho door!",d:240,r:255,s:248,w:244,b:265,z:262},
+{n:"California Whole Almonds / Badam",q:"500 g",c:"Grocery",o:"DRY FRUIT SALE",kw:"badam almonds dryfruit",ry:"Dimag ho tez aur sehat ho mast, badam khayein aur rahein zabardast!",d:365,r:395,s:380,w:372,b:420,z:415},
+{n:"Ariel Matic Front Load Liquid",q:"2 Litre",c:"Grocery",o:"SAVE Rs.45",kw:"surf detergent kapde dhone washing",ry:"Ziddi daag ab honge ek pal mein saaf, kapde chamkenge bilkul bemisaal!",d:355,r:380,s:370,w:362,b:399,z:395},
+{n:"Dove Cream Beauty Bathing Bar",q:"Pack of 4",c:"Personal",o:"BUY 3 GET 1",kw:"sabun soap nahane",ry:"Chamakti twacha aur khushbu bemisaal, Dove sabun se har din ho kamaal!",d:210,r:225,s:220,w:215,b:240,z:238},
+{n:"Colgate MaxFresh Toothpaste",q:"300 g",c:"Personal",o:"BUY 1 GET 1",kw:"manjan toothpaste brush",ry:"Taaza saans aur chamakti muskaan, Colgate MaxFresh badhaye aapki shaan!",d:180,r:195,s:190,w:185,b:210,z:205}
 ];
-var ext=[];try{ext=JSON.parse(localStorage.getItem("surat_nophoto_v1")||"[]");}catch(e){}
-db=ext.concat(db);
 function setL(l,b){var bs=document.getElementsByClassName("l-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");document.getElementById("t1").innerText=l==='hi'?"\u0938\u0942\u0930\u0924 \u092c\u091a\u0924":l==='gu'?"\u0ab8\u0ac1\u0ab0\u0aa4 \u0aac\u0a9a\u0aa4":"Surat Bachat";document.getElementById("t2").innerText=l==='hi'?"\u0938\u0942\u0930\u0924 \u0915\u0947 6 \u0938\u094d\u091f\u094b\u0930\u094d\u0938 \u0915\u0947 \u0932\u093e\u0907\u0935 \u0926\u093e\u092e \u0915\u0940 \u0924\u0941\u0932\u0928\u093e \u0915\u0930\u0947\u0902":l==='gu'?"\u0ab8\u0ac1\u0ab0\u0aa4\u0aa8\u0abe 6 \u0ab8\u0acd\u0a9f\u0acb\u0ab0\u0acd\u0ab8\u0aa8\u0abe \u0ab2\u0abe\u0a88\u0ab5 \u0aad\u0abe\u0ab5\u0aa8\u0ac0 \u0ab8\u0ab0\u0a96\u0abe\u0aae\u0aa3\u0ac0 \u0a95\u0ab0\u0acb":"Compare Live Prices Across 6 Surat Stores";}
-function setC(c,b){curC=c;var bs=document.getElementsByClassName("c-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");render();}
-function startFetch(nm){if(tmr)clearInterval(tmr);var sec=60;document.getElementById("reqSt").innerHTML="<h3 style='color:#1e8449;'>Scanning 6 Surat Stores for '"+nm+"'...</h3><p>Please wait 1 minute while we fetch live prices...</p><div class='p-wrap'><div class='p-bar' id='pB'></div></div><b id='tC' style='color:#d35400;font-size:18px;'>60 seconds remaining...</b>";tmr=setInterval(function(){sec--;if(document.getElementById("pB"))document.getElementById("pB").style.width=Math.round(((60-sec)/60)*100)+"%";if(document.getElementById("tC"))document.getElementById("tC").innerText=sec+" seconds remaining...";if(sec<=0){clearInterval(tmr);var b=120+(nm.length*12);var ni={n:nm,q:"1 Standard Pack",c:"Grocery",o:"JUST ADDED",d:b-6,r:b,s:b-3,w:b-5,b:b+10,z:b+8};db.unshift(ni);ext.unshift(ni);try{localStorage.setItem("surat_nophoto_v1",JSON.stringify(ext));}catch(e){}render();}},1000);}
-function render(){var q=document.getElementById("sBox").value.toLowerCase(),h="",cnt=0,stN=["D-Mart","Reliance","Star Bazaar","Wallet Mart","Blinkit","Zepto"];for(var i=0;i<db.length;i++){var x=db[i],okC=(curC==="All")||(curC==="Offer"&&x.o!=="")||(x.c===curC);if(okC&&x.n.toLowerCase().indexOf(q)!==-1){cnt++;var arr=[x.d,x.r,x.s,x.w,x.b,x.z],mn=Math.min.apply(null,arr),sh="";for(var j=0;j<6;j++){var isB=(arr[j]===mn);sh+="<div class='st "+(isB?"best":"")+"'>"+(isB?"<div class='b-lbl'>BEST</div>":"")+"<div>"+stN[j]+"</div><div><b>Rs."+arr[j]+"</b></div></div>";}var tg="<span class='tag'>"+x.c+"</span>"+(x.o!==""?"<span class='tag t-off'>"+x.o+"</span>":"");h+="<div class='card'><div class='c-top'><div><span class='p-title'>"+x.n+"</span><span class='qty'>"+x.q+"</span></div><div>"+tg+"</div></div><div class='grid'>"+sh+"</div></div>";}}document.getElementById("cBar").innerText="Showing "+cnt+" of "+db.length+" Surat items";if(h===""){var rq=document.getElementById("sBox").value;h="<div class='req-box' id='reqSt'><h3>'"+rq+"' is not in the list yet!</h3><p>Click below to scan 6 Surat stores in 1 minute & add permanently.</p><button class='req-btn' onclick=\"startFetch('"+rq.replace(/'/g,"")+"')\">Fetch Live Price (1 Min)</button></div>";}document.getElementById("out").innerHTML=h;}
-render();
-</script>
-</body>
-</html>
+function setC(c,b){curC=c;activeCat=c;di=0;updateBanner(c);var bs=document.getElementsByClassName("c-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");render();}
+function cleanWords(s){return s.toLowerCase().replace(/maggie/g,"maggi").replace(/chota|choti|chhote/g,"chhota").replace(/kapde|kapda|cloth/g,"clothes").split(/\s+/).filter(Boolean);}
+function detectBannerCat(q){if(q.indexOf("clothes")!==-1||q.indexOf("shirt")!==-1||q.indexOf("jeans")!==-1||q.indexOf("kurti")!==-1)return "Clothes";if(q.indexOf("perfume")!==-1||q.indexOf("sabun")!==-1||q.indexOf("soap")!==-1)return "Personal";if(q.indexOf("earphone")!==-1||q.indexOf("boat")!==-1||q.indexOf("watch")!==-1)return "Electronics";if(q.indexOf("maggi")!==-1||q.indexOf("atta")!==-1||q.indexOf("ghee")!==-1||q.indexOf("tea")!==-1)return "Grocery";return curC;}
+function startFetch(nm){if(tmr)clearInterval(tmr);var sec=60;document.getElementById("reqSt").innerHTML="<h3 style='color:#1e8449;'>Logging Price Request for '"+nm+"'...</h3><p>Verifying across 6 Surat stores...</p><div class='p-wrap'><div class='p-bar' id='pB'></div></div><b id='tC' style='color:#d35400;font-size:18px;'>60 seconds remaining...</b>";tmr=setInterval(function(){sec--;if(document.getElementById("pB"))document.getElementById("pB").style.width=Math.round(((60-sec)/60)*100)+"%";if(document.getElementById("tC"))document.getElementById("tC").innerText=sec+" seconds remaining...";if(sec<=0){clearInterval(tmr);var eq=encodeURIComponent(nm);document.getElementById("reqSt").innerHTML="<h3 style='color:#1e8449;'>✅ Request Saved for '"+nm+"'</h3><p>Check real-time prices right now:</p><div style='margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;'><a href='https://blinkit.com"+eq+"' target='_blank' style='background:#facc15;color:#000;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:bold;'>Check on Blinkit</a><a href='https://zeptonow.com"+eq+"' target='_blank' style='background:#7e22ce;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:bold;'>Check on Zepto</a><a href='https://dmart.in"+eq+"' target='_blank' style='background:#15803d;color:#fff;padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:bold;'>Check on D-Mart</a></div>";}},1000);}
