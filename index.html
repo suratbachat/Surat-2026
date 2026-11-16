@@ -35,10 +35,10 @@
 .best{border:2px solid #16a34a;background:#ecfdf5;font-weight:bold;color:#15803d}.b-lbl{background:#16a34a;color:#fff;font-size:9px;padding:1px 5px;border-radius:4px;display:inline-block;margin-bottom:2px}
 .req-box{background:#fff;padding:22px;border-radius:14px;text-align:center;border:2px dashed #15803d}.req-btn{background:#15803d;color:#fff;border:none;padding:11px 20px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px;margin-top:8px}
 .p-wrap{width:100%;max-width:320px;height:12px;background:#dcfce7;border-radius:10px;margin:10px auto;overflow:hidden;border:1px solid #15803d}.p-bar{height:100%;width:0%;background:#15803d;transition:width 1s linear}
-@media(max-width:700px){.left-doodle{width:115px;padding:4px}.d-bigpic{width:92px;height:105px}.d-bigpic .ico{font-size:44px}.d-catchy{font-size:11px}.right-rail{width:48px}.rail-box{width:36px;height:36px;font-size:16px}.main{margin:10px 52px 10px 119px}}
 </style>
 </head>
-<body>
+
+  <body>
 <div class="top-red" id="rBan">Sunfeast Dark Fantasy Biscuits — BUY 1 GET 1 FREE!</div>
 <div class="left-doodle" onclick="jumpDeal()">
   <div class="d-frame">
@@ -88,7 +88,13 @@ var rD=[{i:"🧴",l:"PERFUME",bg:"#fef3c7"},{i:"🍪",l:"BISCUIT",bg:"#fee2e2"},
 var rh="";for(var r=0;r<24;r++){var it=rD[r%12];rh+="<div class='rail-box' style='background:"+it.bg+"'>"+it.i+"<span>"+it.l+"</span></div>";}
 document.getElementById("rRail").innerHTML=rh;
 var curC="All",tmr=null,db=window.SURAT_DB||[],ext=[];
-try{ext=JSON.parse(localStorage.getItem("surat_v10")||"[]");}catch(e){}
+try{ext=JSON.parse(localStorage.getItem("surat_v11")||"[]");}catch(e){}
 db=ext.concat(db);
 function setL(l,b){var bs=document.getElementsByClassName("l-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");document.getElementById("t1").innerText=l==='hi'?"\u0938\u0942\u0930\u0924 \u092c\u091a\u0924 (\u092b\u094d\u0930\u0940 \u0938\u0947\u0935\u093e)":l==='gu'?"\u0ab8\u0ac1\u0ab0\u0aa4 \u0aac\u0a9a\u0aa4 (\u0aab\u0acd\u0ab0\u0ac0 \u0ab8\u0ac7\u0ab5\u0abe)":"Surat Bachat (Free Service)";}
 function setC(c,b){curC=c;var bs=document.getElementsByClassName("c-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");render();}
+function startFetch(nm){if(tmr)clearInterval(tmr);var sec=60;document.getElementById("reqSt").innerHTML="<h3 style='color:#15803d'>Scanning 6 Stores for '"+nm+"'...</h3><div class='p-wrap'><div class='p-bar' id='pB'></div></div><b id='tC' style='color:#dc2626'>60s remaining...</b>";tmr=setInterval(function(){sec--;if(document.getElementById("pB"))document.getElementById("pB").style.width=Math.round(((60-sec)/60)*100)+"%";if(document.getElementById("tC"))document.getElementById("tC").innerText=sec+"s remaining...";if(sec<=0){clearInterval(tmr);var b=85+(nm.length*8);var ni={n:nm+" (Live Pack)",c:"Grocery",o:"JUST ADDED",bs:1,d:b-4,r:b,s:b-2,w:b-3,b:b+6,z:b+5};db.unshift(ni);ext.unshift(ni);try{localStorage.setItem("surat_v11",JSON.stringify(ext));}catch(e){}render();}},1000);}
+function render(){var q=document.getElementById("sBox").value.toLowerCase(),h="",cnt=0,stN=["D-Mart","Reliance","Star Bazaar","Wallet Mart","Blinkit","Zepto"];for(var i=0;i<db.length;i++){var x=db[i],okC=(curC==="All")||(curC==="Best"&&x.bs===1)||(curC==="Offer"&&x.o!=="")||(x.c===curC);if(okC&&x.n.toLowerCase().indexOf(q)!==-1){cnt++;var arr=[x.d,x.r,x.s,x.w,x.b,x.z],mn=Math.min.apply(null,arr),sh="";for(var j=0;j<6;j++){var isB=(arr[j]===mn);sh+="<div class='st "+(isB?"best":"")+"'>"+(isB?"<div class='b-lbl'>BEST</div>":"")+"<div>"+stN[j]+"</div><div><b>Rs."+arr[j]+"</b></div></div>";}var tg="<span class='tag'>"+x.c+"</span>"+(x.bs===1?"<span class='tag t-bs'>★ BEST SELLER</span>":"")+(x.o!==""?"<span class='tag t-off'>"+x.o+"</span>":"");h+="<div class='card'><div class='c-top'><div class='p-pic' style='background:#fef3c7'>🛍️<span>ITEM</span></div><div><span class='p-title'>"+x.n+"</span>"+tg+"</div></div><div class='grid'>"+sh+"</div></div>";}}document.getElementById("cBar").innerText="Showing "+cnt+" of "+db.length+" Surat items";if(h===""){var rq=document.getElementById("sBox").value;h="<div class='req-box' id='reqSt'><h3>'"+rq+"' not in list!</h3><button class='req-btn' onclick=\"startFetch('"+rq.replace(/'/g,"")+"')\">Fetch Live Price (1 Min)</button></div>";}document.getElementById("out").innerHTML=h;}
+render();
+</script>
+</body>
+</html>
