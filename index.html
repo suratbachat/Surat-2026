@@ -25,7 +25,6 @@ input { flex: 1; min-width: 220px; }
 .cat-btn.active { background: #1e8449; color: white; }
 .count-bar { font-size: 13px; color: #555; margin-bottom: 10px; font-weight: bold; }
 
-/* Blinkit Style Product Card & Photo Box */
 .card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
 .c-top { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #eee; padding-bottom: 12px; margin-bottom: 12px; }
 .p-img { width: 68px; height: 68px; border-radius: 12px; background: #f8faf9; border: 1px solid #e2ece7; display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; }
@@ -86,12 +85,10 @@ input { flex: 1; min-width: 220px; }
     </div>
 
     <div class="count-bar" id="cBar">Loading catalog...</div>
-    <div id="out">Loading Surat Live Prices...</div>
+    <div id="out"></div>
 </div>
 
 <script>
-fetch("https://hits.sh", { mode: 'no-cors' }).catch(function(){});
-
 var deals = [
     "D-Mart: Sunfeast Dark Fantasy Biscuits - BUY 1 GET 1 FREE!",
     "Reliance Smart: Bella Vita Luxury CEO Perfume - FLAT 50% OFF!",
@@ -105,72 +102,27 @@ setInterval(function() {
 }, 3500);
 
 var curC = "All";
-var db = [];
 
-function getVisual(name, cat) {
-    var s = name.toLowerCase();
-    if (s.indexOf("cheese") !== -1) return "🧀";
-    if (s.indexOf("butter") !== -1 || s.indexOf("paneer") !== -1) return "🧈";
-    if (s.indexOf("milk") !== -1 || s.indexOf("dahi") !== -1) return "🥛";
-    if (s.indexOf("ghee") !== -1 || s.indexOf("oil") !== -1) return "🫙";
-    if (s.indexOf("bread") !== -1) return "🍞";
-    if (s.indexOf("atta") !== -1 || s.indexOf("rice") !== -1 || s.indexOf("besan") !== -1) return "🌾";
-    if (s.indexOf("dal") !== -1 || s.indexOf("chana") !== -1) return "🫘";
-    if (s.indexOf("sugar") !== -1 || s.indexOf("salt") !== -1) return "🧂";
-    if (s.indexOf("tea") !== -1 || s.indexOf("coffee") !== -1) return "☕";
-    if (s.indexOf("maggi") !== -1 || s.indexOf("noodles") !== -1) return "🍜";
-    if (s.indexOf("biscuit") !== -1) return "🍪";
-    if (s.indexOf("cola") !== -1 || s.indexOf("drink") !== -1 || s.indexOf("juice") !== -1) return "🥤";
-    if (s.indexOf("ketchup") !== -1) return "🍅";
-    if (s.indexOf("badam") !== -1 || s.indexOf("kaju") !== -1) return "🥜";
-    if (s.indexOf("haldi") !== -1 || s.indexOf("mirchi") !== -1 || s.indexOf("masala") !== -1 || s.indexOf("jeera") !== -1) return "🌶️";
-    if (s.indexOf("perfume") !== -1) return "🧴";
-    if (s.indexOf("soap") !== -1 || s.indexOf("shampoo") !== -1 || s.indexOf("cream") !== -1) return "🧼";
-    if (s.indexOf("toothpaste") !== -1) return "🪥";
-    if (s.indexOf("detergent") !== -1 || s.indexOf("ariel") !== -1 || s.indexOf("surf") !== -1) return "🧺";
-    if (s.indexOf("notebook") !== -1 || s.indexOf("paper") !== -1) return "📓";
-    if (s.indexOf("pen") !== -1 || s.indexOf("pencil") !== -1) return "🖊️";
-    if (s.indexOf("earbuds") !== -1) return "🎧";
-    if (s.indexOf("watch") !== -1) return "⌚";
-    if (s.indexOf("bulb") !== -1) return "💡";
-    if (s.indexOf("battery") !== -1) return "🔋";
-    if (cat === "Personal") return "✨";
-    if (cat === "Stationery") return "📚";
-    if (cat === "Electronics") return "🔌";
-    return "🛒";
-}
-
-function setL(l, btn) {
-    var bs = document.getElementsByClassName("lang-btn");
-    for (var i = 0; i < bs.length; i++) bs[i].classList.remove("active");
-    btn.classList.add("active");
-    if (l === 'hi') {
-        document.getElementById("t1").innerText = "\u0938\u0942\u0930\u0924 \u092c\u091a\u0924";
-        document.getElementById("t2").innerText = "100% \u092b\u094d\u0930\u0940 \u0938\u094b\u0936\u0932 \u0938\u0930\u094d\u0935\u093f\u0938 — \u0938\u0942\u0930\u0924 \u0915\u0947 \u0938\u094d\u091f\u094b\u0930\u094d\u0938 \u0915\u0947 \u0932\u093e\u0907\u0935 \u0926\u093e\u092e";
-        document.getElementById("searchBox").placeholder = "\u0938\u093e\u092e\u093e\u0928 \u0916\u094b\u091c\u0947\u0902 (Amul Cheese, Sugar, Bread, Oil)...";
-    } else if (l === 'gu') {
-        document.getElementById("t1").innerText = "\u0ab8\u0ac1\u0ab0\u0aa4 \u0aac\u0a9a\u0aa4";
-        document.getElementById("t2").innerText = "100% \u0aab\u0acd\u0ab0\u0ac0 \u0ab8\u0acb\u0ab6\u0abf\u0aaf\u0ab2 \u0ab8\u0ab0\u0acd\u0ab5\u0abf\u0ab8 — \u0ab8\u0ac1\u0ab0\u0aa4\u0aa8\u0abe \u0ab8\u0acd\u0a9f\u0acb\u0ab0\u0acd\u0ab8\u0aa8\u0abe \u0ab2\u0abe\u0a88\u0ab5 \u0aad\u0abe\u0ab5";
-        document.getElementById("searchBox").placeholder = "\u0ab5\u0ab8\u0acd\u0aa4\u0ac1 \u0ab6\u0acb\u0aa7\u0acb (Amul Cheese, Sugar, Bread, Oil)...";
-    } else {
-        document.getElementById("t1").innerText = "Surat Bachat";
-        document.getElementById("t2").innerText = "100% Free Social Service — Compare Live Prices Across Surat";
-        document.getElementById("searchBox").placeholder = "Search Amul Cheese, Milk, Sugar, Oil, Perfume...";
-    }
-    render();
-}
-
-function setC(c, btn) {
-    curC = c;
-    var bs = document.getElementsByClassName("cat-btn");
-    for (var i = 0; i < bs.length; i++) bs[i].classList.remove("active");
-    btn.classList.add("active");
-    render();
-}
-
-function sendReq(itemName) {
-    var box = document.getElementById("reqStatus");
-    box.innerHTML = "<h3 style='color:#1e8449;'>✅ Request Sent for '" + itemName + "'!</h3><p>Our team & auto-bot will add live Surat prices for this item shortly. Thank you for helping Surat save!</p>";
-}
-
-function render() {
+var db = [
+  {"n": "Amul Processed Cheese Cubes (200 g)", "k": "amul cheese cubes dairy", "c": "Grocery", "o": "SAVE Rs.10", "nw": 0, "d": 122, "r": 128, "s": 125, "w": 124, "b": 135, "z": 135, "u": "Updated Today"},
+  {"n": "Amul Cheese Slices (200 g - 10 Slices)", "k": "amul cheese slices burger dairy", "c": "Grocery", "o": "", "nw": 0, "d": 132, "r": 138, "s": 135, "w": 134, "b": 145, "z": 145, "u": "Updated Today"},
+  {"n": "Amul Mozzarella Diced Pizza Cheese (200 g)", "k": "amul pizza cheese mozzarella", "c": "Grocery", "o": "", "nw": 0, "d": 115, "r": 122, "s": 118, "w": 116, "b": 128, "z": 128, "u": "Updated Today"},
+  {"n": "Amul Pasteurised Table Butter (500 g)", "k": "amul butter makkhan dairy", "c": "Grocery", "o": "HOT DEAL", "nw": 0, "d": 265, "r": 275, "s": 270, "w": 268, "b": 285, "z": 285, "u": "Updated Today"},
+  {"n": "Amul Fresh Malai Paneer (200 g)", "k": "amul paneer dairy", "c": "Grocery", "o": "", "nw": 0, "d": 85, "r": 90, "s": 88, "w": 86, "b": 95, "z": 95, "u": "Updated Today"},
+  {"n": "Amul Pure Cow Ghee (1 Litre Pouch)", "k": "amul ghee dairy", "c": "Grocery", "o": "SAVE Rs.30", "nw": 0, "d": 585, "r": 605, "s": 595, "w": 590, "b": 625, "z": 620, "u": "Updated Today"},
+  {"n": "Govardhan Pure Cow Ghee (1 Litre Jar)", "k": "govardhan ghee dairy", "c": "Grocery", "o": "", "nw": 0, "d": 610, "r": 635, "s": 625, "w": 615, "b": 655, "z": 650, "u": "Updated Today"},
+  {"n": "Amul Taaza Fresh Milk (1 Litre)", "k": "milk doodh dudh amul", "c": "Grocery", "o": "", "nw": 0, "d": 54, "r": 54, "s": 54, "w": 53, "b": 56, "z": 56, "u": "Updated Today"},
+  {"n": "Amul Masti Dahi / Curd (400 g Cup)", "k": "dahi curd amul masti", "c": "Grocery", "o": "", "nw": 0, "d": 32, "r": 35, "s": 34, "w": 33, "b": 36, "z": 36, "u": "Updated Today"},
+  {"n": "Refined White Sugar / Chini (1 kg)", "k": "sugar chini khand", "c": "Grocery", "o": "", "nw": 0, "d": 42, "r": 45, "s": 44, "w": 43, "b": 48, "z": 47, "u": "Updated Today"},
+  {"n": "Tata Iodized Salt / Namak (1 kg)", "k": "salt namak mithu tata", "c": "Grocery", "o": "", "nw": 0, "d": 24, "r": 26, "s": 25, "w": 24, "b": 28, "z": 28, "u": "Updated Today"},
+  {"n": "Aashirvaad Shudh Chakki Atta (5 kg)", "k": "atta flour gehu lot", "c": "Grocery", "o": "SAVE Rs.20", "nw": 0, "d": 215, "r": 225, "s": 220, "w": 218, "b": 235, "z": 232, "u": "Updated Today"},
+  {"n": "Aashirvaad Select Sharbati Atta (5 kg)", "k": "atta sharbati flour gehu", "c": "Grocery", "o": "", "nw": 0, "d": 265, "r": 280, "s": 275, "w": 270, "b": 295, "z": 290, "u": "Updated Today"},
+  {"n": "Fortune Besan / Gram Flour (1 kg)", "k": "besan chana flour lot", "c": "Grocery", "o": "", "nw": 0, "d": 88, "r": 95, "s": 92, "w": 90, "b": 102, "z": 100, "u": "Updated Today"},
+  {"n": "Fortune Sunlite Sunflower Oil (1 L)", "k": "oil tel fortune sunflower", "c": "Grocery", "o": "", "nw": 0, "d": 124, "r": 129, "s": 126, "w": 125, "b": 135, "z": 134, "u": "Updated Today"},
+  {"n": "Gulab Filtered Groundnut / Singtel Oil (1 L)", "k": "singtel groundnut oil gulab", "c": "Grocery", "o": "SURAT FAVORITE", "nw": 0, "d": 168, "r": 178, "s": 174, "w": 170, "b": 185, "z": 184, "u": "Updated Today"},
+  {"n": "Saffola Gold Blended Cooking Oil (1 L)", "k": "saffola oil tel heart", "c": "Grocery", "o": "", "nw": 0, "d": 155, "r": 165, "s": 160, "w": 158, "b": 175, "z": 172, "u": "Updated Today"},
+  {"n": "Britannia Whole Wheat Bread (400 g)", "k": "bread pav britannia", "c": "Grocery", "o": "", "nw": 0, "d": 45, "r": 48, "s": 46, "w": 45, "b": 50, "z": 50, "u": "Updated Today"},
+  {"n": "Tata Sampann Yellow Moong Dal (1 kg)", "k": "moong dal mung mag", "c": "Grocery", "o": "SAVE Rs.17", "nw": 0, "d": 148, "r": 155, "s": 152, "w": 149, "b": 165, "z": 162, "u": "Updated Today"},
+  {"n": "Tata Sampann Unpolished Toor Dal (1 kg)", "k": "toor arhar tuver dal", "c": "Grocery", "o": "", "nw": 0, "d": 178, "r": 188, "s": 184, "w": 180, "b": 198, "z": 195, "u": "Updated Today"},
+  {"n": "Tata Sampann Chana Dal (1 kg)", "k": "chana dal", "c": "Grocery", "o": "", "nw": 0, "d": 94, "r": 102, "s": 98, "w": 96, "b": 110, "z": 108, "u": "Updated Today"},
+  {"n": "Tata Sampann Kabuli Chana / Chole (1 kg)", "k": "kabuli chana chole", "c": "Grocery", "o": "", "nw": 0, "d": 155, "r": 168, "s": 162, "w": 158, "b": 178, "z": 175, "u": "Updated Today"},
