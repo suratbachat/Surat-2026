@@ -6,107 +6,96 @@
 <title>Surat Bachat - Live Price Comparison</title>
 <style>
 * { box-sizing: border-box; }
-body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 0 0 50px 0; color: #222; overflow-x: hidden; }
+body { font-family: Arial, sans-serif; background: #f3f6f4; margin: 0; padding: 0 0 160px 0; color: #222; overflow-x: hidden; }
 
 /* Simple Top Red Patti */
-.top-red { background: #dc2626; color: white; padding: 11px 15px; text-align: center; font-weight: bold; font-size: 14px; letter-spacing: 0.4px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+.top-red { background: #dc2626; color: white; padding: 11px 15px; text-align: center; font-weight: bold; font-size: 14px; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
 
-/* Moving Left & Right Side Product Borders */
-.side-rail { position: fixed; top: 45px; bottom: 0; width: 58px; background: #ffffff; border-right: 1px solid #e5e7eb; overflow: hidden; z-index: 50; display: flex; flex-direction: column; align-items: center; }
-.side-rail.right { left: auto; right: 0; border-right: none; border-left: 1px solid #e5e7eb; }
-.rail-track { display: flex; flex-direction: column; gap: 18px; padding: 15px 0; animation: scrollRail 18s linear infinite; }
+/* Wide Colorful Moving Real-Product Borders (Left & Right) */
+.side-rail { position: fixed; top: 40px; bottom: 0; width: 78px; background: linear-gradient(180deg, #fef3c7 0%, #dcfce7 50%, #dbeafe 100%); border-right: 3px solid #f59e0b; overflow: hidden; z-index: 90; }
+.side-rail.right { left: auto; right: 0; border-right: none; border-left: 3px solid #16a34a; }
+.rail-track { display: flex; flex-direction: column; gap: 14px; padding: 12px 8px; animation: moveRail 16s linear infinite; }
 .side-rail.right .rail-track { animation-direction: reverse; }
-.rail-item { width: 42px; height: 42px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-@keyframes scrollRail { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+.rail-card { width: 60px; height: 60px; background: white; border-radius: 12px; border: 2px solid #fbbf24; padding: 4px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.1); overflow: hidden; }
+.rail-card img { width: 100%; height: 100%; object-fit: contain; }
+@keyframes moveRail { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
 
-/* Main Container */
-.main-wrap { max-width: 840px; margin: 20px auto; padding: 0 72px; }
+/* Main Content Area */
+.main-wrap { max-width: 840px; margin: 18px auto; padding: 0 92px; }
 
-/* Left Corner Big Sale Card + Catchy Lines Below */
-.mega-section { display: flex; align-items: flex-start; gap: 18px; background: white; border: 2px solid #dc2626; border-radius: 16px; padding: 18px; margin-bottom: 20px; box-shadow: 0 6px 16px rgba(220, 38, 38, 0.12); cursor: pointer; flex-wrap: wrap; }
-.left-offer-box { width: 170px; flex-shrink: 0; text-align: center; }
-.big-offer-pic { width: 170px; height: 145px; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 2px solid #fca5a5; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-.big-offer-pic .ico { font-size: 64px; line-height: 1; }
-.big-offer-pic .badge { position: absolute; top: 8px; left: 8px; background: #dc2626; color: white; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 6px; }
-.catchy-below { margin-top: 10px; font-size: 15px; font-weight: 900; color: #b91c1c; line-height: 1.3; text-transform: uppercase; }
-
-.mega-details { flex: 1; min-width: 220px; padding-top: 5px; }
-.mega-details h2 { margin: 0 0 8px 0; font-size: 21px; color: #111; }
-.mega-details p { margin: 0 0 12px 0; font-size: 14px; color: #444; line-height: 1.5; }
-.deal-btn { background: #1e8449; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; }
-
-/* Search & Filters */
 .row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-select, input { padding: 13px; font-size: 15px; border: 1.5px solid #1e8449; border-radius: 8px; background: white; }
-input { flex: 1; min-width: 200px; }
-.cats { margin-bottom: 14px; }
-.cat-btn { background: white; border: 1px solid #1e8449; color: #1e8449; padding: 8px 14px; border-radius: 20px; cursor: pointer; margin: 3px; font-weight: bold; font-size: 13px; }
-.cat-btn.active { background: #1e8449; color: white; }
-.count-bar { font-size: 13px; color: #555; margin-bottom: 12px; font-weight: bold; }
+select, input { padding: 13px; font-size: 15px; border: 2px solid #15803d; border-radius: 10px; background: white; }
+input { flex: 1; min-width: 210px; font-weight: bold; }
 
-/* Product Cards */
-.card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #eee; }
-.c-top { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; margin-bottom: 10px; }
-.p-img { width: 62px; height: 62px; border-radius: 12px; background: #f0fdf4; border: 1px solid #bbf7d0; display: flex; align-items: center; justify-content: center; font-size: 34px; flex-shrink: 0; }
-.p-title { font-size: 16px; font-weight: bold; display: block; margin-bottom: 4px; color: #111; }
-.tag { font-size: 11px; padding: 2px 8px; border-radius: 5px; font-weight: bold; background: #e8f8f5; color: #1e8449; margin-right: 4px; }
+.cats { margin-bottom: 14px; }
+.cat-btn { background: white; border: 1.5px solid #15803d; color: #15803d; padding: 8px 14px; border-radius: 20px; cursor: pointer; margin: 3px; font-weight: bold; font-size: 13px; }
+.cat-btn.active { background: #15803d; color: white; }
+.count-bar { font-size: 13px; color: #374151; margin-bottom: 12px; font-weight: bold; }
+
+/* Product Card with Real Photo Corner Box */
+.card { background: white; padding: 15px; border-radius: 14px; margin-bottom: 16px; box-shadow: 0 3px 10px rgba(0,0,0,0.07); border: 1px solid #e5e7eb; }
+.c-top { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 12px; }
+.p-img { width: 74px; height: 74px; border-radius: 12px; background: #ffffff; border: 1.5px solid #d1fae5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; padding: 4px; }
+.p-img img { width: 100%; height: 100%; object-fit: contain; }
+.p-title { font-size: 16px; font-weight: bold; display: block; margin-bottom: 5px; color: #111827; }
+.tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: bold; background: #dcfce7; color: #15803d; margin-right: 5px; display: inline-block; }
 .t-off { background: #fee2e2; color: #dc2626; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); gap: 8px; }
-.st { border: 1px solid #e5e7eb; padding: 8px 4px; border-radius: 8px; text-align: center; background: #fafafa; font-size: 13px; }
-.best { border: 2px solid #1e8449; background: #eafaf1; font-weight: bold; color: #1e8449; }
-.b-lbl { background: #1e8449; color: white; font-size: 10px; padding: 1px 5px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
+.st { border: 1px solid #e5e7eb; padding: 8px 4px; border-radius: 8px; text-align: center; background: #f9fafb; font-size: 13px; }
+.best { border: 2px solid #16a34a; background: #ecfdf5; font-weight: bold; color: #15803d; }
+.b-lbl { background: #16a34a; color: white; font-size: 10px; padding: 1px 6px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
+
+/* Bottom Left Corner Doodle Mega-Deal Box with Animated Border Line */
+.doodle-corner { position: fixed; bottom: 14px; left: 86px; width: 230px; background: #fffbeb; border-radius: 18px; padding: 10px; z-index: 150; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.22); border: 3px dashed #dc2626; animation: pulseBorder 1.4s infinite alternate; }
+@keyframes pulseBorder { 0% { border-color: #dc2626; transform: scale(1); } 100% { border-color: #16a34a; transform: scale(1.03); } }
+.doodle-inner { background: white; border-radius: 12px; padding: 8px; text-align: center; border: 2px dotted #f59e0b; }
+.doodle-tag { background: #dc2626; color: white; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 4px; }
+.doodle-img { width: 85px; height: 85px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+.doodle-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.doodle-catchy { font-size: 15px; font-weight: 900; color: #b91c1c; margin-top: 5px; line-height: 1.2; text-transform: uppercase; }
+.doodle-sub { font-size: 11px; font-weight: bold; color: #15803d; margin-top: 2px; }
 
 /* 1-Min Auto-Save Box */
-.req-box { background: white; padding: 25px; border-radius: 12px; text-align: center; border: 2px dashed #1e8449; }
-.req-btn { background: #1e8449; color: white; border: none; padding: 12px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
-.prog-wrap { width: 100%; max-width: 360px; height: 12px; background: #e8f8f5; border-radius: 10px; margin: 12px auto; overflow: hidden; border: 1px solid #1e8449; }
-.prog-bar { height: 100%; width: 0%; background: #1e8449; transition: width 1s linear; }
+.req-box { background: white; padding: 25px; border-radius: 14px; text-align: center; border: 2px dashed #15803d; }
+.req-btn { background: #15803d; color: white; border: none; padding: 12px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
+.prog-wrap { width: 100%; max-width: 360px; height: 12px; background: #dcfce7; border-radius: 10px; margin: 12px auto; overflow: hidden; border: 1px solid #15803d; }
+.prog-bar { height: 100%; width: 0%; background: #15803d; transition: width 1s linear; }
 
 @media (max-width: 600px) {
-  .side-rail { width: 42px; }
-  .rail-item { width: 32px; height: 32px; font-size: 16px; }
-  .main-wrap { padding: 0 48px; }
-  .left-offer-box, .big-offer-pic { width: 100%; }
+  .side-rail { width: 52px; }
+  .rail-card { width: 40px; height: 40px; }
+  .main-wrap { padding: 0 58px; }
+  .doodle-corner { left: 58px; width: 185px; }
 }
 </style>
 </head>
 <body>
 
-<!-- Simple Top Red Patti -->
-<div class="top-red" id="redBanner">Sunfeast Dark Fantasy Biscuits — BUY 1 GET 1 FREE at D-Mart & Reliance!</div>
+<!-- Top Simple Red Patti -->
+<div class="top-red" id="redBanner">Sunfeast Dark Fantasy Biscuits — 50% OFF / BUY 1 GET 1 FREE!</div>
 
-<!-- Left & Right Moving Product Borders -->
+<!-- Wide Colorful Moving Product Borders -->
 <div class="side-rail">
-  <div class="rail-track">
-    <div class="rail-item">🧀</div><div class="rail-item">🥛</div><div class="rail-item">🌾</div><div class="rail-item">🧴</div><div class="rail-item">🍪</div><div class="rail-item">🎧</div><div class="rail-item">🫘</div><div class="rail-item">☕</div>
-    <div class="rail-item">🧀</div><div class="rail-item">🥛</div><div class="rail-item">🌾</div><div class="rail-item">🧴</div><div class="rail-item">🍪</div><div class="rail-item">🎧</div><div class="rail-item">🫘</div><div class="rail-item">☕</div>
-  </div>
+  <div class="rail-track" id="leftRail"></div>
 </div>
 <div class="side-rail right">
-  <div class="rail-track">
-    <div class="rail-item">🧈</div><div class="rail-item">🍜</div><div class="rail-item">🥜</div><div class="rail-item">🧼</div><div class="rail-item">📓</div><div class="rail-item">⌚</div><div class="rail-item">🥤</div><div class="rail-item">🌶️</div>
-    <div class="rail-item">🧈</div><div class="rail-item">🍜</div><div class="rail-item">🥜</div><div class="rail-item">🧼</div><div class="rail-item">📓</div><div class="rail-item">⌚</div><div class="rail-item">🥤</div><div class="rail-item">🌶️</div>
+  <div class="rail-track" id="rightRail"></div>
+</div>
+
+<!-- Bottom Left Corner Doodle Box with Animated Line -->
+<div class="doodle-corner" onclick="jumpDeal('Bella Vita')">
+  <div class="doodle-inner">
+    <span class="doodle-tag">🔥 50% OFF MEGA SALE</span>
+    <div class="doodle-img">
+      <img src="https://media-amazon.com" onerror="this.src='https://flaticon.com'" alt="Bella Vita Perfume">
+    </div>
+    <div class="doodle-catchy">LE LO, LE LO! SABSE SASTA!</div>
+    <div class="doodle-sub">Bella Vita CEO Perfume Rs.425 Only</div>
   </div>
 </div>
 
 <div class="main-wrap">
-  <!-- Left Corner Big Offer Photo + Catchy Lines Below -->
-  <div class="mega-section" onclick="jumpDeal('Bella Vita')">
-    <div class="left-offer-box">
-      <div class="big-offer-pic">
-        <span class="badge">50% OFF</span>
-        <span class="ico">🧴</span>
-      </div>
-      <div class="catchy-below">SABSE SASTA SURAT OFFER — LOOT LO!</div>
-    </div>
-    <div class="mega-details">
-      <h2>Bella Vita Luxury CEO Perfume (100 ml)</h2>
-      <p><b>Surat Bachat Free Social Service:</b> Compare live prices across D-Mart, Reliance Smart, Star Bazaar, Wallet Mart, Blinkit & Zepto in 1 click. Lowest price today: <b>Rs.425</b> (Save Rs.74!).</p>
-      <button class="deal-btn">Compare All 6 Stores Now &rarr;</button>
-    </div>
-  </div>
-
   <div class="row">
     <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu / City Light</option><option>Varachha</option><option>Katargam</option></select>
     <input type="text" id="searchBox" placeholder="Search 50+ items or type ANY new item..." onkeyup="render()">
@@ -130,7 +119,7 @@ fetch("https://hits.sh", { mode: 'no-cors' }).catch(function(){});
 
 var banners = [
   "Sunfeast Dark Fantasy Biscuits — BUY 1 GET 1 FREE!",
-  "Bella Vita CEO Perfume (100ml) — FLAT 50% OFF Today!",
+  "Bella Vita CEO Man Perfume — FLAT 50% OFF Today!",
   "Aashirvaad Chakki Atta (5kg) — Extra Rs.20 OFF at D-Mart!",
   "boAt Airdopes 141 Earbuds — 60% OFF Live Price Comparison!"
 ];
@@ -138,17 +127,38 @@ var bi = 0;
 setInterval(function() {
   bi = (bi + 1) % banners.length;
   document.getElementById("redBanner").innerText = banners[bi];
-}, 3200);
+}, 3000);
 
-var curC = "All";
-var timer = null;
+// Real Product Photos Library
+var photos = {
+  perfume: "https://media-amazon.com",
+  biscuit: "https://media-amazon.com",
+  cheese: "https://media-amazon.com",
+  butter: "https://media-amazon.com",
+  paneer: "https://media-amazon.com",
+  ghee: "https://media-amazon.com",
+  milk: "https://media-amazon.com",
+  sugar: "https://flaticon.com",
+  atta: "https://media-amazon.com",
+  oil: "https://media-amazon.com",
+  dal: "https://flaticon.com",
+  rice: "https://flaticon.com",
+  tea: "https://flaticon.com",
+  masala: "https://flaticon.com",
+  dryfruit: "https://flaticon.com",
+  maggi: "https://media-amazon.com",
+  drink: "https://flaticon.com",
+  detergent: "https://flaticon.com",
+  soap: "https://flaticon.com",
+  shampoo: "https://flaticon.com",
+  toothpaste: "https://flaticon.com",
+  notebook: "https://flaticon.com",
+  pen: "https://flaticon.com",
+  earbuds: "https://flaticon.com",
+  watch: "https://flaticon.com",
+  default: "https://flaticon.com"
+};
 
-var baseItems = [
-  ["Bella Vita Luxury CEO Perfume (100ml)", "Personal", "50% OFF", "🧴", 449,425,460,435,499,489],
-  ["Sunfeast Dark Fantasy Choco Fills (300g)", "Grocery", "BUY 1 GET 1", "🍪", 150,145,148,140,160,155],
-  ["Amul Processed Cheese Cubes (200g)", "Grocery", "SAVE Rs.10", "🧀", 122,128,125,124,135,135],
-  ["Amul Cheese Slices (200g - 10 Slices)", "Grocery", "", "🧀", 132,138,135,134,145,145],
-  ["Amul Mozzarella Pizza Cheese (200g)", "Grocery", "", "🧀", 115,122,118,116,128,128],
-  ["Amul Pasteurised Table Butter (500g)", "Grocery", "HOT DEAL", "🧈", 265,275,270,268,285,285],
-  ["Amul Fresh Malai Paneer (200g)", "Grocery", "", "🧈", 85,90,88,86,95,95],
-  ["Amul Pure Cow Ghee (1 Litre)", "Grocery", "SAVE Rs.30", "🫙", 585,605,595,590,625,620],
+function getPhotoUrl(name) {
+  var s = name.toLowerCase();
+  if (s.indexOf("perfume") !== -1 || s.indexOf("bella") !== -1) return photos.perfume;
