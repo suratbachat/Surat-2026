@@ -7,88 +7,60 @@
 <style>
 * { box-sizing: border-box; }
 body { font-family: Arial, sans-serif; background: #f3f6f4; margin: 0; padding: 0 0 160px 0; color: #222; overflow-x: hidden; }
-
-/* Simple Top Red Patti */
-.top-red { background: #dc2626; color: white; padding: 11px 15px; text-align: center; font-weight: bold; font-size: 14px; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-
-/* Wide Colorful Moving Real-Product Borders (Left & Right) */
-.side-rail { position: fixed; top: 40px; bottom: 0; width: 78px; background: linear-gradient(180deg, #fef3c7 0%, #dcfce7 50%, #dbeafe 100%); border-right: 3px solid #f59e0b; overflow: hidden; z-index: 90; }
+.top-red { background: #dc2626; color: white; padding: 11px 15px; text-align: center; font-weight: bold; font-size: 14px; position: sticky; top: 0; z-index: 200; }
+.side-rail { position: fixed; top: 40px; bottom: 0; width: 76px; background: linear-gradient(180deg, #fef3c7 0%, #dcfce7 50%, #dbeafe 100%); border-right: 3px solid #f59e0b; overflow: hidden; z-index: 90; }
 .side-rail.right { left: auto; right: 0; border-right: none; border-left: 3px solid #16a34a; }
 .rail-track { display: flex; flex-direction: column; gap: 14px; padding: 12px 8px; animation: moveRail 16s linear infinite; }
 .side-rail.right .rail-track { animation-direction: reverse; }
-.rail-card { width: 60px; height: 60px; background: white; border-radius: 12px; border: 2px solid #fbbf24; padding: 4px; display: flex; align-items: center; justify-content: center; box-shadow: 0 3px 6px rgba(0,0,0,0.1); overflow: hidden; }
+.rail-card { width: 58px; height: 58px; background: white; border-radius: 12px; border: 2px solid #fbbf24; padding: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .rail-card img { width: 100%; height: 100%; object-fit: contain; }
 @keyframes moveRail { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
-
-/* Main Content Area */
-.main-wrap { max-width: 840px; margin: 18px auto; padding: 0 92px; }
-
+.main-wrap { max-width: 840px; margin: 18px auto; padding: 0 90px; }
 .row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
 select, input { padding: 13px; font-size: 15px; border: 2px solid #15803d; border-radius: 10px; background: white; }
 input { flex: 1; min-width: 210px; font-weight: bold; }
-
 .cats { margin-bottom: 14px; }
 .cat-btn { background: white; border: 1.5px solid #15803d; color: #15803d; padding: 8px 14px; border-radius: 20px; cursor: pointer; margin: 3px; font-weight: bold; font-size: 13px; }
 .cat-btn.active { background: #15803d; color: white; }
 .count-bar { font-size: 13px; color: #374151; margin-bottom: 12px; font-weight: bold; }
-
-/* Product Card with Real Photo Corner Box */
 .card { background: white; padding: 15px; border-radius: 14px; margin-bottom: 16px; box-shadow: 0 3px 10px rgba(0,0,0,0.07); border: 1px solid #e5e7eb; }
 .c-top { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #f3f4f6; padding-bottom: 12px; margin-bottom: 12px; }
-.p-img { width: 74px; height: 74px; border-radius: 12px; background: #ffffff; border: 1.5px solid #d1fae5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; padding: 4px; }
+.p-img { width: 72px; height: 72px; border-radius: 12px; background: #fff; border: 1.5px solid #d1fae5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; padding: 4px; }
 .p-img img { width: 100%; height: 100%; object-fit: contain; }
 .p-title { font-size: 16px; font-weight: bold; display: block; margin-bottom: 5px; color: #111827; }
 .tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: bold; background: #dcfce7; color: #15803d; margin-right: 5px; display: inline-block; }
 .t-off { background: #fee2e2; color: #dc2626; }
-
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(95px, 1fr)); gap: 8px; }
 .st { border: 1px solid #e5e7eb; padding: 8px 4px; border-radius: 8px; text-align: center; background: #f9fafb; font-size: 13px; }
 .best { border: 2px solid #16a34a; background: #ecfdf5; font-weight: bold; color: #15803d; }
 .b-lbl { background: #16a34a; color: white; font-size: 10px; padding: 1px 6px; border-radius: 4px; display: inline-block; margin-bottom: 2px; }
-
-/* Bottom Left Corner Doodle Mega-Deal Box with Animated Border Line */
-.doodle-corner { position: fixed; bottom: 14px; left: 86px; width: 230px; background: #fffbeb; border-radius: 18px; padding: 10px; z-index: 150; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.22); border: 3px dashed #dc2626; animation: pulseBorder 1.4s infinite alternate; }
+.doodle-corner { position: fixed; bottom: 14px; left: 84px; width: 225px; background: #fffbeb; border-radius: 18px; padding: 10px; z-index: 150; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.22); border: 3px dashed #dc2626; animation: pulseBorder 1.4s infinite alternate; }
 @keyframes pulseBorder { 0% { border-color: #dc2626; transform: scale(1); } 100% { border-color: #16a34a; transform: scale(1.03); } }
 .doodle-inner { background: white; border-radius: 12px; padding: 8px; text-align: center; border: 2px dotted #f59e0b; }
 .doodle-tag { background: #dc2626; color: white; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 10px; display: inline-block; margin-bottom: 4px; }
-.doodle-img { width: 85px; height: 85px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
+.doodle-img { width: 82px; height: 82px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
 .doodle-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .doodle-catchy { font-size: 15px; font-weight: 900; color: #b91c1c; margin-top: 5px; line-height: 1.2; text-transform: uppercase; }
 .doodle-sub { font-size: 11px; font-weight: bold; color: #15803d; margin-top: 2px; }
-
-/* 1-Min Auto-Save Box */
 .req-box { background: white; padding: 25px; border-radius: 14px; text-align: center; border: 2px dashed #15803d; }
 .req-btn { background: #15803d; color: white; border: none; padding: 12px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
 .prog-wrap { width: 100%; max-width: 360px; height: 12px; background: #dcfce7; border-radius: 10px; margin: 12px auto; overflow: hidden; border: 1px solid #15803d; }
 .prog-bar { height: 100%; width: 0%; background: #15803d; transition: width 1s linear; }
-
-@media (max-width: 600px) {
-  .side-rail { width: 52px; }
-  .rail-card { width: 40px; height: 40px; }
-  .main-wrap { padding: 0 58px; }
-  .doodle-corner { left: 58px; width: 185px; }
-}
+@media (max-width: 600px) { .side-rail { width: 50px; } .rail-card { width: 38px; height: 38px; } .main-wrap { padding: 0 56px; } .doodle-corner { left: 56px; width: 180px; } }
 </style>
 </head>
 <body>
 
-<!-- Top Simple Red Patti -->
 <div class="top-red" id="redBanner">Sunfeast Dark Fantasy Biscuits — 50% OFF / BUY 1 GET 1 FREE!</div>
 
-<!-- Wide Colorful Moving Product Borders -->
-<div class="side-rail">
-  <div class="rail-track" id="leftRail"></div>
-</div>
-<div class="side-rail right">
-  <div class="rail-track" id="rightRail"></div>
-</div>
+<div class="side-rail"><div class="rail-track" id="leftRail"></div></div>
+<div class="side-rail right"><div class="rail-track" id="rightRail"></div></div>
 
-<!-- Bottom Left Corner Doodle Box with Animated Line -->
 <div class="doodle-corner" onclick="jumpDeal('Bella Vita')">
   <div class="doodle-inner">
     <span class="doodle-tag">🔥 50% OFF MEGA SALE</span>
     <div class="doodle-img">
-      <img src="https://media-amazon.com" onerror="this.src='https://flaticon.com'" alt="Bella Vita Perfume">
+      <img src="https://media-amazon.com" onerror="this.src='https://flaticon.com'">
     </div>
     <div class="doodle-catchy">LE LO, LE LO! SABSE SASTA!</div>
     <div class="doodle-sub">Bella Vita CEO Perfume Rs.425 Only</div>
@@ -100,7 +72,6 @@ input { flex: 1; min-width: 210px; font-weight: bold; }
     <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu / City Light</option><option>Varachha</option><option>Katargam</option></select>
     <input type="text" id="searchBox" placeholder="Search 50+ items or type ANY new item..." onkeyup="render()">
   </div>
-
   <div class="cats">
     <button class="cat-btn active" onclick="setC('All', this)">All Items</button>
     <button class="cat-btn" onclick="setC('Offer', this)">Offers & Sales</button>
@@ -109,7 +80,6 @@ input { flex: 1; min-width: 210px; font-weight: bold; }
     <button class="cat-btn" onclick="setC('Stationery', this)">Stationery</button>
     <button class="cat-btn" onclick="setC('Electronics', this)">Electronics</button>
   </div>
-
   <div class="count-bar" id="cBar"></div>
   <div id="out"></div>
 </div>
@@ -129,24 +99,19 @@ setInterval(function() {
   document.getElementById("redBanner").innerText = banners[bi];
 }, 3000);
 
-// Real Product Photos Library
 var photos = {
   perfume: "https://media-amazon.com",
   biscuit: "https://media-amazon.com",
   cheese: "https://media-amazon.com",
   butter: "https://media-amazon.com",
-  paneer: "https://media-amazon.com",
-  ghee: "https://media-amazon.com",
-  milk: "https://media-amazon.com",
   sugar: "https://flaticon.com",
-  atta: "https://media-amazon.com",
-  oil: "https://media-amazon.com",
+  atta: "https://flaticon.com",
+  oil: "https://flaticon.com",
   dal: "https://flaticon.com",
-  rice: "https://flaticon.com",
   tea: "https://flaticon.com",
   masala: "https://flaticon.com",
   dryfruit: "https://flaticon.com",
-  maggi: "https://media-amazon.com",
+  maggi: "https://flaticon.com",
   drink: "https://flaticon.com",
   detergent: "https://flaticon.com",
   soap: "https://flaticon.com",
@@ -162,3 +127,10 @@ var photos = {
 function getPhotoUrl(name) {
   var s = name.toLowerCase();
   if (s.indexOf("perfume") !== -1 || s.indexOf("bella") !== -1) return photos.perfume;
+  if (s.indexOf("biscuit") !== -1 || s.indexOf("fantasy") !== -1 || s.indexOf("oreo") !== -1 || s.indexOf("parle") !== -1) return photos.biscuit;
+  if (s.indexOf("cheese") !== -1) return photos.cheese;
+  if (s.indexOf("butter") !== -1 || s.indexOf("paneer") !== -1 || s.indexOf("milk") !== -1 || s.indexOf("dahi") !== -1) return photos.butter;
+  if (s.indexOf("sugar") !== -1 || s.indexOf("salt") !== -1) return photos.sugar;
+  if (s.indexOf("atta") !== -1 || s.indexOf("rice") !== -1 || s.indexOf("besan") !== -1 || s.indexOf("bread") !== -1) return photos.atta;
+  if (s.indexOf("oil") !== -1 || s.indexOf("singtel") !== -1 || s.indexOf("ghee") !== -1) return photos.oil;
+  if (s.indexOf("dal") !== -1 || s.indexOf("chana") !== -1) return photos.dal;
