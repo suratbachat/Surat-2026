@@ -7,20 +7,21 @@
 <style>
 *{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f3f6f4;margin:0;padding:0 0 40px;color:#222;overflow-x:hidden}
 .top-red{background:#dc2626;color:#fff;padding:10px;text-align:center;font-weight:bold;font-size:13px;position:sticky;top:0;z-index:300}
-.left-doodle{position:fixed;top:38px;bottom:0;left:0;width:195px;background:linear-gradient(180deg,#fffbeb,#fef3c7,#fde68a);border-right:4px dashed #dc2626;padding:8px;z-index:200;display:flex;flex-direction:column;text-align:center;cursor:pointer;animation:glow 1.4s infinite alternate}
+.left-doodle{position:fixed;top:38px;bottom:0;left:0;width:215px;background:linear-gradient(180deg,#fffbeb,#fef3c7,#fde68a);border-right:4px dashed #dc2626;padding:8px;z-index:200;display:flex;flex-direction:column;text-align:center;cursor:pointer;animation:glow 1.4s infinite alternate}
 @keyframes glow{0%{border-color:#dc2626}100%{border-color:#15803d}}
-.d-frame{border:3px dotted #f59e0b;border-radius:16px;background:#fff;padding:10px 6px;flex:1;display:flex;flex-direction:column;justify-content:space-between;align-items:center}
+.d-frame{border:3px dotted #f59e0b;border-radius:16px;background:#fff;padding:10px 8px;flex:1;display:flex;flex-direction:column;justify-content:space-between;align-items:center}
 .d-badge{background:#dc2626;color:#fff;font-size:11px;font-weight:900;padding:4px 10px;border-radius:12px}
-.d-art{width:110px;height:125px;border-radius:14px;background:linear-gradient(135deg,#111827,#374151);color:#fbbf24;display:flex;flex-direction:column;align-items:center;justify-content:center;border:3px solid #fbbf24}
-.d-art span{font-size:40px;margin:4px 0}
-.d-catchy{font-size:16px;font-weight:900;color:#b91c1c;line-height:1.25}
-.d-price{background:#15803d;color:#fff;font-size:12px;font-weight:bold;padding:6px;border-radius:8px;width:100%}
-.right-rail{position:fixed;top:38px;bottom:0;right:0;width:76px;background:linear-gradient(180deg,#dcfce7,#fef9c3,#fee2e2);border-left:4px solid #15803d;overflow:hidden;z-index:200}
-.rail-track{display:flex;flex-direction:column;gap:10px;padding:8px;animation:moveUp 14s linear infinite}
-.rail-box{width:56px;height:56px;background:#fff;border-radius:12px;border:2px solid #f59e0b;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:22px;font-weight:bold}
-.rail-box span{font-size:8px;color:#333;margin-top:2px}
+.d-bigpic{width:170px;height:190px;border-radius:14px;border:3px solid #fbbf24;background:linear-gradient(145deg,#111827,#1f2937);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;box-shadow:0 8px 18px rgba(0,0,0,0.22)}
+.d-bigpic .ico{font-size:78px;line-height:1}
+.d-bigpic b{color:#fbbf24;font-size:13px;margin-top:8px;letter-spacing:1px}
+.d-catchy{font-size:16px;font-weight:900;color:#b91c1c;line-height:1.25;text-transform:uppercase}
+.d-price{background:#15803d;color:#fff;font-size:12px;font-weight:bold;padding:7px;border-radius:8px;width:100%}
+.right-rail{position:fixed;top:38px;bottom:0;right:0;width:78px;background:linear-gradient(180deg,#dcfce7,#fef9c3,#fee2e2);border-left:4px solid #15803d;overflow:hidden;z-index:200}
+.rail-track{display:flex;flex-direction:column;gap:10px;padding:10px 8px;animation:moveUp 14s linear infinite}
+.rail-box{width:58px;height:58px;background:#fff;border-radius:12px;border:2px solid #f59e0b;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:24px}
+.rail-box span{font-size:8px;color:#111;font-weight:bold;margin-top:2px}
 @keyframes moveUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
-.main{margin:14px 84px 14px 205px}
+.main{margin:14px 88px 14px 225px}
 .lang-bar{display:flex;justify-content:space-between;align-items:center;background:#15803d;color:#fff;padding:10px 14px;border-radius:12px;margin-bottom:10px;flex-wrap:wrap;gap:6px}
 .lang-bar h2{margin:0;font-size:18px}
 .l-btn{background:#fff;color:#15803d;border:none;padding:5px 11px;border-radius:14px;font-weight:bold;cursor:pointer;font-size:12px}
@@ -34,9 +35,9 @@ input{flex:1;min-width:160px;font-weight:bold}
 .c-bar{font-size:13px;color:#374151;margin-bottom:10px;font-weight:bold}
 .card{background:#fff;padding:14px;border-radius:14px;margin-bottom:14px;box-shadow:0 3px 8px rgba(0,0,0,0.07);border:1px solid #e5e7eb}
 .c-top{display:flex;align-items:center;gap:12px;border-bottom:1px solid #f3f4f6;padding-bottom:10px;margin-bottom:10px}
-.p-pic{width:62px;height:62px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:2px solid #bbf7d0;font-size:28px}
+.p-pic{width:68px;height:68px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:2px solid #bbf7d0;font-size:32px}
 .p-pic span{font-size:8px;font-weight:bold;color:#111;margin-top:2px}
-.p-title{font-size:15px;font-weight:bold;display:block;margin-bottom:4px}
+.p-title{font-size:16px;font-weight:bold;display:block;margin-bottom:4px;color:#111}
 .tag{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:bold;background:#dcfce7;color:#15803d;margin-right:4px;display:inline-block}
 .t-off{background:#fee2e2;color:#dc2626}.t-bs{background:#fef08a;color:#854d0e;border:1px solid #eab308}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:6px}
@@ -47,17 +48,20 @@ input{flex:1;min-width:160px;font-weight:bold}
 .req-btn{background:#15803d;color:#fff;border:none;padding:11px 20px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:14px;margin-top:8px}
 .p-wrap{width:100%;max-width:320px;height:12px;background:#dcfce7;border-radius:10px;margin:10px auto;overflow:hidden;border:1px solid #15803d}
 .p-bar{height:100%;width:0%;background:#15803d;transition:width 1s linear}
-@media(max-width:700px){.left-doodle{width:105px;padding:4px}.d-art{width:76px;height:85px}.d-catchy{font-size:11px}.right-rail{width:48px}.rail-box{width:36px;height:36px;font-size:16px}.main{margin:10px 52px 10px 109px}}
+@media(max-width:700px){.left-doodle{width:120px;padding:4px}.d-bigpic{width:96px;height:110px}.d-bigpic .ico{font-size:46px}.d-catchy{font-size:11px}.right-rail{width:48px}.rail-box{width:36px;height:36px;font-size:16px}.main{margin:10px 52px 10px 124px}}
 </style>
 </head>
 <body>
-<div class="top-red" id="rBan">Sunfeast Dark Fantasy Biscuits — 50% OFF / BUY 1 GET 1 FREE!</div>
-<div class="left-doodle" onclick="jump('Bella Vita')">
+<div class="top-red" id="rBan">Sunfeast Dark Fantasy Biscuits — BUY 1 GET 1 FREE!</div>
+<div class="left-doodle" onclick="jumpDeal()">
   <div class="d-frame">
-    <span class="d-badge">MEGA DEAL</span>
-    <div class="d-art"><b>BELLAVITA</b><span>🧴</span><small>CEO MAN 100ML</small></div>
-    <div class="d-catchy">LE LO, LE LO!<br>FLAT 50% OFF<br>SABSE SASTA!</div>
-    <div class="d-price">Reliance: Rs.425<br><small>(Save Rs.74!)</small></div>
+    <span class="d-badge" id="dBdg">🔥 50% OFF MEGA SALE</span>
+    <div class="d-bigpic">
+      <div class="ico" id="dIco">🧴</div>
+      <b id="dBrand">BELLA VITA CEO</b>
+    </div>
+    <div class="d-catchy" id="dTxt">LE LO, LE LO! SURAT KI SABSE BADI BACHAT!</div>
+    <div class="d-price" id="dPrc">Reliance: Rs.425 (Save Rs.74!)</div>
   </div>
 </div>
 <div class="right-rail"><div class="rail-track" id="rRail"></div></div>
@@ -72,7 +76,7 @@ input{flex:1;min-width:160px;font-weight:bold}
   </div>
   <div class="row">
     <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu</option><option>Varachha</option><option>Katargam</option></select>
-    <input type="text" id="sBox" placeholder="Search 32+ items or type ANY new item..." onkeyup="render()">
+    <input type="text" id="sBox" placeholder="Search 28+ items or type ANY new item..." onkeyup="render()">
   </div>
   <div class="cats">
     <button class="c-btn active" onclick="setC('All',this)">All Items</button>
@@ -87,9 +91,34 @@ input{flex:1;min-width:160px;font-weight:bold}
   <div id="out"></div>
 </div>
 <script>
-var rD=[["🧴","PERFUME","#fef3c7"],["🍪","BISCUIT","#fee2e2"],["🧀","CHEESE","#fef9c3"],["🧈","BUTTER","#dcfce7"],["🥛","MILK","#e0f2fe"],["🌾","ATTA","#ffedd5"],["🫙","SINGTEL","#f3e8ff"],["🫘","DAL","#dcfce7"],["☕","CHAI","#fef3c7"],["🍜","MAGGI","#fee2e2"],["🎧","EARBUDS","#e0f2fe"],["⌚","WATCH","#f3e8ff"]];
-var rh="";for(var r=0;r<24;r++){var it=rD[r%12];rh+="<div class='rail-box' style='background:"+it+"'>"+it+"<span>"+it+"</span></div>";}
+var slides=[
+  {key:"Bella Vita",bdg:"🔥 50% OFF MEGA SALE",ico:"🧴",br:"BELLA VITA CEO",txt:"LE LO, LE LO! SURAT KI SABSE BADI BACHAT!",prc:"Reliance: Rs.425 (Save Rs.74!)"},
+  {key:"Dark Fantasy",bdg:"🎁 BUY 1 GET 1 FREE",ico:"🍪",br:"DARK FANTASY",txt:"EK PE EK FREE! D-MART & RELIANCE DHAMAKA!",prc:"Wallet Mart: Rs.140 Only!"},
+  {key:"Aashirvaad",bdg:"🌾 RATION MEGA DEAL",ico:"🌾",br:"AASHIRVAAD ATTA",txt:"HAR MAHINE ₹2,000+ BACHAYEIN — LIVE RATES!",prc:"D-Mart: Rs.215 (Save Rs.20!)"},
+  {key:"boAt",bdg:"🎧 60% OFF SALE",ico:"🎧",br:"BOAT AIRDOPES",txt:"BLINKIT SE ₹200 SASTA — ABHI CHECK KAREIN!",prc:"Reliance: Rs.1,099 Only!"}
+];
+var si=0;
+function jumpDeal(){document.getElementById("sBox").value=slides[si].key;render();}
+setInterval(function(){
+  si=(si+1)%slides.length;var s=slides[si];
+  document.getElementById("rBan").innerText=s.br+" — "+s.txt;
+  document.getElementById("dBdg").innerText=s.bdg;
+  document.getElementById("dIco").innerText=s.ico;
+  document.getElementById("dBrand").innerText=s.br;
+  document.getElementById("dTxt").innerText=s.txt;
+  document.getElementById("dPrc").innerText=s.prc;
+},3000);
+
+var rD=[
+  {i:"🧴",l:"PERFUME",bg:"#fef3c7"},{i:"🍪",l:"BISCUIT",bg:"#fee2e2"},{i:"🧀",l:"CHEESE",bg:"#fef9c3"},
+  {i:"🧈",l:"BUTTER",bg:"#dcfce7"},{i:"🥛",l:"MILK",bg:"#e0f2fe"},{i:"🌾",l:"ATTA",bg:"#ffedd5"},
+  {i:"🫙",l:"SINGTEL",bg:"#f3e8ff"},{i:"🫘",l:"DAL",bg:"#dcfce7"},{i:"☕",l:"CHAI",bg:"#fef3c7"},
+  {i:"🍜",l:"MAGGI",bg:"#fee2e2"},{i:"🎧",l:"EARBUDS",bg:"#e0f2fe"},{i:"⌚",l:"WATCH",bg:"#f3e8ff"}
+];
+var rh="";
+for(var r=0;r<24;r++){var it=rD[r%12];rh+="<div class='rail-box' style='background:"+it.bg+"'>"+it.i+"<span>"+it.l+"</span></div>";}
 document.getElementById("rRail").innerHTML=rh;
+
 var curC="All",tmr=null;
 var db=[
 {n:"Bella Vita CEO Perfume (100ml)",c:"Personal",o:"50% OFF",bs:1,i:"🧴",l:"PERFUME",bg:"#fef3c7",d:449,r:425,s:460,w:435,b:499,z:489},
@@ -100,17 +129,3 @@ var db=[
 {n:"Amul Malai Paneer (200g)",c:"Grocery",o:"",bs:0,i:"🧈",l:"PANEER",bg:"#f0fdf4",d:85,r:90,s:88,w:86,b:95,z:95},
 {n:"Amul Pure Cow Ghee (1L)",c:"Grocery",o:"SAVE Rs.30",bs:1,i:"🫙",l:"GHEE",bg:"#fef3c7",d:585,r:605,s:595,w:590,b:625,z:620},
 {n:"Amul Taaza Milk (1L)",c:"Grocery",o:"",bs:1,i:"🥛",l:"MILK",bg:"#e0f2fe",d:54,r:54,s:54,w:53,b:56,z:56},
-{n:"Amul Masti Dahi (400g)",c:"Grocery",o:"",bs:0,i:"🥛",l:"DAHI",bg:"#e0f2fe",d:32,r:35,s:34,w:33,b:36,z:36},
-{n:"White Sugar / Chini (1kg)",c:"Grocery",o:"",bs:1,i:"🧂",l:"SUGAR",bg:"#f3f4f6",d:42,r:45,s:44,w:43,b:48,z:47},
-{n:"Tata Iodized Salt (1kg)",c:"Grocery",o:"",bs:0,i:"🧂",l:"SALT",bg:"#f3f4f6",d:24,r:26,s:25,w:24,b:28,z:28},
-{n:"Aashirvaad Chakki Atta (5kg)",c:"Grocery",o:"SAVE Rs.20",bs:1,i:"🌾",l:"ATTA",bg:"#ffedd5",d:215,r:225,s:220,w:218,b:235,z:232},
-{n:"Fortune Besan Flour (1kg)",c:"Grocery",o:"",bs:0,i:"🌾",l:"BESAN",bg:"#fef9c3",d:88,r:95,s:92,w:90,b:102,z:100},
-{n:"Fortune Sunflower Oil (1L)",c:"Grocery",o:"",bs:0,i:"🫙",l:"OIL",bg:"#fef9c3",d:124,r:129,s:126,w:125,b:135,z:134},
-{n:"Gulab Singtel Oil (1L)",c:"Grocery",o:"SURAT SPECIAL",bs:1,i:"🫙",l:"SINGTEL",bg:"#ffedd5",d:168,r:178,s:174,w:170,b:185,z:184},
-{n:"Britannia Wheat Bread (400g)",c:"Grocery",o:"",bs:0,i:"🍞",l:"BREAD",bg:"#ffedd5",d:45,r:48,s:46,w:45,b:50,z:50},
-{n:"Tata Yellow Moong Dal (1kg)",c:"Grocery",o:"SAVE Rs.17",bs:1,i:"🫘",l:"DAL",bg:"#fef9c3",d:148,r:155,s:152,w:149,b:165,z:162},
-{n:"Tata Toor / Tuver Dal (1kg)",c:"Grocery",o:"",bs:1,i:"🫘",l:"TUVER",bg:"#fef3c7",d:178,r:188,s:184,w:180,b:198,z:195},
-{n:"Daawat Basmati Rice (5kg)",c:"Grocery",o:"SAVE Rs.40",bs:1,i:"🌾",l:"RICE",bg:"#f0fdf4",d:360,r:385,s:375,w:368,b:410,z:405},
-</script>
-</body>
-</html>
