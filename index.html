@@ -3,126 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surat Bachat - Live Price Comparison</title>
+<title>Surat Bachat - Free Social Service</title>
 <style>
 body { font-family: Arial, sans-serif; background: #f4f7f6; margin: 0; padding: 0 0 40px 0; color: #222; }
 .flash { background: #d35400; color: white; padding: 10px; text-align: center; font-weight: bold; font-size: 14px; }
-.flash-tag { background: #facc15; color: #000; padding: 2px 7px; border-radius: 4px; margin-right: 6px; font-size: 11px; }
 .header { background: #1e8449; color: white; padding: 20px; text-align: center; }
 .header h1 { margin: 0; font-size: 26px; }
 .header p { margin: 5px 0 12px 0; font-size: 14px; }
 .lang-btn { background: white; color: #1e8449; border: none; padding: 6px 14px; margin: 4px; border-radius: 15px; font-weight: bold; cursor: pointer; }
 .lang-btn.active { background: #facc15; color: #000; }
-
 .box { max-width: 850px; margin: 20px auto; padding: 0 15px; }
 .row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
 select, input { padding: 13px; font-size: 15px; border: 1.5px solid #1e8449; border-radius: 8px; }
-select { font-weight: bold; color: #1e8449; background: white; }
 input { flex: 1; min-width: 220px; }
-
 .cats { margin-bottom: 15px; }
 .cat-btn { background: white; border: 1px solid #1e8449; color: #1e8449; padding: 8px 14px; border-radius: 20px; cursor: pointer; margin: 3px; font-weight: bold; font-size: 13px; }
 .cat-btn.active { background: #1e8449; color: white; }
-.count-bar { font-size: 13px; color: #555; margin-bottom: 10px; font-weight: bold; }
-
-.card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-.c-top { display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #eee; padding-bottom: 12px; margin-bottom: 12px; }
-.p-img { width: 68px; height: 68px; border-radius: 12px; background: #f8faf9; border: 1px solid #e2ece7; display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; }
-.p-info { flex: 1; }
-.p-title { font-size: 17px; font-weight: bold; display: block; margin-bottom: 5px; color: #111; }
-.tag { font-size: 11px; padding: 3px 8px; border-radius: 6px; font-weight: bold; display: inline-block; }
-.t-cat { background: #e8f8f5; color: #1e8449; }
-.t-off { background: #fdebd0; color: #d35400; margin-left: 5px; }
-.t-new { background: #ebf5fb; color: #2980b9; margin-left: 5px; }
-
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 8px; }
-.st { border: 1px solid #e0e0e0; padding: 9px 5px; border-radius: 8px; text-align: center; background: #fafafa; }
+.card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+.c-top { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; }
+.p-img { width: 55px; height: 55px; border-radius: 10px; background: #eafaf1; display: flex; align-items: center; justify-content: center; font-size: 30px; }
+.p-title { font-size: 16px; font-weight: bold; }
+.tag { font-size: 11px; padding: 2px 7px; border-radius: 5px; font-weight: bold; background: #e8f8f5; color: #1e8449; margin-right: 4px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px; }
+.st { border: 1px solid #ddd; padding: 8px 4px; border-radius: 8px; text-align: center; }
 .best { border: 2px solid #27ae60; background: #eafaf1; font-weight: bold; color: #1e8449; }
-.b-lbl { background: #27ae60; color: white; font-size: 10px; padding: 2px 6px; border-radius: 5px; display: inline-block; margin-bottom: 3px; }
-.sync-time { font-size: 11px; color: #888; text-align: right; margin-top: 8px; }
-
-.req-box { background: white; padding: 25px; border-radius: 12px; text-align: center; border: 2px dashed #1e8449; }
-.req-btn { background: #1e8449; color: white; border: none; padding: 12px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 15px; margin-top: 10px; }
 </style>
 </head>
 <body>
-
-<div class="flash">
-    <span class="flash-tag">FREE SOCIAL SERVICE</span>
-    <span id="fTxt">D-Mart: Sunfeast Dark Fantasy Biscuits - BUY 1 GET 1 FREE!</span>
-</div>
-
+<div class="flash">100% FREE SOCIAL SERVICE FOR SURAT — SAVE ₹2,000+ EVERY MONTH!</div>
 <div class="header">
-    <h1 id="t1">Surat Bachat</h1>
-    <p id="t2">100% Free Social Service — Compare Live Prices Across Surat</p>
-    <div>
-        <button class="lang-btn active" onclick="setL('en', this)">English</button>
-        <button class="lang-btn" onclick="setL('hi', this)">&#2361;&#2367;&#2306;&#2342;&#2368;</button>
-        <button class="lang-btn" onclick="setL('gu', this)">&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;</button>
-    </div>
+    <h1>Surat Bachat</h1>
+    <p>Compare Live Prices Across Surat's Top Stores</p>
 </div>
-
 <div class="box">
     <div class="row">
-        <select>
-            <option>All Surat</option>
-            <option>Adajan / Pal</option>
-            <option>Vesu / City Light</option>
-            <option>Varachha</option>
-            <option>Katargam</option>
-        </select>
-        <input type="text" id="searchBox" placeholder="Search Amul Cheese, Milk, Sugar, Oil, Perfume..." onkeyup="render()">
+        <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu</option><option>Varachha</option><option>Katargam</option></select>
+        <input type="text" id="searchBox" placeholder="Search Amul Cheese, Sugar, Milk, Oil, Perfume..." onkeyup="render()">
     </div>
-
     <div class="cats">
         <button class="cat-btn active" onclick="setC('All', this)">All Items</button>
-        <button class="cat-btn" onclick="setC('Offer', this)">Buy 1 Get 1 & Sale</button>
-        <button class="cat-btn" onclick="setC('New', this)">New Launches</button>
         <button class="cat-btn" onclick="setC('Grocery', this)">Grocery & Dairy</button>
         <button class="cat-btn" onclick="setC('Personal', this)">Perfume & Care</button>
         <button class="cat-btn" onclick="setC('Stationery', this)">Stationery</button>
         <button class="cat-btn" onclick="setC('Electronics', this)">Electronics</button>
     </div>
-
-    <div class="count-bar" id="cBar">Loading catalog...</div>
     <div id="out"></div>
 </div>
-
 <script>
-var deals = [
-    "D-Mart: Sunfeast Dark Fantasy Biscuits - BUY 1 GET 1 FREE!",
-    "Reliance Smart: Bella Vita Luxury CEO Perfume - FLAT 50% OFF!",
-    "Wallet Mart: Aashirvaad Chakki Atta (5kg) - Extra Rs.20 OFF!",
-    "Blinkit & Zepto: boAt Airdopes 141 Earbuds - 60% OFF Today!"
-];
-var di = 0;
-setInterval(function() {
-    di = (di + 1) % deals.length;
-    document.getElementById("fTxt").innerText = deals[di];
-}, 3500);
-
 var curC = "All";
-
 var db = [
-  {"n": "Amul Processed Cheese Cubes (200 g)", "k": "amul cheese cubes dairy", "c": "Grocery", "o": "SAVE Rs.10", "nw": 0, "d": 122, "r": 128, "s": 125, "w": 124, "b": 135, "z": 135, "u": "Updated Today"},
-  {"n": "Amul Cheese Slices (200 g - 10 Slices)", "k": "amul cheese slices burger dairy", "c": "Grocery", "o": "", "nw": 0, "d": 132, "r": 138, "s": 135, "w": 134, "b": 145, "z": 145, "u": "Updated Today"},
-  {"n": "Amul Mozzarella Diced Pizza Cheese (200 g)", "k": "amul pizza cheese mozzarella", "c": "Grocery", "o": "", "nw": 0, "d": 115, "r": 122, "s": 118, "w": 116, "b": 128, "z": 128, "u": "Updated Today"},
-  {"n": "Amul Pasteurised Table Butter (500 g)", "k": "amul butter makkhan dairy", "c": "Grocery", "o": "HOT DEAL", "nw": 0, "d": 265, "r": 275, "s": 270, "w": 268, "b": 285, "z": 285, "u": "Updated Today"},
-  {"n": "Amul Fresh Malai Paneer (200 g)", "k": "amul paneer dairy", "c": "Grocery", "o": "", "nw": 0, "d": 85, "r": 90, "s": 88, "w": 86, "b": 95, "z": 95, "u": "Updated Today"},
-  {"n": "Amul Pure Cow Ghee (1 Litre Pouch)", "k": "amul ghee dairy", "c": "Grocery", "o": "SAVE Rs.30", "nw": 0, "d": 585, "r": 605, "s": 595, "w": 590, "b": 625, "z": 620, "u": "Updated Today"},
-  {"n": "Govardhan Pure Cow Ghee (1 Litre Jar)", "k": "govardhan ghee dairy", "c": "Grocery", "o": "", "nw": 0, "d": 610, "r": 635, "s": 625, "w": 615, "b": 655, "z": 650, "u": "Updated Today"},
-  {"n": "Amul Taaza Fresh Milk (1 Litre)", "k": "milk doodh dudh amul", "c": "Grocery", "o": "", "nw": 0, "d": 54, "r": 54, "s": 54, "w": 53, "b": 56, "z": 56, "u": "Updated Today"},
-  {"n": "Amul Masti Dahi / Curd (400 g Cup)", "k": "dahi curd amul masti", "c": "Grocery", "o": "", "nw": 0, "d": 32, "r": 35, "s": 34, "w": 33, "b": 36, "z": 36, "u": "Updated Today"},
-  {"n": "Refined White Sugar / Chini (1 kg)", "k": "sugar chini khand", "c": "Grocery", "o": "", "nw": 0, "d": 42, "r": 45, "s": 44, "w": 43, "b": 48, "z": 47, "u": "Updated Today"},
-  {"n": "Tata Iodized Salt / Namak (1 kg)", "k": "salt namak mithu tata", "c": "Grocery", "o": "", "nw": 0, "d": 24, "r": 26, "s": 25, "w": 24, "b": 28, "z": 28, "u": "Updated Today"},
-  {"n": "Aashirvaad Shudh Chakki Atta (5 kg)", "k": "atta flour gehu lot", "c": "Grocery", "o": "SAVE Rs.20", "nw": 0, "d": 215, "r": 225, "s": 220, "w": 218, "b": 235, "z": 232, "u": "Updated Today"},
-  {"n": "Aashirvaad Select Sharbati Atta (5 kg)", "k": "atta sharbati flour gehu", "c": "Grocery", "o": "", "nw": 0, "d": 265, "r": 280, "s": 275, "w": 270, "b": 295, "z": 290, "u": "Updated Today"},
-  {"n": "Fortune Besan / Gram Flour (1 kg)", "k": "besan chana flour lot", "c": "Grocery", "o": "", "nw": 0, "d": 88, "r": 95, "s": 92, "w": 90, "b": 102, "z": 100, "u": "Updated Today"},
-  {"n": "Fortune Sunlite Sunflower Oil (1 L)", "k": "oil tel fortune sunflower", "c": "Grocery", "o": "", "nw": 0, "d": 124, "r": 129, "s": 126, "w": 125, "b": 135, "z": 134, "u": "Updated Today"},
-  {"n": "Gulab Filtered Groundnut / Singtel Oil (1 L)", "k": "singtel groundnut oil gulab", "c": "Grocery", "o": "SURAT FAVORITE", "nw": 0, "d": 168, "r": 178, "s": 174, "w": 170, "b": 185, "z": 184, "u": "Updated Today"},
-  {"n": "Saffola Gold Blended Cooking Oil (1 L)", "k": "saffola oil tel heart", "c": "Grocery", "o": "", "nw": 0, "d": 155, "r": 165, "s": 160, "w": 158, "b": 175, "z": 172, "u": "Updated Today"},
-  {"n": "Britannia Whole Wheat Bread (400 g)", "k": "bread pav britannia", "c": "Grocery", "o": "", "nw": 0, "d": 45, "r": 48, "s": 46, "w": 45, "b": 50, "z": 50, "u": "Updated Today"},
-  {"n": "Tata Sampann Yellow Moong Dal (1 kg)", "k": "moong dal mung mag", "c": "Grocery", "o": "SAVE Rs.17", "nw": 0, "d": 148, "r": 155, "s": 152, "w": 149, "b": 165, "z": 162, "u": "Updated Today"},
-  {"n": "Tata Sampann Unpolished Toor Dal (1 kg)", "k": "toor arhar tuver dal", "c": "Grocery", "o": "", "nw": 0, "d": 178, "r": 188, "s": 184, "w": 180, "b": 198, "z": 195, "u": "Updated Today"},
-  {"n": "Tata Sampann Chana Dal (1 kg)", "k": "chana dal", "c": "Grocery", "o": "", "nw": 0, "d": 94, "r": 102, "s": 98, "w": 96, "b": 110, "z": 108, "u": "Updated Today"},
-  {"n": "Tata Sampann Kabuli Chana / Chole (1 kg)", "k": "kabuli chana chole", "c": "Grocery", "o": "", "nw": 0, "d": 155, "r": 168, "s": 162, "w": 158, "b": 178, "z": 175, "u": "Updated Today"},
+  {n:"Amul Cheese Cubes (200 g)", k:"amul cheese", c:"Grocery", i:"🧀", d:122, r:128, s:125, w:124, b:135, z:135},
+  {n:"Amul Butter (500 g)", k:"amul butter", c:"Grocery", i:"🧈", d:265, r:275, s:270, w:268, b:285, z:285},
+  {n:"Amul Taaza Milk (1 L)", k:"milk doodh", c:"Grocery", i:"🥛", d:54, r:54, s:54, w:53, b:56, z:56},
+  {n:"Sugar / Chini (1 kg)", k:"sugar chini", c:"Grocery", i:"🧂", d:42, r:45, s:44, w:43, b:48, z:47},
+  {n:"Aashirvaad Atta (5 kg)", k:"atta flour", c:"Grocery", i:"🌾", d:215, r:225, s:220, w:218, b:235, z:232},
+  {n:"Fortune Sunflower Oil (1 L)", k:"oil tel", c:"Grocery", i:"🫙", d:124, r:129, s:126, w:125, b:135, z:134},
+  {n:"Gulab Singtel Oil (1 L)", k:"singtel oil", c:"Grocery", i:"🫙", d:168, r:178, s:174, w:170, b:185, z:184},
+  {n:"Tata Moong Dal (1 kg)", k:"moong dal", c:"Grocery", i:"🫘", d:148, r:155, s:152, w:149, b:165, z:162},
+  {n:"Tata Toor Dal (1 kg)", k:"toor dal", c:"Grocery", i:"🫘", d:178, r:188, s:184, w:180, b:198, z:195},
+  {n:"Wagh Bakri Tea (500 g)", k:"tea chai", c:"Grocery", i:"☕", d:240, r:255, s:248, w:244, b:265, z:262},
+  {n:"Maggi Noodles (Pack of 12)", k:"maggi noodles", c:"Grocery", i:"🍜", d:150, r:162, s:158, w:154, b:168, z:168},
+  {n:"Bella Vita CEO Perfume (100 ml)", k:"perfume", c:"Personal", i:"🧴", d:449, r:425, s:460, w:435, b:499, z:489},
+  {n:"Dove Soap (Pack of 4)", k:"dove soap", c:"Personal", i:"🧼", d:210, r:225, s:220, w:215, b:240, z:238},
+  {n:"Classmate Notebooks (Pack of 6)", k:"notebook copy", c:"Stationery", i:"📓", d:240, r:255, s:250, w:245, b:270, z:265},
+  {n:"boAt Airdopes 141 Earbuds", k:"earbuds boat", c:"Electronics", i:"🎧", d:1199, r:1099, s:1249, w:1149, b:1299, z:1299}
+];
+function setC(c, btn) {
+    curC = c;
+    var bs = document.getElementsByClassName("cat-btn");
+    for (var i = 0; i < bs.length; i++) bs[i].classList.remove("active");
+    btn.classList.add("active");
+    render();
+}
+function render() {
+    var q = document.getElementById("searchBox").value.toLowerCase();
+    var h = "";
+    for (var i = 0; i < db.length; i++) {
+        var x = db[i];
+        if ((curC === "All" || x.c === curC) && (x.n.toLowerCase().indexOf(q) !== -1 || x.k.indexOf(q) !== -1)) {
+            var arr = [x.d, x.r, x.s, x.w, x.b, x.z];
+            var stN = ["D-Mart", "Reliance", "Star Bazaar", "Wallet Mart", "Blinkit", "Zepto"];
+            var mn = Math.min.apply(null, arr);
+            var sh = "";
+            for (var j = 0; j < 6; j++) {
+                var isB = (arr[j] === mn);
+                sh += "<div class='st " + (isB ? "best" : "") + "'><div>" + stN[j] + "</div><div><b>₹" + arr[j] + "</b></div></div>";
+            }
+            h += "<div class='card'><div class='c-top'><div class='p-img'>" + x.i + "</div><div><div class='p-title'>" + x.n + "</div><span class='tag'>" + x.c + "</span></div></div><div class='grid'>" + sh + "</div></div>";
+        }
+    }
+    document.getElementById("out").innerHTML = h || "<p style='text-align:center;'>Item not found</p>";
+}
+render();
+</script>
+</body>
+</html>
