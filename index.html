@@ -41,6 +41,7 @@ input{flex:1;min-width:220px}
 .p-bar{height:100%;width:0%;background:#1e8449;transition:width 1s linear}
 </style>
 </head>
+
 <body>
 <div class="top-red"><div class="marq" id="rBan">"Kuch Samajh Na Aaye To Lelo Lelo, Surat Bachat Par Saste Daam Ka Mela Khel Lo!"</div></div>
 <div class="header">
@@ -60,7 +61,7 @@ input{flex:1;min-width:220px}
   </div>
   <div class="row">
     <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu</option><option>Varachha</option><option>Katargam</option></select>
-    <input type="text" id="sBox" placeholder="Type anything (e.g. 'chota maggie', 'kapde', 'khushboo')..." onkeyup="render()">
+    <input type="text" id="sBox" placeholder="Kuch bhi likhein (e.g. 'chota maggie', 'kapde', 'khushboo')..." onkeyup="render()">
   </div>
   <div class="cats">
     <button class="c-btn active" onclick="setC('All',this)">All Items</button>
@@ -74,24 +75,44 @@ input{flex:1;min-width:220px}
   <div id="out"></div>
 </div>
 <script>
-var todayStr=new Date().toISOString().slice(0,10);
-var db=[
-{n:"Bella Vita Luxury CEO Perfume",q:"100 ml",c:"Personal",o:"50% OFF",exp:"2026-11-25",kw:"perfume khushboo scent itra spray",ry:"Ab badbu se nahi hona padega pareshan, Bella Vita CEO badhaye aapki shaan!",p:[449,425,460,435,499,489]},
-{n:"Fogg Royal No-Gas Perfume Spray",q:"150 ml",c:"Personal",o:"SAVE Rs.60",exp:"2026-11-24",kw:"perfume deo body spray khushboo",ry:"Bina gas wala perfume chale lamba saal, Fogg lagao aur machao dhamaal!",p:[165,175,170,168,199,195]},
-{n:"Engage Yang Eau De Parfum",q:"100 ml",c:"Personal",o:"BUY 1 GET 1",exp:"2026-11-26",kw:"perfume scent spray",ry:"Khushboo aisi jo dil ko chhoo jaye, Engage lagate hi har koi muskuraye!",p:[299,285,295,290,340,335]},
-{n:"Allen Solly Men Cotton Polo T-Shirt",q:"1 Unit",c:"Clothes",o:"NEW LAUNCH",exp:"2026-11-28",kw:"kapde kapda cloth clothes tshirt tee shirt wear",ry:"Naya style aur kapda ekdum soft, pehno aur lagoge ekdum top!",p:[549,499,529,519,649,629]},
-{n:"Levi's Slim Fit Stretch Denim Jeans",q:"1 Pair",c:"Clothes",o:"40% OFF",exp:"2026-11-22",kw:"kapde kapda cloth clothes pant denim trousers",ry:"Fitting ho mast aur look ho hero, Surat Bachat par price ekdum zero!",p:[1399,1299,1349,1320,1599,1549]},
-{n:"Jockey Super Combed Cotton T-Shirt",q:"Pack of 2",c:"Clothes",o:"HOT DEAL",exp:"2026-11-25",kw:"kapde kapda cloth clothes innerwear tshirt",ry:"Garmi ho ya sardi aaram bharpoor, Jockey pehno aur thakan karo door!",p:[699,679,689,685,749,749]},
-{n:"Biba Women Printed Cotton Kurti",q:"1 Unit",c:"Clothes",o:"FESTIVE SALE",exp:"2026-11-27",kw:"kapde kapda cloth clothes dress ladies suit",ry:"Rang birangi kurti aur naya fashion, tyohar ho ya office badhaye aapki shaan!",p:[799,749,779,765,899,879]},
-{n:"Raymond Formal Cotton Shirt",q:"1 Unit",c:"Clothes",o:"OFFICE SALE",exp:"2026-11-23",kw:"kapde kapda cloth clothes formal wear",ry:"Office meeting mein dikho sabse smart, Raymond shirt banaye aapki alag baat!",p:[999,949,979,965,1149,1129]},
-{n:"boAt Airdopes 141 TWS Earbuds",q:"1 Pair",c:"Electronics",o:"60% OFF",exp:"2026-11-24",kw:"earphone headphones bluetooth tws audio",ry:"Taaron ka jhanjhat ab karo bye-bye, boAt earbuds se sangeet mein kho jayein!",p:[1199,1099,1249,1149,1299,1299]},
-{n:"Noise ColorFit Pulse 2 Max Watch",q:"1 Unit",c:"Electronics",o:"NEW LAUNCH",exp:"2026-11-29",kw:"smartwatch ghadi watch fitness",ry:"Haath par bandho smart zamaana, Noise watch ke saath har pal suhana!",p:[1499,1399,1549,1449,1599,1599]},
-{n:"Sunfeast Dark Fantasy Biscuits",q:"300 g",c:"Grocery",o:"BUY 1 GET 1",exp:"2026-11-22",kw:"biscuit cookies chocolate nashta",ry:"Meethe ka mazaa ab hoga double, ek pe ek free — chhod do saari trouble!",p:[150,145,148,140,160,155]},
-{n:"Maggi Masala Noodles (Single Chhota Pack)",q:"70 g (1 Packet)",c:"Grocery",o:"MRP Rs.14",exp:"2026-12-31",kw:"maggi maggie chhota single 1 ek packet nasta",ry:"2 minute mein bhookh ko karo bye-bye, garma-garam Maggi sabke dil ko bhaye!",p:[13,14,14,13,14,14]},
-{n:"Maggi Masala Noodles (Family Pack)",q:"Pack of 12",c:"Grocery",o:"SAVE Rs.18",exp:"2026-11-26",kw:"maggi maggie bada family 12 pack",ry:"Poori family ke liye 12 pack ka mela, bachat mein sabse aage Surat akela!",p:[150,162,158,154,168,168]},
-{n:"Aashirvaad Shudh Chakki Atta",q:"5 kg",c:"Grocery",o:"SAVE Rs.20",exp:"2026-11-25",kw:"atta aata gehu flour roti",ry:"Ghar ka ration ab aayega aur bhi sasta, Surat Bachat hai bachat ka sahi rasta!",p:[215,225,220,218,235,232]},
-{n:"Gulab Groundnut / Singtel Oil",q:"1 Litre",c:"Grocery",o:"SURAT SPECIAL",exp:"2026-11-28",kw:"tel oil singtel moongfali cooking",ry:"Surat ke khane ka asli swad, Gulab Singtel se har rasoi aabad!",p:[168,178,174,170,185,184]},
-{n:"Amul Pure Cow Ghee",q:"1 Litre",c:"Grocery",o:"SAVE Rs.30",exp:"2026-11-24",kw:"ghee desi makkhan dairy",ry:"Shuddh desi ghee ki meethi khushboo, har thali mein laaye sehat ka jaadoo!",p:[585,605,595,590,625,620]},
-{n:"Amul Processed Cheese Cubes",q:"200 g",c:"Grocery",o:"",exp:"",kw:"cheese paneer dairy",ry:"Pizza ho ya sandwich cheesy banao, Amul cheese cubes se swad badhao!",p:[122,128,125,124,135,135]},
-{n:"Amul Pasteurised Table Butter",q:"500 g",c:"Grocery",o:"HOT DEAL",exp:"2026-11-22",kw:"butter makkhan bread",ry:"Subah ke nashte mein makkhan ka pyaar, Amul butter se din bane shandaar!",p:[265,275,270,268,285,285]},
-{n:"Amul Taaza Fresh Milk",q:"1 Litre",c:"Grocery",o:"",exp:"",kw:"doodh milk dairy",ry:"Taaza doodh aur sehat ka khazana, har ghar ka bharosa purana!",p:[54,54,54,53,56,56]},
+var todayStr = new Date().toISOString().slice(0, 10);
+var db = [
+  {n:"Bella Vita Luxury CEO Perfume",q:"100 ml",c:"Personal",o:"50% OFF",exp:"2026-11-20",kw:"perfume khushboo scent itra spray",ry:"Ab badbu se nahi hona padega pareshan, Bella Vita CEO badhaye aapki shaan!",d:449,r:425,s:460,w:435,b:499,z:489},
+  {n:"Fogg Royal No-Gas Perfume Spray",q:"150 ml",c:"Personal",o:"SAVE Rs.60",exp:"2026-11-19",kw:"perfume deo body spray khushboo",ry:"Bina gas wala perfume chale lamba saal, Fogg lagao aur machao dhamaal!",d:165,r:175,s:170,w:168,b:199,z:195},
+  {n:"Engage Yang Eau De Parfum",q:"100 ml",c:"Personal",o:"BUY 1 GET 1",exp:"2026-11-22",kw:"perfume scent spray",ry:"Khushboo aisi jo dil ko chhoo jaye, Engage lagate hi har koi muskuraye!",d:299,r:285,s:295,w:290,b:340,z:335},
+  {n:"Denver Hamilton Imperial Perfume",q:"100 ml",c:"Personal",o:"",exp:"",kw:"perfume deo spray",ry:"Royal khushboo aur dumdaar andaaz, Denver Hamilton banaye aapko khaas!",d:245,r:235,s:250,w:240,b:275,z:270},
+  {n:"Allen Solly Men Cotton Polo T-Shirt",q:"1 Unit",c:"Clothes",o:"NEW LAUNCH",exp:"2026-11-25",kw:"kapde kapda cloth clothes tshirt tee shirt wear",ry:"Naya style aur kapda ekdum soft, pehno aur lagoge ekdum top!",d:549,r:499,s:529,w:519,b:649,z:629},
+  {n:"Levi's Slim Fit Stretch Denim Jeans",q:"1 Pair",c:"Clothes",o:"40% OFF",exp:"2026-11-18",kw:"kapde kapda cloth clothes pant denim trousers",ry:"Fitting ho mast aur look ho hero, Surat Bachat par price ekdum zero!",d:1399,r:1299,s:1349,w:1320,b:1599,z:1549},
+  {n:"Jockey Super Combed Cotton T-Shirt",q:"Pack of 2",c:"Clothes",o:"HOT DEAL",exp:"2026-11-21",kw:"kapde kapda cloth clothes innerwear tshirt",ry:"Garmi ho ya sardi aaram bharpoor, Jockey pehno aur thakan karo door!",d:699,r:679,s:689,w:685,b:749,z:749},
+  {n:"Biba Women Printed Cotton Kurti",q:"1 Unit",c:"Clothes",o:"FESTIVE SALE",exp:"2026-11-24",kw:"kapde kapda cloth clothes dress ladies suit",ry:"Rang birangi kurti aur naya fashion, tyohar ho ya office badhaye aapki shaan!",d:799,r:749,s:779,w:765,b:899,z:879},
+  {n:"Puma Men Running Track Pants",q:"1 Pair",c:"Clothes",o:"",exp:"",kw:"kapde kapda cloth clothes lower pajama gym",ry:"Subah ki daud ho ya gym ka josh, Puma track pants mein raho hamesha khush!",d:899,r:849,s:879,w:865,b:999,z:979},
+  {n:"Raymond Formal Cotton Shirt",q:"1 Unit",c:"Clothes",o:"OFFICE SALE",exp:"2026-11-20",kw:"kapde kapda cloth clothes formal wear",ry:"Office meeting mein dikho sabse smart, Raymond shirt banaye aapki alag baat!",d:999,r:949,s:979,w:965,b:1149,z:1129},
+  {n:"boAt Airdopes 141 TWS Earbuds",q:"1 Pair",c:"Electronics",o:"60% OFF",exp:"2026-11-19",kw:"earphone headphones bluetooth tws audio",ry:"Taaron ka jhanjhat ab karo bye-bye, boAt earbuds se sangeet mein kho jayein!",d:1199,r:1099,s:1249,w:1149,b:1299,z:1299},
+  {n:"Noise ColorFit Pulse 2 Max Watch",q:"1 Unit",c:"Electronics",o:"NEW LAUNCH",exp:"2026-11-26",kw:"smartwatch ghadi watch fitness",ry:"Haath par bandho smart zamaana, Noise watch ke saath har pal suhana!",d:1499,r:1399,s:1549,w:1449,b:1599,z:1599},
+  {n:"Sunfeast Dark Fantasy Biscuits",q:"300 g",c:"Grocery",o:"BUY 1 GET 1",exp:"2026-11-18",kw:"biscuit cookies chocolate nashta",ry:"Meethe ka mazaa ab hoga double, ek pe ek free — chhod do saari trouble!",d:150,r:145,s:148,w:140,b:160,z:155},
+  {n:"Maggi Masala Noodles (Single Chhota Pack)",q:"70 g (1 Packet)",c:"Grocery",o:"MRP Rs.14",exp:"2026-12-31",kw:"maggi maggie chhota chota single 1 ek packet nasta",ry:"2 minute mein bhookh ko karo bye-bye, garma-garam Maggi sabke dil ko bhaye!",d:13,r:14,s:14,w:13,b:14,z:14},
+  {n:"Maggi Masala Noodles (Family Pack)",q:"Pack of 12",c:"Grocery",o:"SAVE Rs.18",exp:"2026-11-23",kw:"maggi maggie bada family 12 pack",ry:"Poori family ke liye 12 pack ka mela, bachat mein sabse aage Surat akela!",d:150,r:162,s:158,w:154,b:168,z:168},
+  {n:"Aashirvaad Shudh Chakki Atta",q:"5 kg",c:"Grocery",o:"SAVE Rs.20",exp:"2026-11-22",kw:"atta aata gehu flour roti",ry:"Ghar ka ration ab aayega aur bhi sasta, Surat Bachat hai bachat ka sahi rasta!",d:215,r:225,s:220,w:218,b:235,z:232},
+  {n:"Gulab Groundnut / Singtel Oil",q:"1 Litre",c:"Grocery",o:"SURAT SPECIAL",exp:"2026-11-25",kw:"tel oil singtel moongfali cooking",ry:"Surat ke khane ka asli swad, Gulab Singtel se har rasoi aabad!",d:168,r:178,s:174,w:170,b:185,z:184},
+  {n:"Amul Pure Cow Ghee",q:"1 Litre",c:"Grocery",o:"SAVE Rs.30",exp:"2026-11-21",kw:"ghee desi makkhan dairy",ry:"Shuddh desi ghee ki meethi khushboo, har thali mein laaye sehat ka jaadoo!",d:585,r:605,s:595,w:590,b:625,z:620},
+  {n:"Amul Processed Cheese Cubes",q:"200 g",c:"Grocery",o:"",exp:"",kw:"cheese paneer dairy",ry:"Pizza ho ya sandwich cheesy banao, Amul cheese cubes se swad badhao!",d:122,r:128,s:125,w:124,b:135,z:135},
+  {n:"Amul Pasteurised Table Butter",q:"500 g",c:"Grocery",o:"HOT DEAL",exp:"2026-11-19",kw:"butter makkhan bread",ry:"Subah ke nashte mein makkhan ka pyaar, Amul butter se din bane shandaar!",d:265,r:275,s:270,w:268,b:285,z:285},
+  {n:"Amul Taaza Fresh Milk",q:"1 Litre",c:"Grocery",o:"",exp:"",kw:"doodh milk dairy",ry:"Taaza doodh aur sehat ka khazana, har ghar ka bharosa purana!",d:54,r:54,s:54,w:53,b:56,z:56},
+  {n:"Refined White Sugar / Chini",q:"1 kg",c:"Grocery",o:"",exp:"",kw:"chini shakkar sugar khand",ry:"Chai ho ya meetha swad badhaye, saste daam mein ghar tak aaye!",d:42,r:45,s:44,w:43,b:48,z:47},
+  {n:"Tata Iodized Crystal Salt",q:"1 kg",c:"Grocery",o:"",exp:"",kw:"namak salt mithu",ry:"Desh ka namak aur bharosa pakka, har rasoi ka sabse sasta sikka!",d:24,r:26,s:25,w:24,b:28,z:28},
+  {n:"Fortune Sunlite Sunflower Oil",q:"1 Litre",c:"Grocery",o:"",exp:"",kw:"tel oil cooking",ry:"Halka aur sehatmand khana banao, Fortune oil se bachat paao!",d:124,r:129,s:126,w:125,b:135,z:134},
+  {n:"Britannia Whole Wheat Bread",q:"400 g",c:"Grocery",o:"",exp:"",kw:"bread pav breakfast",ry:"Taazi aur naram bread laaye subah ki jaan, Surat Bachat par sabse sasta daam!",d:45,r:48,s:46,w:45,b:50,z:50},
+  {n:"Tata Sampann Yellow Moong Dal",q:"1 kg",c:"Grocery",o:"SAVE Rs.17",exp:"2026-11-24",kw:"dal daal moong",ry:"Protein se bharpoor aur swad mein best, Tata Sampann dal kare sabko impress!",d:148,r:155,s:152,w:149,b:165,z:162},
+  {n:"Tata Unpolished Toor / Tuver Dal",q:"1 kg",c:"Grocery",o:"",exp:"",kw:"dal daal toor tuver",ry:"Ghar ki dal-roti ka asli maza, Surat Bachat par milta sasta khazana!",d:178,r:188,s:184,w:180,b:198,z:195},
+  {n:"Daawat Rozana Basmati Rice",q:"5 kg",c:"Grocery",o:"SAVE Rs.40",exp:"2026-11-23",kw:"chawal rice biryani chokha",ry:"Khile-khile chawal aur khushboo lajawaab, Daawat basmati banaye khana shandaar!",d:360,r:385,s:375,w:368,b:410,z:405},
+  {n:"Wagh Bakri Premium Leaf Tea",q:"500 g",c:"Grocery",o:"GUJARAT SPECIAL",exp:"2026-11-26",kw:"chai tea patti cha",ry:"Subah ki chuski aur taazgi bharpoor, Wagh Bakri chai se thakan ho door!",d:240,r:255,s:248,w:244,b:265,z:262},
+  {n:"California Whole Almonds / Badam",q:"500 g",c:"Grocery",o:"DRY FRUIT SALE",exp:"2026-11-21",kw:"badam almonds dryfruit",ry:"Dimag ho tez aur sehat ho mast, badam khayein aur rahein zabardast!",d:365,r:395,s:380,w:372,b:420,z:415},
+  {n:"Ariel Matic Front Load Liquid",q:"2 Litre",c:"Grocery",o:"SAVE Rs.45",exp:"2026-11-20",kw:"surf detergent kapde dhone washing",ry:"Ziddi daag ab honge ek pal mein saaf, kapde chamkenge bilkul bemisaal!",d:355,r:380,s:370,w:362,b:399,z:395},
+  {n:"Dove Cream Beauty Bathing Bar",q:"Pack of 4",c:"Personal",o:"BUY 3 GET 1",exp:"2026-11-22",kw:"sabun soap nahane",ry:"Chamakti twacha aur khushbu bemisaal, Dove sabun se har din ho kamaal!",d:210,r:225,s:220,w:215,b:240,z:238},
+  {n:"Colgate MaxFresh Toothpaste",q:"300 g",c:"Personal",o:"BUY 1 GET 1",exp:"2026-11-19",kw:"manjan toothpaste brush",ry:"Taaza saans aur chamakti muskaan, Colgate MaxFresh badhaye aapki shaan!",d:180,r:195,s:190,w:185,b:210,z:205}
+];
+function isOfferLive(x){if(!x.o)return false;if(x.exp&&x.exp<todayStr)return false;return true;}
+var curC="All",activeCat="All",di=new Date().getDate(),tmr=null;
+function getLiveDeals(cat){
+  var live=db.filter(function(x){return isOfferLive(x)&&(cat==="All"||cat==="Offer"||x.c===cat);});
+  
