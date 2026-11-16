@@ -9,39 +9,53 @@
 .top-red{background:#dc2626;color:#fff;padding:11px;font-weight:bold;font-size:15px;position:sticky;top:0;z-index:300;overflow:hidden;white-space:nowrap}
 .marq{display:inline-block;padding-left:100%;animation:mq 18s linear infinite}
 @keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-.header{background:#1e8449;color:#fff;padding:20px 15px;text-align:center}
-.header h1{margin:0;font-size:28px}.header p{margin:5px 0 0;font-size:14px;opacity:.95}
-.box{max-width:880px;margin:18px auto;padding:0 15px}
+.header{background:#1e8449;color:#fff;padding:18px 15px;text-align:center}
+.header h1{margin:0;font-size:28px}.header p{margin:5px 0 12px;font-size:14px;opacity:.95}
+.l-btn{background:#fff;color:#1e8449;border:none;padding:7px 15px;margin:3px;border-radius:16px;font-weight:bold;cursor:pointer;font-size:14px}
+.l-btn.active{background:#facc15;color:#000}
+.box{max-width:880px;margin:16px auto;padding:0 15px}
+.y-box{background:linear-gradient(135deg,#fef08a,#fde047);border:2.5px dashed #dc2626;border-radius:14px;padding:14px;margin-bottom:14px;text-align:center;cursor:pointer}
+.y-txt{font-size:18px;font-weight:bold;color:#991b1b;margin:4px 0}.y-prc{background:#1e8449;color:#fff;font-size:13px;font-weight:bold;padding:4px 12px;border-radius:8px;display:inline-block}
 .row{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
 select,input{padding:13px;font-size:16px;border:1.5px solid #1e8449;border-radius:8px;background:#fff}
 input{flex:1;min-width:220px}
 .cats{margin-bottom:14px}
-.c-btn{background:#fff;border:1.5px solid #1e8449;color:#1e8449;padding:8px 15px;border-radius:20px;cursor:pointer;margin:3px;font-weight:bold;font-size:14px}
+.c-btn{background:#fff;border:1.5px solid #1e8449;color:#1e8449;padding:8px 14px;border-radius:20px;cursor:pointer;margin:3px;font-weight:bold;font-size:14px}
 .c-btn.active{background:#1e8449;color:#fff}
 .c-bar{font-size:15px;color:#444;margin-bottom:12px;font-weight:bold}
-.card{background:#fff;padding:16px;border-radius:12px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.card{background:#fff;padding:15px;border-radius:12px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
 .c-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #eee;padding-bottom:10px;margin-bottom:10px;flex-wrap:wrap;gap:6px}
-.p-title{font-size:19px;font-weight:bold;color:#111}
-.qty{background:#e0f2fe;color:#0369a1;font-size:13px;padding:3px 9px;border-radius:5px;font-weight:bold;margin-left:8px}
-.tag{font-size:12px;padding:4px 9px;border-radius:5px;font-weight:bold;background:#e8f8f5;color:#1e8449;margin-left:4px}
+.p-title{font-size:18px;font-weight:bold;color:#111}
+.qty{background:#e0f2fe;color:#0369a1;font-size:12px;padding:3px 8px;border-radius:5px;font-weight:bold;margin-left:6px}
+.tag{font-size:11px;padding:3px 8px;border-radius:5px;font-weight:bold;background:#e8f8f5;color:#1e8449;margin-left:4px}
 .t-off{background:#fdebd0;color:#d35400}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:8px}
-.st{border:1px solid #ddd;padding:10px 4px;border-radius:8px;text-align:center;background:#fafafa;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px}
+.st{border:1px solid #ddd;padding:9px 4px;border-radius:8px;text-align:center;background:#fafafa;font-size:14px}
 .best{border:2px solid #27ae60;background:#eafaf1;font-weight:bold;color:#1e8449}
 .b-lbl{background:#27ae60;color:#fff;font-size:10px;padding:1px 6px;border-radius:4px;display:inline-block;margin-bottom:2px}
-.req-box{background:#fff;padding:30px 20px;border-radius:12px;text-align:center;border:2px dashed #1e8449}
+.req-box{background:#fff;padding:28px 20px;border-radius:12px;text-align:center;border:2px dashed #1e8449}
 .req-btn{background:#1e8449;color:#fff;border:none;padding:14px 26px;border-radius:8px;font-weight:bold;cursor:pointer;font-size:17px;margin-top:10px}
 .p-wrap{width:100%;max-width:380px;height:15px;background:#e8f8f5;border-radius:10px;margin:14px auto;overflow:hidden;border:1px solid #1e8449}
 .p-bar{height:100%;width:0%;background:#1e8449;transition:width 1s linear}
 </style>
 </head>
-<body>
-<div class="top-red"><div class="marq" id="rBan">🔥 "Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!" — 50% OFF Today!</div></div>
+
+  <body>
+<div class="top-red"><div class="marq" id="rBan">"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!" — 50% OFF Today!</div></div>
 <div class="header">
-  <h1>Surat Bachat</h1>
-  <p>Compare Live Prices Across 6 Surat Stores</p>
+  <h1 id="t1">Surat Bachat</h1>
+  <p id="t2">Compare Live Prices Across 6 Surat Stores</p>
+  <div>
+    <button class="l-btn active" onclick="setL('en',this)">English</button>
+    <button class="l-btn" onclick="setL('hi',this)">&#2361;&#2367;&#2306;&#2342;&#2368;</button>
+    <button class="l-btn" onclick="setL('gu',this)">&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;</button>
+  </div>
 </div>
 <div class="box">
+  <div class="y-box" onclick="jumpDeal()">
+    <div class="y-txt" id="yTxt">"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!"</div>
+    <div class="y-prc" id="yPrc">Bella Vita Perfume (100 ml) — Reliance: Rs.425</div>
+  </div>
   <div class="row">
     <select><option>All Surat</option><option>Adajan / Pal</option><option>Vesu</option><option>Varachha</option><option>Katargam</option></select>
     <input type="text" id="sBox" placeholder="Search items or type ANY new item..." onkeyup="render()">
@@ -58,16 +72,18 @@ input{flex:1;min-width:220px}
   <div id="out"></div>
 </div>
 <script>
-var rhymes=[
-  "🔥 \"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!\" — Rs.425 Only!",
-  "👕 \"Naya Style Aur Kapda Ekdum Soft, Surat Bachat Par Fashion Milega Top!\" — Allen Solly T-Shirt Rs.499!",
-  "✨ \"Bina Gas Wala Perfume Chale Lamba Saal, Fogg Lagao Aur Machao Dhamaal!\" — Save Rs.60 Today!",
-  "🌾 \"Ghar Ka Ration Ab Aayega Aur Bhi Sasta, Surat Bachat Hai Bachat Ka Sahi Rasta!\" — Aashirvaad Atta Rs.215!",
-  "🎧 \"Taaron Ka Jhanjhat Ab Karo Bye-Bye, boAt Earbuds Se Sangeet Mein Kho Jayein!\" — 60% OFF Sale!"
+var deals=[
+  {k:"Bella Vita",txt:"\"Ab Badbu Se Nahi Hona Padega Pareshan, Bella Vita CEO Badhaye Aapki Shaan!\"",prc:"Bella Vita Perfume (100 ml) — Reliance: Rs.425"},
+  {k:"Dark Fantasy",txt:"\"Meethe Ka Mazaa Ab Hoga Double, Ek Pe Ek Free — Chhod Do Saari Trouble!\"",prc:"Dark Fantasy Biscuits (300 g) — Wallet Mart: Rs.140"},
+  {k:"boAt",txt:"\"Taaron Ka Jhanjhat Ab Karo Bye-Bye, boAt Earbuds Se Sangeet Mein Kho Jayein!\"",prc:"boAt Airdopes 141 — Reliance: Rs.1,099"},
+  {k:"Aashirvaad",txt:"\"Ghar Ka Ration Ab Aayega Aur Bhi Sasta, Surat Bachat Hai Bachat Ka Sahi Rasta!\"",prc:"Aashirvaad Atta (5 kg) — D-Mart: Rs.215"},
+  {k:"T-Shirt",txt:"\"Naya Style Aur Kapda Ekdum Soft, Surat Bachat Par Fashion Milega Top!\"",prc:"Allen Solly T-Shirt — Reliance: Rs.499"}
 ];
-var ri=new Date().getDay()%rhymes.length;
-document.getElementById("rBan").innerText=rhymes[ri];
-setInterval(function(){ri=(ri+1)%rhymes.length;document.getElementById("rBan").innerText=rhymes[ri];},4500);
+var di=new Date().getDay()%deals.length;
+function showD(i){var d=deals[i];document.getElementById("yTxt").innerText=d.txt;document.getElementById("yPrc").innerText=d.prc;document.getElementById("rBan").innerText=d.txt+"  ★  "+d.prc;}
+showD(di);
+function jumpDeal(){document.getElementById("sBox").value=deals[di].k;render();}
+setInterval(function(){di=(di+1)%deals.length;showD(di);},4500);
 
 var curC="All",tmr=null;
 var db=[
@@ -104,7 +120,13 @@ var db=[
 {n:"Dove Cream Beauty Bathing Bar",q:"Pack of 4",c:"Personal",o:"BUY 3 GET 1",d:210,r:225,s:220,w:215,b:240,z:238},
 {n:"Colgate MaxFresh Toothpaste",q:"300 g",c:"Personal",o:"BUY 1 GET 1",d:180,r:195,s:190,w:185,b:210,z:205}
 ];
-var ext=[];try{ext=JSON.parse(localStorage.getItem("surat_clean_final")||"[]");}catch(e){}
+var ext=[];try{ext=JSON.parse(localStorage.getItem("surat_nophoto_v1")||"[]");}catch(e){}
 db=ext.concat(db);
+function setL(l,b){var bs=document.getElementsByClassName("l-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");document.getElementById("t1").innerText=l==='hi'?"\u0938\u0942\u0930\u0924 \u092c\u091a\u0924":l==='gu'?"\u0ab8\u0ac1\u0ab0\u0aa4 \u0aac\u0a9a\u0aa4":"Surat Bachat";document.getElementById("t2").innerText=l==='hi'?"\u0938\u0942\u0930\u0924 \u0915\u0947 6 \u0938\u094d\u091f\u094b\u0930\u094d\u0938 \u0915\u0947 \u0932\u093e\u0907\u0935 \u0926\u093e\u092e \u0915\u0940 \u0924\u0941\u0932\u0928\u093e \u0915\u0930\u0947\u0902":l==='gu'?"\u0ab8\u0ac1\u0ab0\u0aa4\u0aa8\u0abe 6 \u0ab8\u0acd\u0a9f\u0acb\u0ab0\u0acd\u0ab8\u0aa8\u0abe \u0ab2\u0abe\u0a88\u0ab5 \u0aad\u0abe\u0ab5\u0aa8\u0ac0 \u0ab8\u0ab0\u0a96\u0abe\u0aae\u0aa3\u0ac0 \u0a95\u0ab0\u0acb":"Compare Live Prices Across 6 Surat Stores";}
 function setC(c,b){curC=c;var bs=document.getElementsByClassName("c-btn");for(var i=0;i<bs.length;i++)bs[i].classList.remove("active");b.classList.add("active");render();}
-function startFetch(nm){if(tmr)clearInterval(tmr);var sec=60;document.getElementById("reqSt").innerHTML="<h3 style='color:#1e8449;'>Scanning 6 Surat Stores for '"+nm+"'...</h3><p>Please wait 1 minute while we fetch live prices...</p><div class='p-wrap'><div class='p-bar' id='pB'></div></div><b id='tC' style='color:#d35400;font-size:18px;'>60 seconds remaining...</b>";tmr=setInterval(function(){sec--;if(document.getElementById("pB"))document.getElementById("pB").style.width=Math.round(((60-sec)/60)*100)+"%";if(document.getElementById("tC"))document.getElementById("tC").innerText=sec+" seconds remaining...";if(sec<=0){clearInterval(tmr);var b=120+(nm.length*12);var ni={n:nm,q:"1 Standard Pack",c:"Grocery",o:"JUST ADDED",d:b-6,r:b,s:b-3,w:b-5,b:b+10,z:b+8};db.unshift(ni);ext.unshift(ni);try{localStorage.setItem("surat_clean_final",JSON.stringify(ext));}catch(e){}render();}},1000);}
+function startFetch(nm){if(tmr)clearInterval(tmr);var sec=60;document.getElementById("reqSt").innerHTML="<h3 style='color:#1e8449;'>Scanning 6 Surat Stores for '"+nm+"'...</h3><p>Please wait 1 minute while we fetch live prices...</p><div class='p-wrap'><div class='p-bar' id='pB'></div></div><b id='tC' style='color:#d35400;font-size:18px;'>60 seconds remaining...</b>";tmr=setInterval(function(){sec--;if(document.getElementById("pB"))document.getElementById("pB").style.width=Math.round(((60-sec)/60)*100)+"%";if(document.getElementById("tC"))document.getElementById("tC").innerText=sec+" seconds remaining...";if(sec<=0){clearInterval(tmr);var b=120+(nm.length*12);var ni={n:nm,q:"1 Standard Pack",c:"Grocery",o:"JUST ADDED",d:b-6,r:b,s:b-3,w:b-5,b:b+10,z:b+8};db.unshift(ni);ext.unshift(ni);try{localStorage.setItem("surat_nophoto_v1",JSON.stringify(ext));}catch(e){}render();}},1000);}
+function render(){var q=document.getElementById("sBox").value.toLowerCase(),h="",cnt=0,stN=["D-Mart","Reliance","Star Bazaar","Wallet Mart","Blinkit","Zepto"];for(var i=0;i<db.length;i++){var x=db[i],okC=(curC==="All")||(curC==="Offer"&&x.o!=="")||(x.c===curC);if(okC&&x.n.toLowerCase().indexOf(q)!==-1){cnt++;var arr=[x.d,x.r,x.s,x.w,x.b,x.z],mn=Math.min.apply(null,arr),sh="";for(var j=0;j<6;j++){var isB=(arr[j]===mn);sh+="<div class='st "+(isB?"best":"")+"'>"+(isB?"<div class='b-lbl'>BEST</div>":"")+"<div>"+stN[j]+"</div><div><b>Rs."+arr[j]+"</b></div></div>";}var tg="<span class='tag'>"+x.c+"</span>"+(x.o!==""?"<span class='tag t-off'>"+x.o+"</span>":"");h+="<div class='card'><div class='c-top'><div><span class='p-title'>"+x.n+"</span><span class='qty'>"+x.q+"</span></div><div>"+tg+"</div></div><div class='grid'>"+sh+"</div></div>";}}document.getElementById("cBar").innerText="Showing "+cnt+" of "+db.length+" Surat items";if(h===""){var rq=document.getElementById("sBox").value;h="<div class='req-box' id='reqSt'><h3>'"+rq+"' is not in the list yet!</h3><p>Click below to scan 6 Surat stores in 1 minute & add permanently.</p><button class='req-btn' onclick=\"startFetch('"+rq.replace(/'/g,"")+"')\">Fetch Live Price (1 Min)</button></div>";}document.getElementById("out").innerHTML=h;}
+render();
+</script>
+</body>
+</html>
